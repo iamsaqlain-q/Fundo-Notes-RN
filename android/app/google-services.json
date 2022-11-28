@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "44314285798",
+    "project_id": "fun-do-notes",
+    "storage_bucket": "fun-do-notes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44314285798:android:bc9ff8272b2fbf81168d27",
+        "android_client_info": {
+          "package_name": "com.fundonotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44314285798-q1chrjjt7tt15jb6llkmn48n4edcrkmd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuFCqhTh8oPNivxG1ul5rJFDOimN05Sno"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44314285798-q1chrjjt7tt15jb6llkmn48n4edcrkmd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44314285798:android:b1926d2506202047168d27",
+        "android_client_info": {
+          "package_name": "com.fundoonotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44314285798-q1chrjjt7tt15jb6llkmn48n4edcrkmd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuFCqhTh8oPNivxG1ul5rJFDOimN05Sno"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44314285798-q1chrjjt7tt15jb6llkmn48n4edcrkmd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
