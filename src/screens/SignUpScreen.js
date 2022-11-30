@@ -7,10 +7,37 @@ import { AuthContext } from '../navigations/AuthProvider';
 
 const SignUpScreen = ({ navigation }) => {
 
-    const setError = (code) => {
-        console.log('This is from sign up screen', code);
+    const handleCheckEmail = (text) => {
+        let regexMail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,63})$/;
+        setEmail(text)
+
+        if (regexMail.test(text)) {
+            setCheckValidEmail(false);
+        }
+        else {
+            setCheckValidEmail(true);
+        }
     }
 
+    const handleCheckPassword = (text) => {
+        let regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        setPassword(text)
+
+        if (regexPassword.test(text)) {
+            setCheckValidPassword(false);
+        }
+        else {
+            setCheckValidPassword(true);
+        }
+    }
+
+    const handleError = (code) => {
+        setError(code);
+        console.log(code);
+    }
+    const [checkValidPassword, setCheckValidPassword] = useState("");
+    const [checkValidEmail, setCheckValidEmail] = useState("");
+    const [error, setError] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
@@ -28,7 +55,7 @@ const SignUpScreen = ({ navigation }) => {
                 placeholderText='First Name'
                 iconType="user"
                 keyboardType='email-address'
-            />
+            />   
 
             <FormInput
                 labelValue={lastName}
@@ -41,19 +68,27 @@ const SignUpScreen = ({ navigation }) => {
 
             <FormInput
                 labelValue={email}
-                onChangeText={(userEmail) => setEmail(userEmail)}
+                onChangeText={(text) => handleCheckEmail(text)}
                 placeholderText='Email'
-                iconType="mail"
+                iconType='mail'
                 keyboardType='email-address'
             />
 
+            {checkValidEmail ?
+                (<Text style={styles.validtext}>Please enter a valid E-mail</Text>) :
+                (<Text></Text>)}
+
             <FormInput
                 labelValue={password}
-                onChangeText={(userPassword) => setPassword(userPassword)}
+                onChangeText={(text) => handleCheckPassword(text)}
                 placeholderText='Password'
-                iconType="lock"
+                iconType='lock'
                 secureTextEntry={true}
             />
+
+            {checkValidPassword ?
+                (<Text style={styles.validtext}>Please enter a valid password</Text>) :
+                (<Text></Text>)}
 
             <FormInput
                 labelValue={confirmPassword}
@@ -63,9 +98,10 @@ const SignUpScreen = ({ navigation }) => {
                 secureTextEntry={true}
             />
 
+            <Text style={styles.errorText}>{error}</Text>
             <FormButton
                 buttonTitle="Sign Up"
-                onPress={() => signup(email, password, setError)}
+                onPress={() => signup(email, password, handleError)}
             />
 
             <TouchableOpacity style={styles.forgotButton} onPress={() => alert('Terms & Conditions')}>
@@ -87,12 +123,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 20
     },
+    bottomspace: {
+        marginBottom: 10,
+    },
     text: {
         fontFamily: 'italic',
         fontSize: 28,
         fontWeight: 'bold',
         marginBottom: 10,
-        color: '#51C1F6'
+        color: '#8bd91d'
     },
     terms: {
         fontSize: 11,
@@ -105,4 +144,13 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         color: '#FF6347',
     },
+    errorText: {
+        fontSize: 13,
+        color: 'red',
+    },
+    validtext: {
+        fontSize: 13,
+        color: 'red',
+        alignSelf: 'flex-end',
+    }
 });

@@ -13,6 +13,7 @@ const AppNavigation = () => {
                 <Stack.Screen
                     name='HomeScreen'
                     component={HomeScreen}
+                    options={{ header: () => null }}
                 />
 
             </Stack.Navigator>
