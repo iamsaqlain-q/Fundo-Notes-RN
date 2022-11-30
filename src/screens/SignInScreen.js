@@ -1,15 +1,10 @@
 import React, {useState, useContext} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import CheckBox from '@react-native-community/checkbox';
 import {AuthContext} from '../navigations/AuthProvider';
+import GoogleButton from '../components/GoogleButton';
 
 const SignInScreen = ({navigation}) => {
   const [email, setEmail] = useState();
@@ -101,6 +96,14 @@ const SignInScreen = ({navigation}) => {
         onPress={() => navigation.navigate('Forgotpassword')}>
         <Text style={styles.navButtonText}>Forgot Password?</Text>
       </TouchableOpacity>
+
+      <GoogleButton
+        buttonTitle={'Sign In with Google'}
+        btnTyp="google"
+        color="#de4d41"
+        backgroundColor="#f5e7ea"
+        onPress={() => {}}
+      />
 
       <View style={styles.regContainer}>
         <Text style={styles.navButtonText}>Don't Have Any Account?</Text>
