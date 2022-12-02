@@ -100,8 +100,8 @@ const SignInScreen = ({navigation}) => {
       <GoogleButton
         buttonTitle={'Sign In with Google'}
         btnTyp="google"
-        color="#fd5ebf"
-        backgroundColor="#fe98bd"
+        color="#fff"
+        backgroundColor="#fd5ebf"
         onPress={() => googleSignin()}
       />
 

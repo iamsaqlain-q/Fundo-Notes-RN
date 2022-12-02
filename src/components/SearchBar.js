@@ -31,12 +31,12 @@ const SearchBar = () => {
       />
 
       <View style={styles.iconStyle}>
-        <FontAwesome5 name="bars" size={20} style={{color: '#666'}} />
+        <FontAwesome5 name="bars" size={20} style={{color: '#fff'}} />
       </View>
 
       <View style={styles.avatarStyle}>
         <Pressable
-          android_ripple={{color: '#52c2f5'}}
+          android_ripple={{color: '#fff'}}
           onPress={() => {
             setShowModal(true);
           }}>
@@ -64,10 +64,10 @@ const SearchBar = () => {
                 />
               </View>
               <View style={styles.idName}>
-                <Text style={{color: '#52c2f5', fontSize: 15}}>
+                <Text style={{color: '#fff', fontSize: 15}}>
                   Saqlain Qureshi
                 </Text>
-                <Text style={{color: '#52c2f5', fontSize: 15}}>
+                <Text style={{color: '#fff', fontSize: 15}}>
                   test@gmail.com
                 </Text>
               </View>
@@ -77,7 +77,7 @@ const SearchBar = () => {
                     name="exit-outline"
                     size={35}
                     onPress={() => signout()}
-                    style={{color: '#52c2f5'}}
+                    style={{color: '#fff'}}
                   />
                 </View>
                 <View>
@@ -134,12 +134,10 @@ const styles = StyleSheet.create({
     borderBottomStartRadius: 25,
     borderBottomEndRadius: 25,
     borderTopStartRadius: 25,
-    borderWidth: 1,
-    borderColor: '#52c2f5',
     flexWrap: 'wrap',
   },
   googleText: {
-    color: '#52c2f5',
+    color: '#fff',
     fontSize: 20,
     padding: 20,
     fontWeight: 'bold',
@@ -175,7 +173,7 @@ const styles = StyleSheet.create({
   sign_out_text: {
     fontSize: 17,
     fontWeight: 'bold',
-    color: '#52c2f5',
+    color: '#fff',
     margin: 5,
   },
   privacy_policy: {
@@ -186,7 +184,7 @@ const styles = StyleSheet.create({
   },
   privacy_text: {
     fontSize: 13,
-    color: '#52c2f5',
+    color: '#fff',
     textAlign: 'center',
   },
 });
