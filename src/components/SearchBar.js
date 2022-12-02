@@ -46,7 +46,7 @@ const SearchBar = () => {
       <View>
         <Modal
           visible={showModal}
-          transparent
+          transparent={true}
           animationType="fade"
           onRequestClose={() => {
             setShowModal(false);

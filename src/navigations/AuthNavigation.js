@@ -1,14 +1,21 @@
+/* eslint-disable react/react-in-jsx-scope */
+import { useEffect } from 'react';
 import 'react-native-gesture-handler';
-import {Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const Stack = createStackNavigator();
 
 const AuthNavigation = () => {
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: '44314285798-q1chrjjt7tt15jb6llkmn48n4edcrkmd.apps.googleusercontent.com',
+    });
+  }, []);
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator>

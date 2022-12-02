@@ -14,7 +14,7 @@ const SignInScreen = ({navigation}) => {
   const [checkValidPassword, setCheckValidPassword] = useState('');
   const [error, setError] = useState();
 
-  const {signin} = useContext(AuthContext);
+  const {signin, googleSignin} = useContext(AuthContext);
 
   const handleCheckEmail = text => {
     let regexMail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,63})$/;
@@ -100,9 +100,9 @@ const SignInScreen = ({navigation}) => {
       <GoogleButton
         buttonTitle={'Sign In with Google'}
         btnTyp="google"
-        color="#de4d41"
-        backgroundColor="#f5e7ea"
-        onPress={() => {}}
+        color="#fd5ebf"
+        backgroundColor="#fe98bd"
+        onPress={() => googleSignin()}
       />
 
       <View style={styles.regContainer}>
