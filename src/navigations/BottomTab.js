@@ -19,15 +19,16 @@ const AddNotesButton = ({children, onPress}) => (
       justifyContent: 'center',
       alignItems: 'center',
     }}
-    onPress={onPress}>
+    onPress={() => onPress()}>
     <View
       style={{
         borderColor: '#fff',
-        borderRadius: 17,
-        marginRight: 10,
+        borderRadius: 20,
+        marginRight: 30,
         width: 70,
         height: 70,
-        backgroundColor: '#fff',
+        borderWidth: 10,
+        backgroundColor: '#97e5fb',
       }}>
       {children}
     </View>
@@ -43,7 +44,7 @@ const BottomTab = () => {
         tabBarIcon: () => null,
         tabBarStyle: {
           backgroundColor: '#97e5fb',
-          height: 60,
+          height: 50,
           width: 360,
         },
       }}>
@@ -52,8 +53,8 @@ const BottomTab = () => {
         component={CheckListScreen}
         options={{
           tabBarIcon: () => (
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Ionicons name="checkbox-outline" size={25} />
+            <View style={{alignItems: 'center', justifyContent: 'center', marginLeft: -10}}>
+              <Ionicons name="checkbox-outline" size={25}  style={{color: '#fff'}} />
             </View>
           ),
         }}
@@ -64,8 +65,8 @@ const BottomTab = () => {
         component={PaintScreen}
         options={{
           tabBarIcon: () => (
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Ionicons name="brush-outline" size={25} />
+            <View style={{alignItems: 'center', justifyContent: 'center', marginLeft: -40}}>
+              <Ionicons name="brush-outline" size={25}  style={{color: '#fff'}} />
             </View>
           ),
         }}
@@ -76,8 +77,8 @@ const BottomTab = () => {
         component={VoiceInputScreen}
         options={{
           tabBarIcon: () => (
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Ionicons name="mic-outline" size={25} />
+            <View style={{alignItems: 'center', justifyContent: 'center', marginLeft: -60}}>
+              <Ionicons name="mic-outline" size={25}  style={{color: '#fff'}} />
             </View>
           ),
         }}
@@ -88,8 +89,8 @@ const BottomTab = () => {
         component={AddImageScreen}
         options={{
           tabBarIcon: () => (
-            <View style={{alignItems: 'center', justifyContent: 'center'}}>
-              <Ionicons name="image-outline" size={25} />
+            <View style={{alignItems: 'center', justifyContent: 'center', marginLeft: -90}}>
+              <Ionicons name="image-outline" size={25} style={{color: '#fff'}} />
             </View>
           ),
         }}
@@ -101,8 +102,8 @@ const BottomTab = () => {
           tabBarIcon: () => (
             <FontAwesome5
               name="plus"
-              size={35}
-              style={{color: '#97e5fb'}}
+              size={30}
+              style={{color: '#fff'}}
             />
           ),
           tabBarButton: props => <AddNotesButton {...props} />,

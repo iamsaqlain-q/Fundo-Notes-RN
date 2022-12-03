@@ -5,7 +5,8 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {AuthContext} from '../navigations/AuthProvider';
 
-const SearchBar = () => {
+
+const SearchBar = ({navigation}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showModal, setShowModal] = useState(false);
 
@@ -19,6 +20,7 @@ const SearchBar = () => {
     <View style={styles.searchContainer}>
       <Searchbar
         placeholder="Search your notes"
+        placeholderTextColor={'#fff'}
         onChangeText={onChangeSearch}
         value={searchQuery}
         style={{
@@ -31,7 +33,9 @@ const SearchBar = () => {
       />
 
       <View style={styles.iconStyle}>
-        <FontAwesome5 name="bars" size={20} style={{color: '#fff'}} />
+        <Pressable onPress={() => {}}>
+        <FontAwesome5  name="bars" size={20} style={{color: '#fff'}} />
+        </Pressable>
       </View>
 
       <View style={styles.avatarStyle}>
