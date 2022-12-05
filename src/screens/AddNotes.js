@@ -1,18 +1,17 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 
-const LabelsScreen = () => {
+const AddNotes = () => {
   return (
     <View>
-      <Text style={styles.text}>LabelsScreen</Text>
+      <Text style={styles.text}>AddNotesScreen</Text>
     </View>
   );
 };
-export default LabelsScreen;
+export default AddNotes;
 
 const styles = StyleSheet.create({
   text: {
-    marginTop: 400,
     flexDirection: 'row',
     justifyContent: 'center',
     alignSelf: 'center',

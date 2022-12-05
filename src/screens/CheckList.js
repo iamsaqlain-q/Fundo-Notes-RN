@@ -1,18 +1,17 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 
-const NotesScreen = () => {
+const CheckList = () => {
   return (
     <View>
-      <Text style={styles.text}>NotesScreen</Text>
+      <Text style={styles.text}>CheckListScreen</Text>
     </View>
   );
 };
-export default NotesScreen;
+export default CheckList;
 
 const styles = StyleSheet.create({
   text: {
-    marginTop: 400,
     flexDirection: 'row',
     justifyContent: 'center',
     alignSelf: 'center',

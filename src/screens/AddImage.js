@@ -1,14 +1,14 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 
-const AddNotesScreen = () => {
+const AddImage = () => {
   return (
     <View>
-      <Text style={styles.text}>AddNotesScreen</Text>
+      <Text style={styles.text}>AddImageScreen</Text>
     </View>
   );
 };
-export default AddNotesScreen;
+export default AddImage;
 
 const styles = StyleSheet.create({
   text: {

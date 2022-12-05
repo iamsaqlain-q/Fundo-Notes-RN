@@ -1,20 +1,10 @@
 import 'react-native-gesture-handler';
-import {Text, View} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from '../screens/HomeScreen';
-
-const Stack = createStackNavigator();
+import React from 'react';
+import DrawerNavigation from './DrawerNavigation';
 
 const AppNavigation = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-        options={{header: () => null}}
-      />
-    </Stack.Navigator>
+    <DrawerNavigation />
   );
 };
 

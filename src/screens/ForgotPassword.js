@@ -1,20 +1,12 @@
 import React, {useContext, useState} from 'react';
-import {
-  View,
-  TextInput,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import {AuthContext} from '../navigations/AuthProvider';
 
-const ForgotPasswordScreen = ({navigation}) => {
+const ForgotPassword = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [newPassword, setNewPassword] = useState();
   const [checkValidEmail, setCheckValidEmail] = useState('');
   const [error, setError] = useState();
 
@@ -46,7 +38,7 @@ const ForgotPasswordScreen = ({navigation}) => {
       {checkValidEmail ? (
         <Text style={styles.validtext}>Please enter a valid E-mail</Text>
       ) : (
-        <Text></Text>
+        <Text> </Text>
       )}
 
       <FormInput
@@ -62,7 +54,7 @@ const ForgotPasswordScreen = ({navigation}) => {
     </View>
   );
 };
-export default ForgotPasswordScreen;
+export default ForgotPassword;
 
 const styles = StyleSheet.create({
   container: {

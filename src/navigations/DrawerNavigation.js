@@ -1,14 +1,14 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
-import NotesScreen from '../screens/NotesScreen';
 import CustomDrawer from '../components/CustomDrawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ReminderScreen from '../screens/ReminderScreen';
-import LabelsScreen from '../screens/LabelsScreen';
-import ArchiveScreen from '../screens/ArchiveScreen';
-import TrashScreen from '../screens/TrashScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import Reminder from '../screens/Reminder';
+import Labels from '../screens/Labels';
+import Archive from '../screens/Archive';
+import Trash from '../screens/Trash';
+import Settings from '../screens/Settings';
+import HomeScreen from '../screens/HomeScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -30,7 +30,7 @@ const DrawerNavigation = () => {
         }}>
         <Drawer.Screen
           name="Notes"
-          component={NotesScreen}
+          component={HomeScreen}
           options={{
             drawerIcon: () => (
               <Ionicons name="bulb-outline" size={20} style={{color: '#fff'}} />
@@ -39,7 +39,7 @@ const DrawerNavigation = () => {
         />
         <Drawer.Screen
           name="Reminder"
-          component={ReminderScreen}
+          component={Reminder}
           options={{
             drawerIcon: () => (
               <Ionicons
@@ -52,7 +52,7 @@ const DrawerNavigation = () => {
         />
         <Drawer.Screen
           name="Labels"
-          component={LabelsScreen}
+          component={Labels}
           options={{
             drawerIcon: () => (
               <Ionicons
@@ -65,7 +65,7 @@ const DrawerNavigation = () => {
         />
         <Drawer.Screen
           name="Archive"
-          component={ArchiveScreen}
+          component={Archive}
           options={{
             drawerIcon: () => (
               <Ionicons
@@ -78,7 +78,7 @@ const DrawerNavigation = () => {
         />
         <Drawer.Screen
           name="Trash"
-          component={TrashScreen}
+          component={Trash}
           options={{
             drawerIcon: () => (
               <Ionicons
@@ -91,7 +91,7 @@ const DrawerNavigation = () => {
         />
         <Drawer.Screen
           name="Settings"
-          component={SettingsScreen}
+          component={Settings}
           options={{
             drawerIcon: () => (
               <Ionicons

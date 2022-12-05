@@ -3,9 +3,9 @@ import { useEffect } from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import SignInScreen from '../screens/SignInScreen';
-import SignUpScreen from '../screens/SignUpScreen';
-import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
+import SignIn from '../screens/SignIn';
+import SignUp from '../screens/SignUp';
+import ForgotPassword from '../screens/ForgotPassword';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const Stack = createStackNavigator();
@@ -21,13 +21,13 @@ const AuthNavigation = () => {
       <Stack.Navigator>
         <Stack.Screen
           name="SignIn"
-          component={SignInScreen}
+          component={SignIn}
           options={{header: () => null}}
         />
 
         <Stack.Screen
           name="Signup"
-          component={SignUpScreen}
+          component={SignUp}
           options={({navigation}) => ({
             title: ' ',
           })}
@@ -35,7 +35,7 @@ const AuthNavigation = () => {
 
         <Stack.Screen
           name="Forgotpassword"
-          component={ForgotPasswordScreen}
+          component={ForgotPassword}
           options={({navigation}) => ({
             title: ' ',
           })}

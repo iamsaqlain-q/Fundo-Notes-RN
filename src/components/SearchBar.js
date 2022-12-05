@@ -4,9 +4,12 @@ import {Searchbar, Avatar} from 'react-native-paper';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {AuthContext} from '../navigations/AuthProvider';
+import {useNavigation} from '@react-navigation/native';
+import ImagePicker from 'react-native-image-crop-picker';
 
-
-const SearchBar = ({navigation}) => {
+const SearchBar = () => {
+  const navigation = useNavigation();
+  const [image, setImage] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [showModal, setShowModal] = useState(false);
 
@@ -14,6 +17,17 @@ const SearchBar = ({navigation}) => {
 
   const onChangeSearch = query => {
     setSearchQuery(query);
+  };
+
+  const chooseFromGallery = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
+      setImage(image.path);
+    });
   };
 
   return (
@@ -33,8 +47,11 @@ const SearchBar = ({navigation}) => {
       />
 
       <View style={styles.iconStyle}>
-        <Pressable onPress={() => {}}>
-        <FontAwesome5  name="bars" size={20} style={{color: '#fff'}} />
+        <Pressable
+          onPress={() => {
+            navigation.openDrawer();
+          }}>
+          <FontAwesome5 name="bars" size={20} style={{color: '#fff'}} />
         </Pressable>
       </View>
 
@@ -44,13 +61,13 @@ const SearchBar = ({navigation}) => {
           onPress={() => {
             setShowModal(true);
           }}>
-          <Avatar.Image size={30} source={require('../assets/avatar.png')} />
+          <Avatar.Image size={30} source={image ? {uri: image} : require('../assets/avatar.png')} />
         </Pressable>
       </View>
       <View>
         <Modal
           visible={showModal}
-          transparent={true}
+          transparent
           animationType="fade"
           onRequestClose={() => {
             setShowModal(false);
@@ -62,10 +79,9 @@ const SearchBar = ({navigation}) => {
               </View>
 
               <View style={styles.avatarInModal}>
-                <Avatar.Image
-                  size={40}
-                  source={require('../assets/avatar.png')}
-                />
+                <Pressable onPress={chooseFromGallery}>
+                  <Avatar.Image size={40} source={image ? {uri: image} : require('../assets/avatar.png')} />
+                </Pressable>
               </View>
               <View style={styles.idName}>
                 <Text style={{color: '#fff', fontSize: 15}}>
@@ -124,11 +140,12 @@ const styles = StyleSheet.create({
     marginLeft: -300,
   },
   flexEnd: {
+    flex: 1,
     justifyContent: 'flex-start',
     alignSelf: 'flex-end',
-    marginVertical: 50,
-    paddingRight: 40,
-    flexWrap: 'wrap',
+    paddingVertical: 50,
+    paddingHorizontal: 40,
+    backgroundColor: '#00000099',
   },
   modal: {
     width: 300,

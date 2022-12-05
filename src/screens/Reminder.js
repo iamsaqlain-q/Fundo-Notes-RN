@@ -1,14 +1,14 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 
-const TrashScreen = () => {
+const Reminder = () => {
   return (
     <View>
-      <Text style={styles.text}>TrashScreen</Text>
+      <Text style={styles.text}>ReminderScreen</Text>
     </View>
   );
 };
-export default TrashScreen;
+export default Reminder;
 
 const styles = StyleSheet.create({
   text: {

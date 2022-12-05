@@ -6,7 +6,7 @@ import CheckBox from '@react-native-community/checkbox';
 import {AuthContext} from '../navigations/AuthProvider';
 import GoogleButton from '../components/GoogleButton';
 
-const SignInScreen = ({navigation}) => {
+const SignIn = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [hidePass, setHidePass] = useState(false);
@@ -116,7 +116,7 @@ const SignInScreen = ({navigation}) => {
     </View>
   );
 };
-export default SignInScreen;
+export default SignIn;
 
 const styles = StyleSheet.create({
   container: {

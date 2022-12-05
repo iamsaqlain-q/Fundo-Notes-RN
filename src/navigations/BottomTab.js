@@ -3,33 +3,33 @@ import {View, TouchableOpacity} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-
-import AddImageScreen from '../screens/AddImageScreen';
-import AddNotesScreen from '../screens/AddNotesScreen';
-import CheckListScreen from '../screens/CheckListScreen';
-import PaintScreen from '../screens/PaintScreen';
+import CheckList from '../screens/CheckList';
+import Paint from '../screens/Paint';
 import VoiceInputScreen from '../screens/VoiceInputScreen';
+import AddImage from '../screens/AddImage';
+import AddNotes from '../screens/AddNotes';
 
 const Tab = createBottomTabNavigator();
 
 const AddNotesButton = ({children, onPress}) => (
   <TouchableOpacity
     style={{
-      top: -50,
+      top: -40,
       justifyContent: 'center',
       alignItems: 'center',
     }}
     onPress={() => onPress()}>
     <View
       style={{
-        borderColor: '#fff',
+        borderColor: '#f2f2f2',
         borderRadius: 20,
         marginRight: 30,
         width: 70,
         height: 70,
-        borderWidth: 10,
+        borderWidth: 9,
         backgroundColor: '#97e5fb',
-      }}>
+      }}
+      >
       {children}
     </View>
   </TouchableOpacity>
@@ -50,7 +50,7 @@ const BottomTab = () => {
       }}>
       <Tab.Screen
         name="CheckList"
-        component={CheckListScreen}
+        component={CheckList}
         options={{
           tabBarIcon: () => (
             <View style={{alignItems: 'center', justifyContent: 'center', marginLeft: -10}}>
@@ -62,7 +62,7 @@ const BottomTab = () => {
 
       <Tab.Screen
         name="Paint"
-        component={PaintScreen}
+        component={Paint}
         options={{
           tabBarIcon: () => (
             <View style={{alignItems: 'center', justifyContent: 'center', marginLeft: -40}}>
@@ -86,7 +86,7 @@ const BottomTab = () => {
 
       <Tab.Screen
         name="AddImage"
-        component={AddImageScreen}
+        component={AddImage}
         options={{
           tabBarIcon: () => (
             <View style={{alignItems: 'center', justifyContent: 'center', marginLeft: -90}}>
@@ -97,7 +97,7 @@ const BottomTab = () => {
       />
       <Tab.Screen
         name="AddNotes"
-        component={AddNotesScreen}
+        component={AddNotes}
         options={{
           tabBarIcon: () => (
             <FontAwesome5

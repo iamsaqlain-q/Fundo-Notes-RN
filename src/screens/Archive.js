@@ -1,14 +1,14 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 
-const ArchiveScreen = () => {
+const Archive = () => {
   return (
     <View>
       <Text style={styles.text}>ArchiveScreen</Text>
     </View>
   );
 };
-export default ArchiveScreen;
+export default Archive;
 
 const styles = StyleSheet.create({
   text: {

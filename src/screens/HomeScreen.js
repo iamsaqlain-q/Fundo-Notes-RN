@@ -2,18 +2,17 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import BottomTab from '../navigations/BottomTab';
 import SearchBar from '../components/SearchBar';
-import DrawerNavigation from '../navigations/DrawerNavigation';
+import Notes from './Notes';
 
 const HomeScreen = () => {
   return (
-   // <DrawerNavigation />
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
         <SearchBar />
       </View>
-      <View style={styles.drawerContainer}>
-        <DrawerNavigation />
-      </View>
+     <View>
+      <Notes />
+     </View>
       <View style={styles.bottomBarContainer}>
         <BottomTab />
       </View>
@@ -22,6 +21,7 @@ const HomeScreen = () => {
 };
 
 export default HomeScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
