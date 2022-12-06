@@ -14,7 +14,6 @@ const Drawer = createDrawerNavigator();
 
 const DrawerNavigation = () => {
   return (
-    <NavigationContainer independent={true}>
       <Drawer.Navigator
         drawerContent={props => <CustomDrawer {...props} />}
         screenOptions={{
@@ -103,7 +102,6 @@ const DrawerNavigation = () => {
           }}
         />
       </Drawer.Navigator>
-    </NavigationContainer>
   );
 };
 export default DrawerNavigation;

@@ -17,7 +17,6 @@ const AuthNavigation = () => {
     });
   }, []);
   return (
-    <NavigationContainer independent={true}>
       <Stack.Navigator>
         <Stack.Screen
           name="SignIn"
@@ -41,7 +40,6 @@ const AuthNavigation = () => {
           })}
         />
       </Stack.Navigator>
-    </NavigationContainer>
   );
 };
 

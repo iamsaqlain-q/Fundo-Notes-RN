@@ -8,17 +8,21 @@ import Paint from '../screens/Paint';
 import VoiceInputScreen from '../screens/VoiceInputScreen';
 import AddImage from '../screens/AddImage';
 import AddNotes from '../screens/AddNotes';
+import {useNavigation} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
-const AddNotesButton = ({children, onPress}) => (
+
+export const AddNotesButton = ({onPress, navigation}) => (
+
   <TouchableOpacity
     style={{
       top: -40,
       justifyContent: 'center',
       alignItems: 'center',
     }}
-    onPress={() => onPress()}>
+    onPress={() => onPress()}
+   >
     <View
       style={{
         borderColor: '#f2f2f2',
@@ -30,12 +34,16 @@ const AddNotesButton = ({children, onPress}) => (
         backgroundColor: '#97e5fb',
       }}
       >
-      {children}
+    <FontAwesome5
+              name="plus"
+              size={30}
+              style={{color: '#fff'}}
+            />
     </View>
   </TouchableOpacity>
 );
 
-const BottomTab = () => {
+const BottomTab = ({navigation}) => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -93,20 +101,6 @@ const BottomTab = () => {
               <Ionicons name="image-outline" size={25} style={{color: '#fff'}} />
             </View>
           ),
-        }}
-      />
-      <Tab.Screen
-        name="AddNotes"
-        component={AddNotes}
-        options={{
-          tabBarIcon: () => (
-            <FontAwesome5
-              name="plus"
-              size={30}
-              style={{color: '#fff'}}
-            />
-          ),
-          tabBarButton: props => <AddNotesButton {...props} />,
         }}
       />
     </Tab.Navigator>
