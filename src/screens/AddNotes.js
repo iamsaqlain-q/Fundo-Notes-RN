@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {
-  Text,
   View,
   StyleSheet,
   TouchableOpacity,
@@ -23,7 +22,7 @@ const AddNotes = () => {
   const handleCreateNote = () => {
     let data = {
       title: setTitle(title),
-      desciption: setDescription(description),
+      description: setDescription(description),
     };
   };
 
@@ -56,7 +55,7 @@ const AddNotes = () => {
         <View>
           <TextInput
             placeholder="Title"
-            style={{fontSize: 22}}
+            style={{fontSize: 25}}
             multiline
             value={title}
             onChangeText={input => handleTitleInput(input)}
@@ -65,7 +64,7 @@ const AddNotes = () => {
         <View>
           <TextInput
             placeholder="Note"
-            style={{fontSize: 18}}
+            style={{fontSize: 20}}
             multiline
             value={description}
             onChangeText={input => handleNoteInput(input)}
@@ -80,7 +79,6 @@ export default AddNotes;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: 600,
     backgroundColor: '#97e5fb',
   },
 

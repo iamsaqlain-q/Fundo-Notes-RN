@@ -72,7 +72,7 @@ const SignUp = ({navigation}) => {
       {checkValidEmail ? (
         <Text style={styles.validtext}>Please enter a valid E-mail</Text>
       ) : (
-        <Text></Text>
+        <Text> </Text>
       )}
 
       <FormInput

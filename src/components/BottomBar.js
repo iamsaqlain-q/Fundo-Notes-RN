@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const BottomBar = ({onPress}) => {
-  console.log('Hello');
+
   return (
     <View
       style={{

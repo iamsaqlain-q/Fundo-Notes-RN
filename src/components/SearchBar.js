@@ -1,15 +1,17 @@
 import React, {useState, useContext} from 'react';
-import {Text, View, StyleSheet, Modal, Pressable} from 'react-native';
+import {Text, View, StyleSheet, Modal, Pressable, Alert} from 'react-native';
 import {Searchbar, Avatar} from 'react-native-paper';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {AuthContext} from '../navigations/AuthProvider';
 import {useNavigation} from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
+import storage from '@react-native-firebase/storage';
 
 const SearchBar = () => {
   const navigation = useNavigation();
   const [image, setImage] = useState('');
+  const [uploading, setUploading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showModal, setShowModal] = useState(false);
 
@@ -17,6 +19,24 @@ const SearchBar = () => {
 
   const onChangeSearch = query => {
     setSearchQuery(query);
+  };
+
+  const submitImage = async () => {
+    const uploadUri = image;
+    let fileName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
+    setUploading(true);
+
+    try {
+      await storage().ref(fileName).putFile(uploadUri);
+      setUploading(false);
+      Alert.alert(
+        'Image Uploaded!',
+        'Your image has been uploaded to cloud storage',
+      );
+    } catch (e) {
+      console.log(e);
+    }
+    setImage('');
   };
 
   const chooseFromGallery = () => {
@@ -61,7 +81,10 @@ const SearchBar = () => {
           onPress={() => {
             setShowModal(true);
           }}>
-          <Avatar.Image size={30} source={image ? {uri: image} : require('../assets/avatar.png')} />
+          <Avatar.Image
+            size={30}
+            source={image ? {uri: image} : require('../assets/avatar.png')}
+          />
         </Pressable>
       </View>
       <View>
@@ -79,8 +102,13 @@ const SearchBar = () => {
               </View>
 
               <View style={styles.avatarInModal}>
-                <Pressable onPress={chooseFromGallery}>
-                  <Avatar.Image size={40} source={image ? {uri: image} : require('../assets/avatar.png')} />
+                <Pressable onPress={() => {chooseFromGallery(); submitImage();}}>
+                  <Avatar.Image
+                    size={40}
+                    source={
+                      image ? {uri: image} : require('../assets/avatar.png')
+                    }
+                  />
                 </Pressable>
               </View>
               <View style={styles.idName}>

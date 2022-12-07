@@ -16,6 +16,7 @@ export const AuthProvider = ({children}) => {
         signup: async (email, password, errorCallback) => {
           try {
            const userDetails = await auth().createUserWithEmailAndPassword(email, password);
+           console.log(userDetails.user.uid);
            console.log(userDetails);
           } catch (e) {
             errorCallback(e.code);
@@ -45,7 +46,8 @@ export const AuthProvider = ({children}) => {
 
         signin: async (email, password, errorCallback) => {
           try {
-            await auth().signInWithEmailAndPassword(email, password);
+          const userData = await auth().signInWithEmailAndPassword(email, password);
+          console.log(userData);
           } catch (e) {
             errorCallback(e.code);
             console.log(e);
