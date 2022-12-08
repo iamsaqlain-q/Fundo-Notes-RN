@@ -1,29 +1,40 @@
-import React, {useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-} from 'react-native';
+import React, {useState, useContext} from 'react';
+import {View, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+//import {createNote} from '../navigations/AuthProvider';
+//import createNote from '../services/UserServices';
+import firestore from '@react-native-firebase/firestore';
+import {AuthContext} from '../navigations/AuthProvider';
 
-const AddNotes = () => {
+const AddNotes = ({navigation}) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const {user} = useContext(AuthContext);
 
-  const handleTitleInput = value => {
-    setTitle({title: value});
-  };
-
-  const handleNoteInput = value => {
-    setDescription({description: value});
+  const createNewNote = () => {
+    firestore()
+      .collection('Notes')
+      .add({
+        userId: user.uid,
+        title: title,
+        description: description,
+      })
+      .then(() => {
+        console.log('Note Created!');
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   const handleCreateNote = () => {
     let data = {
-      title: setTitle(title),
-      description: setDescription(description),
+      title: title,
+      description: description,
     };
+    createNewNote(data);
+
+    navigation.navigate('Notes');
   };
 
   return (
@@ -58,7 +69,7 @@ const AddNotes = () => {
             style={{fontSize: 25}}
             multiline
             value={title}
-            onChangeText={input => handleTitleInput(input)}
+            onChangeText={input => setTitle(input)}
           />
         </View>
         <View>
@@ -67,7 +78,7 @@ const AddNotes = () => {
             style={{fontSize: 20}}
             multiline
             value={description}
-            onChangeText={input => handleNoteInput(input)}
+            onChangeText={input => setDescription(input)}
           />
         </View>
       </View>

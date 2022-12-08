@@ -2,11 +2,28 @@
 import React, {createContext, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+//import firestore from '@react-native-firebase/firestore';
 
 export const AuthContext = createContext();
 
+// export const createNote = (data) => {
+//   const usersCollection = firestore().collection('Notes');
+//   //console.log(usersCollection);
+//   if (!data.title || !data.description) {
+//     console.log('Note is empty');
+//   } else {
+//     firestore()
+//       .collection('Notes')
+//       .add(data)
+//       .then(() => {
+//         console.log('Note is added!');
+//       });
+//   }
+// };
+
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
+
 
   return (
     <AuthContext.Provider
@@ -15,9 +32,12 @@ export const AuthProvider = ({children}) => {
         setUser,
         signup: async (email, password, errorCallback) => {
           try {
-           const userDetails = await auth().createUserWithEmailAndPassword(email, password);
-           console.log(userDetails.user.uid);
-           console.log(userDetails);
+            const userDetails = await auth().createUserWithEmailAndPassword(
+              email,
+              password,
+            );
+            console.log(userDetails.user.uid);
+            console.log(userDetails);
           } catch (e) {
             errorCallback(e.code);
             console.log(e);
@@ -46,8 +66,11 @@ export const AuthProvider = ({children}) => {
 
         signin: async (email, password, errorCallback) => {
           try {
-          const userData = await auth().signInWithEmailAndPassword(email, password);
-          console.log(userData);
+            const userData = await auth().signInWithEmailAndPassword(
+              email,
+              password,
+            );
+            console.log(userData);
           } catch (e) {
             errorCallback(e.code);
             console.log(e);
