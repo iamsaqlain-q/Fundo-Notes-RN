@@ -100,7 +100,7 @@ const SignUp = ({navigation}) => {
       <Text style={styles.errorText}>{error}</Text>
       <FormButton
         buttonTitle="Sign Up"
-        onPress={() => signup(email, password, handleError)}
+        onPress={() => signup(firstName, lastName, email, password, handleError)}
       />
 
       <TouchableOpacity

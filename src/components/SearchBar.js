@@ -36,7 +36,7 @@ const SearchBar = () => {
     } catch (e) {
       console.log(e);
     }
-    setImage('');
+    setImage(image);
   };
 
   const chooseFromGallery = () => {
@@ -155,6 +155,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
+   // marginVertical: 20,
   },
   avatarStyle: {
     justifyContent: 'center',

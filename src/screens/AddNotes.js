@@ -1,39 +1,36 @@
 import React, {useState, useContext} from 'react';
 import {View, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-//import {createNote} from '../navigations/AuthProvider';
-//import createNote from '../services/UserServices';
 import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from '../navigations/AuthProvider';
+//import createNote from '../services/NotesServices';
 
 const AddNotes = ({navigation}) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const {user} = useContext(AuthContext);
+  const database = firestore().collection('UserData');
 
-  const createNewNote = () => {
-    firestore()
-      .collection('Notes')
-      .add({
-        userId: user.uid,
-        title: title,
-        description: description,
-      })
-      .then(() => {
-        console.log('Note Created!');
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  const createNote = async (userId) => {
+    try {
+      await database
+        .doc(userId)
+        .collection('NoteData')
+        .add({
+          title: title,
+          description: description,
+        })
+        .then(() => {
+          console.log('Note Created!');
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const handleCreateNote = () => {
-    let data = {
-      title: title,
-      description: description,
-    };
-    createNewNote(data);
-
+  const handleCreateNote = async () => {
+    let userId = user.uid;
+    await createNote(title, description, userId);
     navigation.navigate('Notes');
   };
 

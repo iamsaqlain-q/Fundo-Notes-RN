@@ -13,7 +13,7 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.searchBarContainer}>
         <SearchBar />
       </View>
-      <View>
+      <View style={styles.notesContainer}>
         <Notes />
       </View>
       <View style={styles.bottomBarContainer}>
@@ -38,8 +38,16 @@ const styles = StyleSheet.create({
   },
   searchBarContainer: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
+    marginTop: 20,
     alignSelf: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  notesContainer: {
+    flex: 13,
+    padding: 20,
+    height: 500,
+    alignSelf: 'center',
     justifyContent: 'flex-start',
   },
   bottomBarContainer: {

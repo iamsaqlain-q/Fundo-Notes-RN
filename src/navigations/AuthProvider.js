@@ -2,42 +2,30 @@
 import React, {createContext, useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-//import firestore from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 
 export const AuthContext = createContext();
 
-// export const createNote = (data) => {
-//   const usersCollection = firestore().collection('Notes');
-//   //console.log(usersCollection);
-//   if (!data.title || !data.description) {
-//     console.log('Note is empty');
-//   } else {
-//     firestore()
-//       .collection('Notes')
-//       .add(data)
-//       .then(() => {
-//         console.log('Note is added!');
-//       });
-//   }
-// };
-
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
-
+  const userCollection = firestore().collection('UserData');
 
   return (
     <AuthContext.Provider
       value={{
         user,
         setUser,
-        signup: async (email, password, errorCallback) => {
+        signup: async (firstName, lastName, email, password, errorCallback) => {
           try {
             const userDetails = await auth().createUserWithEmailAndPassword(
               email,
               password,
             );
-            console.log(userDetails.user.uid);
-            console.log(userDetails);
+            //console.log(userDetails.user.uid);
+            //console.log(userDetails);
+            await userCollection
+              .doc(userDetails.user.uid)
+              .set({firstName, lastName, email});
           } catch (e) {
             errorCallback(e.code);
             console.log(e);
