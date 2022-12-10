@@ -4,7 +4,7 @@ import SearchBar from '../components/SearchBar';
 import Notes from './Notes';
 import BottomBar from '../components/BottomBar';
 
-const HomeScreen = ({navigation}) => {
+const Home = ({navigation}) => {
   const goToNotes = () => {
     navigation.navigate('AddNotes');
   };
@@ -27,7 +27,7 @@ const HomeScreen = ({navigation}) => {
   );
 };
 
-export default HomeScreen;
+export default Home;
 
 const styles = StyleSheet.create({
   container: {

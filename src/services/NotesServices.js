@@ -18,3 +18,16 @@ export const createNote = async (title, description, userId) => {
     console.log(e);
   }
 };
+
+export const fetchNote = async userId => {
+  const querySnapshot = await firestore()
+    .collection('UserData')
+    .doc(userId)
+    .collection('NoteData')
+    .get();
+  console.log('Total data: ', querySnapshot.size);
+
+  querySnapshot.forEach(documentSnapshot => {
+    console.log('Note ID: ', documentSnapshot.id, documentSnapshot.data());
+  });
+};

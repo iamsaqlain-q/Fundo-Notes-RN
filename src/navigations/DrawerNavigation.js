@@ -8,7 +8,7 @@ import Labels from '../screens/Labels';
 import Archive from '../screens/Archive';
 import Trash from '../screens/Trash';
 import Settings from '../screens/Settings';
-import HomeScreen from '../screens/HomeScreen';
+import Home from '../screens/Home';
 
 const Drawer = createDrawerNavigator();
 
@@ -29,7 +29,7 @@ const DrawerNavigation = () => {
         }}>
         <Drawer.Screen
           name="Notes"
-          component={HomeScreen}
+          component={Home}
           options={{
             drawerIcon: () => (
               <Ionicons name="bulb-outline" size={20} style={{color: '#fff'}} />

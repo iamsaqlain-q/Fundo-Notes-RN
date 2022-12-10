@@ -1,32 +1,13 @@
 import React, {useState, useContext} from 'react';
 import {View, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from '../navigations/AuthProvider';
-//import createNote from '../services/NotesServices';
+import {createNote} from '../services/NotesServices';
 
 const AddNotes = ({navigation}) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const {user} = useContext(AuthContext);
-  const database = firestore().collection('UserData');
-
-  const createNote = async (userId) => {
-    try {
-      await database
-        .doc(userId)
-        .collection('NoteData')
-        .add({
-          title: title,
-          description: description,
-        })
-        .then(() => {
-          console.log('Note Created!');
-        });
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const handleCreateNote = async () => {
     let userId = user.uid;
