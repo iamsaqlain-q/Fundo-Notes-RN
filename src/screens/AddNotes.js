@@ -1,25 +1,42 @@
 import React, {useState, useContext} from 'react';
-import {View, StyleSheet, TouchableOpacity, TextInput} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {AuthContext} from '../navigations/AuthProvider';
-import {createNote} from '../services/NotesServices';
+import {createNote, editNote} from '../services/NotesServices';
 
-const AddNotes = ({navigation}) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+const AddNotes = ({navigation, route}) => {
+  //console.log('Route', route.params?.editdata?.title);
+  //const noteId = route.params.id;
+  //console.log('Note Data:', noteId);
+  const [title, setTitle] = useState(route.params?.editdata?.title || '');
+  const [description, setDescription] = useState(
+    route.params?.editdata?.description || '',
+  );
   const {user} = useContext(AuthContext);
 
-  const handleCreateNote = async () => {
+  const handleBackPress = async () => {
     let userId = user.uid;
-    await createNote(title, description, userId);
-    navigation.navigate('Notes');
+    let noteId = route.params.id;
+    //console.log('Note Id :', noteId);
+    if (noteId) {
+      await editNote(title, description, userId, noteId);
+    } else {
+      await createNote(title, description, userId, noteId);
+    }
+    navigation.navigate('Home');
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.topRowItems}>
         <View style={styles.leftArrrow}>
-          <TouchableOpacity onPress={() => handleCreateNote()}>
+          <TouchableOpacity onPress={() => handleBackPress()}>
             <Icons name="arrow-left" size={25} color="#fff" />
           </TouchableOpacity>
         </View>
@@ -60,6 +77,23 @@ const AddNotes = ({navigation}) => {
           />
         </View>
       </View>
+      <View style={styles.bottomContainer}>
+        <View style={styles.bottomIcons}>
+          <TouchableOpacity>
+            <Icons name="palette-outline" size={25} color="#fff" />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.bottomIcons}>
+          <TouchableOpacity>
+            <Text>Edited 11:00 PM</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.bottomIcons}>
+          <TouchableOpacity>
+            <Icons name="dots-vertical" size={25} color="#fff" />
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };
@@ -94,5 +128,18 @@ const styles = StyleSheet.create({
   inputBox: {
     flex: 1,
     paddingHorizontal: 15,
+  },
+
+  bottomContainer: {
+    padding: 2,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+
+  bottomIcons: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 12,
   },
 });

@@ -5,11 +5,13 @@ import FormButton from '../components/FormButton';
 import CheckBox from '@react-native-community/checkbox';
 import {AuthContext} from '../navigations/AuthProvider';
 import GoogleButton from '../components/GoogleButton';
+import {useBoolean} from '../hooks/useBoolean';
 
 const SignIn = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [hidePass, setHidePass] = useState(false);
+  const [isToggle, {setToggle, setTrue, setFalse}] = useBoolean(false);
+  //const [hidePass, setHidePass] = useState(false);
   const [checkValidEmail, setCheckValidEmail] = useState('');
   const [checkValidPassword, setCheckValidPassword] = useState('');
   const [error, setError] = useState();
@@ -66,7 +68,7 @@ const SignIn = ({navigation}) => {
         onChangeText={text => handleCheckPassword(text)}
         placeholderText="Password"
         iconType="lock"
-        secureTextEntry={!hidePass}
+        secureTextEntry={isToggle}
       />
 
       {checkValidPassword ? (
@@ -77,9 +79,9 @@ const SignIn = ({navigation}) => {
 
       <View style={styles.showPass}>
         <CheckBox
-          disabled={false}
-          value={hidePass}
-          onValueChange={() => setHidePass(!hidePass)}
+          //disabled={false}
+          value={isToggle}
+          onValueChange={setToggle}
           tintColors={{true: '#51C1F6', false: 'black'}}
         />
         <Text style={styles.showPassText}>Show Password</Text>

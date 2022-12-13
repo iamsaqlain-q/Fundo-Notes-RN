@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 const FormInput = ({ labelValue, placeholderText, iconType, ...rest }) => {

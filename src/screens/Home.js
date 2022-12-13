@@ -14,7 +14,7 @@ const Home = ({navigation}) => {
         <SearchBar />
       </View>
       <View style={styles.notesContainer}>
-        <Notes />
+        <Notes navigation={navigation}/>
       </View>
       <View style={styles.bottomBarContainer}>
         <BottomBar
