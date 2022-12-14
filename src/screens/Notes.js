@@ -6,14 +6,11 @@ import {fetchNote} from '../services/NotesServices';
 import {useUid} from '../hooks/useUid';
 
 const Notes = ({navigation}) => {
-  //console.log('Navigation', navigation);
   const [notesObj, setNotesObj] = useState([]);
   const userId = useUid();
-  //const navigation = useNavigation();
 
   const getNotes = async () => {
     let noteData = await fetchNote(userId);
-    //console.log('Note Data in Notes Screen:', noteData);
     setNotesObj(noteData);
   };
 
@@ -22,12 +19,11 @@ const Notes = ({navigation}) => {
   });
 
   const goToEditNotes = ({item}) => {
-    navigation.navigate('AddNotes', {editdata:item, id: item.id});
+    navigation.navigate('AddNotes', {editdata: item, id: item.id});
   };
   return (
     <View>
       <FlatList
-        numColumns={0}
         data={notesObj}
         keyExtractor={item => item.id}
         renderItem={({item}) => (

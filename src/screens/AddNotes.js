@@ -11,23 +11,25 @@ import {AuthContext} from '../navigations/AuthProvider';
 import {createNote, editNote} from '../services/NotesServices';
 
 const AddNotes = ({navigation, route}) => {
-  //console.log('Route', route.params?.editdata?.title);
-  //const noteId = route.params.id;
-  //console.log('Note Data:', noteId);
+  const noteData = route.params;
   const [title, setTitle] = useState(route.params?.editdata?.title || '');
   const [description, setDescription] = useState(
     route.params?.editdata?.description || '',
   );
+  const [isPinned, setIsPinned] = useState(noteData?.isPinned || false);
+  const [isInArchive, setIsInArchive] = useState(
+    noteData?.isInArchive || false,
+  );
+  //const [isInTrash, setIsInTrash] = useState(false);
   const {user} = useContext(AuthContext);
-
+  console.log('Pin', isPinned);
   const handleBackPress = async () => {
     let userId = user.uid;
-    let noteId = route.params.id;
-    //console.log('Note Id :', noteId);
+    let noteId = route.params?.id;
     if (noteId) {
-      await editNote(title, description, userId, noteId);
+      await editNote(title, description, userId, noteId, isPinned, isInArchive);
     } else {
-      await createNote(title, description, userId, noteId);
+      await createNote(title, description, userId, isPinned, isInArchive);
     }
     navigation.navigate('Home');
   };
@@ -36,13 +38,20 @@ const AddNotes = ({navigation, route}) => {
     <View style={styles.container}>
       <View style={styles.topRowItems}>
         <View style={styles.leftArrrow}>
-          <TouchableOpacity onPress={() => handleBackPress()}>
+          <TouchableOpacity onPress={() => handleBackPress(isPinned)}>
             <Icons name="arrow-left" size={25} color="#fff" />
           </TouchableOpacity>
         </View>
-        <View style={styles.topRightIcons}>
-          <TouchableOpacity>
-            <Icons name="pin-outline" size={25} color="#fff" />
+        <View style={styles.topRightIcons} isPinned={isPinned}>
+          <TouchableOpacity
+            onPress={() => {
+              setIsPinned(!isPinned);
+            }}>
+            <Icons
+              name={isPinned ? 'pin' : 'pin-outline'}
+              size={25}
+              color="#fff"
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.topRightIcons}>
@@ -50,9 +59,20 @@ const AddNotes = ({navigation, route}) => {
             <Icons name="bell-plus-outline" size={25} color="#fff" />
           </TouchableOpacity>
         </View>
-        <View style={styles.topRightIcons}>
-          <TouchableOpacity>
-            <Icons name="archive-arrow-down-outline" size={25} color="#fff" />
+        <View style={styles.topRightIcons} isInArchive={isInArchive}>
+          <TouchableOpacity
+            onPress={() => {
+              setIsInArchive(!isInArchive);
+            }}>
+            <Icons
+              name={
+                isInArchive
+                  ? 'archive-arrow-down'
+                  : 'archive-arrow-down-outline'
+              }
+              size={25}
+              color="#fff"
+            />
           </TouchableOpacity>
         </View>
       </View>

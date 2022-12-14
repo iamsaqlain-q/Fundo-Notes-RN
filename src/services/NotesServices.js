@@ -2,11 +2,19 @@ import firestore from '@react-native-firebase/firestore';
 
 const database = firestore().collection('UserData');
 
-export const createNote = async (title, description, userId, noteId) => {
+export const createNote = async (
+  title,
+  description,
+  userId,
+  isPinned,
+  isInArchive,
+) => {
   try {
-    await database.doc(userId).collection('NoteData').doc(noteId).add({
+    await database.doc(userId).collection('NoteData').add({
       title: title,
       description: description,
+      isPinned: isPinned,
+      isInArchieve: isInArchive,
     });
     console.log('Note Created!');
   } catch (e) {
@@ -32,11 +40,20 @@ export const fetchNote = async userId => {
   return notesArray;
 };
 
-export const editNote = async (title, description, userId, noteId) => {
+export const editNote = async (
+  title,
+  description,
+  userId,
+  noteId,
+  isPinned,
+  isInArchive,
+) => {
   try {
     await database.doc(userId).collection('NoteData').doc(noteId).update({
       title: title,
       description: description,
+      isPinned: isPinned,
+      isInArchieve: isInArchive,
     });
     console.log('Note Updated!');
   } catch (e) {
