@@ -14,13 +14,23 @@ export const createNote = async (
       title: title,
       description: description,
       isPinned: isPinned,
-      isInArchieve: isInArchive,
+      isInArchive: isInArchive,
     });
     console.log('Note Created!');
   } catch (e) {
     console.log(e);
   }
 };
+
+// export const getPinnedData = async (userId, noteId) => {
+//   const pinnedArr = [];
+//   const pinnedCollection = await database
+//     .doc(userId)
+//     .collection('NoteData')
+//     .doc(noteId)
+//     .get();
+//     console.log('Total notes', pinnedCollection);
+// };
 
 export const fetchNote = async userId => {
   const notesArray = [];
@@ -53,7 +63,7 @@ export const editNote = async (
       title: title,
       description: description,
       isPinned: isPinned,
-      isInArchieve: isInArchive,
+      isInArchive: isInArchive,
     });
     console.log('Note Updated!');
   } catch (e) {

@@ -20,9 +20,7 @@ const AddNotes = ({navigation, route}) => {
   const [isInArchive, setIsInArchive] = useState(
     noteData?.isInArchive || false,
   );
-  //const [isInTrash, setIsInTrash] = useState(false);
   const {user} = useContext(AuthContext);
-  console.log('Pin', isPinned);
   const handleBackPress = async () => {
     let userId = user.uid;
     let noteId = route.params?.id;
