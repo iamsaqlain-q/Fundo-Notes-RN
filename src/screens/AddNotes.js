@@ -36,11 +36,11 @@ const AddNotes = ({navigation, route}) => {
     <View style={styles.container}>
       <View style={styles.topRowItems}>
         <View style={styles.leftArrrow}>
-          <TouchableOpacity onPress={() => handleBackPress(isPinned)}>
+          <TouchableOpacity onPress={() => handleBackPress(isPinned, isInArchive)}>
             <Icons name="arrow-left" size={25} color="#fff" />
           </TouchableOpacity>
         </View>
-        <View style={styles.topRightIcons} isPinned={isPinned}>
+        <View style={styles.topRightIcons}>
           <TouchableOpacity
             onPress={() => {
               setIsPinned(!isPinned);
@@ -57,7 +57,7 @@ const AddNotes = ({navigation, route}) => {
             <Icons name="bell-plus-outline" size={25} color="#fff" />
           </TouchableOpacity>
         </View>
-        <View style={styles.topRightIcons} isInArchive={isInArchive}>
+        <View style={styles.topRightIcons}>
           <TouchableOpacity
             onPress={() => {
               setIsInArchive(!isInArchive);

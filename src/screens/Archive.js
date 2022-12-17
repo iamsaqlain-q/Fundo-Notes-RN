@@ -1,22 +1,72 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {useState, useEffect} from 'react';
+import {useContext} from 'react';
+import {View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import {AuthContext} from '../navigations/AuthProvider';
+import {fetchNote} from '../services/NotesServices';
+import ArchiveTopBar from '../components/ArchiveTopBar';
+import NoteCard from '../components/NoteCard';
+import { useNavigation } from '@react-navigation/native';
 
 const Archive = () => {
+  const {user} = useContext(AuthContext);
+  const [noteData, setNoteData] = useState([]);
+  const navigation = useNavigation();
+
+  const getArchiveNotes = async () => {
+    const notes = await fetchNote(user.uid);
+    let archiveNotes = [];
+    notes.forEach(data => {
+      if (data.isInArchive) {
+        archiveNotes.push(data);
+      }
+    });
+    setNoteData(archiveNotes);
+  };
+
+  useEffect(() => {
+      getArchiveNotes();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
+
+  const goToEditNotes = ({item}) => {
+    navigation.navigate('AddNotes', {editdata: item, id: item.id});
+  };
+
   return (
-    <View>
-      <Text style={styles.text}>ArchiveScreen</Text>
+    <View style={styles.archiveContainer}>
+      <View style={{flex: 1}}>
+        <ArchiveTopBar />
+      </View>
+      <View style={styles.listStyle}>
+        <FlatList
+          data={noteData}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              onPress={() => {
+                goToEditNotes({item});
+              }}>
+              <NoteCard {...item} />
+            </TouchableOpacity>
+          )}
+        />
+      </View>
     </View>
   );
 };
 export default Archive;
 
 const styles = StyleSheet.create({
-  text: {
-    marginTop: 400,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    fontSize: 20,
-    color: '#ccc',
+  archiveContainer: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#f2f2f2',
+  },
+
+  listStyle: {
+    flex: 13,
+    marginVertical: 10,
+    marginHorizontal: 10,
   },
 });

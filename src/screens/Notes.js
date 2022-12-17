@@ -1,6 +1,13 @@
 import React, {useState} from 'react';
 import {useEffect} from 'react';
-import {View, Text, TouchableOpacity, FlatList, SectionList} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  SectionList,
+  StyleSheet,
+} from 'react-native';
 import NoteCard from '../components/NoteCard';
 import {fetchNote} from '../services/NotesServices';
 import {useUid} from '../hooks/useUid';
@@ -25,20 +32,33 @@ const Notes = ({navigation}) => {
     setOtherNotes(unPinned);
     //setNotesObj(noteData);
   };
-   //console.log('Pinned Data', pinnedNotes);
-   //console.log('Others Data', otherNotes);
+  //console.log('Pinned Data', pinnedNotes);
+  //console.log('Others Data', otherNotes);
 
   useEffect(() => {
     getNotes();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const goToEditNotes = ({item}) => {
     navigation.navigate('AddNotes', {editdata: item, id: item.id});
   };
+
+  const DATA = [
+    {
+      title: 'Pinned',
+      data: pinnedNotes,
+    },
+
+    {
+      title: 'Others',
+      data: otherNotes,
+    },
+  ];
   return (
     <View>
-      <FlatList
-        data={otherNotes}
+      {/* <FlatList
+        data={pinnedNotes}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
           <TouchableOpacity
@@ -47,28 +67,29 @@ const Notes = ({navigation}) => {
             }}>
             <NoteCard {...item} />
           </TouchableOpacity>
-        )}
-      />
-
-{/* <SectionList
-        sections={otherNotes}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            onPress={() => {
-              goToEditNotes({item});
-            }}>
-            <NoteCard {...item} />
-          </TouchableOpacity>
-        )}
-        renderSectionHeader={({section})=>(
-          <View>
-            <Text>
-              {section.pinnedNotes}
-            </Text>
-          </View>
         )}
       /> */}
+
+      <SectionList
+        sections={DATA}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => {
+          //console.log('Item', item);
+          return (
+            <TouchableOpacity
+              onPress={() => {
+                goToEditNotes({item});
+              }}>
+              <NoteCard {...item} />
+            </TouchableOpacity>
+          );
+        }}
+        renderSectionHeader={({section}) => (
+          <View>
+            <Text style={styles.listText}>{section.title}</Text>
+          </View>
+        )}
+      />
 
       {/* {notesObj.map(item => (
           <TouchableOpacity key={item.id} onPress={() => {}}>
@@ -79,3 +100,11 @@ const Notes = ({navigation}) => {
   );
 };
 export default Notes;
+
+const styles = StyleSheet.create({
+  listText: {
+    color: '#4ebef4',
+    marginVertical: 7,
+    fontWeight: 'bold',
+  },
+});
