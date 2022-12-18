@@ -6,7 +6,7 @@ import {AuthContext} from '../navigations/AuthProvider';
 import {fetchNote} from '../services/NotesServices';
 import ArchiveTopBar from '../components/ArchiveTopBar';
 import NoteCard from '../components/NoteCard';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const Archive = () => {
   const {user} = useContext(AuthContext);
@@ -25,12 +25,16 @@ const Archive = () => {
   };
 
   useEffect(() => {
-      getArchiveNotes();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+    getArchiveNotes();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const goToEditNotes = ({item}) => {
-    navigation.navigate('AddNotes', {editdata: item, id: item.id});
+    navigation.navigate('AddNotes', {
+      editdata: item,
+      id: item.id,
+      isInArchive: item.isInArchive,
+    });
   };
 
   return (

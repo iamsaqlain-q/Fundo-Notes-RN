@@ -22,9 +22,9 @@ const Notes = ({navigation}) => {
     let pinned = [];
     let unPinned = [];
     noteData.forEach(data => {
-      if (data.isPinned && !data.isInArchive) {
+      if (data.isPinned && !data.isInArchive && !data.isInTrash) {
         pinned.push(data);
-      } else if (!data.isPinned && !data.isInArchive) {
+      } else if (!data.isPinned && !data.isInArchive && !data.isInTrash) {
         unPinned.push(data);
       }
     });
@@ -41,7 +41,11 @@ const Notes = ({navigation}) => {
   }, []);
 
   const goToEditNotes = ({item}) => {
-    navigation.navigate('AddNotes', {editdata: item, id: item.id});
+    navigation.navigate('AddNotes', {
+      editdata: item,
+      id: item.id,
+      isPinned: item.isPinned,
+    });
   };
 
   const DATA = [

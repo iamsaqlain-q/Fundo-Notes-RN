@@ -20,14 +20,30 @@ const AddNotes = ({navigation, route}) => {
   const [isInArchive, setIsInArchive] = useState(
     noteData?.isInArchive || false,
   );
+  const [isInTrash, setIsInTrash] = useState(noteData?.isInTrash || false);
   const {user} = useContext(AuthContext);
   const handleBackPress = async () => {
     let userId = user.uid;
     let noteId = route.params?.id;
     if (noteId) {
-      await editNote(title, description, userId, noteId, isPinned, isInArchive);
+      await editNote(
+        title,
+        description,
+        userId,
+        noteId,
+        isPinned,
+        isInArchive,
+        isInTrash,
+      );
     } else {
-      await createNote(title, description, userId, isPinned, isInArchive);
+      await createNote(
+        title,
+        description,
+        userId,
+        isPinned,
+        isInArchive,
+        isInTrash,
+      );
     }
     navigation.navigate('Home');
   };
@@ -36,7 +52,8 @@ const AddNotes = ({navigation, route}) => {
     <View style={styles.container}>
       <View style={styles.topRowItems}>
         <View style={styles.leftArrrow}>
-          <TouchableOpacity onPress={() => handleBackPress(isPinned, isInArchive)}>
+          <TouchableOpacity
+            onPress={() => handleBackPress(isPinned, isInArchive, isInTrash)}>
             <Icons name="arrow-left" size={25} color="#fff" />
           </TouchableOpacity>
         </View>
@@ -53,8 +70,15 @@ const AddNotes = ({navigation, route}) => {
           </TouchableOpacity>
         </View>
         <View style={styles.topRightIcons}>
-          <TouchableOpacity>
-            <Icons name="bell-plus-outline" size={25} color="#fff" />
+          <TouchableOpacity
+            onPress={() => {
+              setIsInTrash(!isInTrash);
+            }}>
+            <Icons
+              name={isInTrash ? 'trash-can' : 'trash-can-outline'}
+              size={25}
+              color="#fff"
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.topRightIcons}>
