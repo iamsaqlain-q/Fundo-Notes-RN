@@ -3,7 +3,7 @@ import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 
-const ArchiveTopBar = () => {
+const ArchiveTopBar = ({changeLayout, setChangeLayout}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.topContainer}>
@@ -31,8 +31,15 @@ const ArchiveTopBar = () => {
         </TouchableOpacity>
       </View>
       <View>
-        <TouchableOpacity>
-          <Ionicons name="grid-outline" size={20} style={{color: '#fff'}} />
+        <TouchableOpacity
+          onPress={() => {
+            setChangeLayout(!changeLayout);
+          }}>
+          <Ionicons
+            name={changeLayout ? 'grid-outline' : 'list-outline'}
+            size={20}
+            style={{color: '#fff'}}
+          />
         </TouchableOpacity>
       </View>
     </View>

@@ -11,6 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 const Archive = () => {
   const {user} = useContext(AuthContext);
   const [noteData, setNoteData] = useState([]);
+  const [changeLayout, setChangeLayout] = useState(false);
   const navigation = useNavigation();
 
   const getArchiveNotes = async () => {
@@ -40,14 +41,20 @@ const Archive = () => {
   return (
     <View style={styles.archiveContainer}>
       <View style={{flex: 1}}>
-        <ArchiveTopBar />
+        <ArchiveTopBar
+          changeLayout={changeLayout}
+          setChangeLayout={setChangeLayout}
+        />
       </View>
       <View style={styles.listStyle}>
         <FlatList
           data={noteData}
+          numColumns={changeLayout ? 2 : 1}
+          key={changeLayout ? 2 : 1}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
             <TouchableOpacity
+              style={changeLayout ? styles.changeToGrid : styles.changeToList}
               onPress={() => {
                 goToEditNotes({item});
               }}>
@@ -72,5 +79,14 @@ const styles = StyleSheet.create({
     flex: 13,
     marginVertical: 10,
     marginHorizontal: 10,
+  },
+
+  changeToGrid: {
+    width: '45%',
+    marginRight: 10,
+  },
+
+  changeToList: {
+    width: '100%',
   },
 });

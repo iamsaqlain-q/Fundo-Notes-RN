@@ -46,9 +46,10 @@ const styles = StyleSheet.create({
   notesContainer: {
     flex: 13,
     padding: 20,
-    height: 500,
+    //height: 500,
     alignSelf: 'center',
     justifyContent: 'flex-start',
+    width: '100%',
   },
   bottomBarContainer: {
     flex: 1,

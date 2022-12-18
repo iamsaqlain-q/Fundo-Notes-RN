@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 
 const NoteCard = props => {
- // console.log('NoteCard');
+  // console.log('NoteCard');
   return (
     <View style={styles.cardContainer}>
       <View>
@@ -18,7 +18,7 @@ export default NoteCard;
 
 const styles = StyleSheet.create({
   cardContainer: {
-    width: 300,
+    width: '100%',
     height: 60,
     backgroundColor: '#f2f2f2',
     borderRadius: 10,
