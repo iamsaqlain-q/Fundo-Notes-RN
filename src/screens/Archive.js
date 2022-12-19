@@ -26,15 +26,19 @@ const Archive = () => {
   };
 
   useEffect(() => {
-    getArchiveNotes();
+    const unsubscribe = navigation.addListener('focus', () => {
+      getArchiveNotes();
+    });
+
+    return unsubscribe;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [navigation]);
 
   const goToEditNotes = ({item}) => {
     navigation.navigate('AddNotes', {
       editdata: item,
       id: item.id,
-      isInArchive: item.isInArchive,
+      //isInArchive: item.isInArchive,
     });
   };
 
@@ -77,13 +81,14 @@ const styles = StyleSheet.create({
 
   listStyle: {
     flex: 13,
+    width: '100%',
+   // alignSelf: 'center',
     marginVertical: 10,
-    marginHorizontal: 10,
   },
 
   changeToGrid: {
-    width: '45%',
-    marginRight: 10,
+    width: '48%',
+    marginRight: '2%',
   },
 
   changeToList: {

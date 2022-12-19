@@ -12,15 +12,19 @@ import {createNote, editNote} from '../services/NotesServices';
 
 const AddNotes = ({navigation, route}) => {
   const noteData = route.params;
-  const [title, setTitle] = useState(route.params?.editdata?.title || '');
+  const [title, setTitle] = useState(noteData?.editdata?.title || '');
   const [description, setDescription] = useState(
-    route.params?.editdata?.description || '',
+    noteData?.editdata?.description || '',
   );
-  const [isPinned, setIsPinned] = useState(noteData?.isPinned || false);
+  const [isPinned, setIsPinned] = useState(
+    noteData?.editdata?.isPinned || false,
+  );
   const [isInArchive, setIsInArchive] = useState(
-    noteData?.isInArchive || false,
+    noteData?.editData?.isInArchive || false,
   );
-  const [isInTrash, setIsInTrash] = useState(noteData?.isInTrash || false);
+  const [isInTrash, setIsInTrash] = useState(
+    noteData?.editdata?.isInTrash || false,
+  );
   const {user} = useContext(AuthContext);
   const handleBackPress = async () => {
     let userId = user.uid;

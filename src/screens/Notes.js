@@ -12,7 +12,7 @@ import NoteCard from '../components/NoteCard';
 import {fetchNote} from '../services/NotesServices';
 import {useUid} from '../hooks/useUid';
 
-const Notes = ({navigation}) => {
+const Notes = ({navigation, toggleLayout}) => {
   const [otherNotes, setOtherNotes] = useState([]);
   const [pinnedNotes, setPinnedNotes] = useState([]);
   const userId = useUid();
@@ -36,15 +36,19 @@ const Notes = ({navigation}) => {
   //console.log('Others Data', otherNotes);
 
   useEffect(() => {
-    getNotes();
+    const unsubscribe = navigation.addListener('focus', () => {
+      getNotes();
+    });
+
+    return unsubscribe;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [navigation]);
 
   const goToEditNotes = ({item}) => {
     navigation.navigate('AddNotes', {
       editdata: item,
       id: item.id,
-      isPinned: item.isPinned,
+      // isPinned: item.isPinned,
     });
   };
 
@@ -76,11 +80,14 @@ const Notes = ({navigation}) => {
 
       <SectionList
         sections={DATA}
+        //numColumns={toggleLayout ? 2 : 1}
+        //key={toggleLayout ? 2 : 1}
         keyExtractor={item => item.id}
         renderItem={({item}) => {
           //console.log('Item', item);
           return (
             <TouchableOpacity
+              style={toggleLayout ? styles.gridLayout : styles.listLayout}
               onPress={() => {
                 goToEditNotes({item});
               }}>
@@ -110,5 +117,13 @@ const styles = StyleSheet.create({
     color: '#4ebef4',
     marginVertical: 7,
     fontWeight: 'bold',
+  },
+
+  listLayout: {
+    width: '100%',
+  },
+
+  gridLayout: {
+    width: '50%',
   },
 });

@@ -1,20 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import SearchBar from '../components/SearchBar';
 import Notes from './Notes';
 import BottomBar from '../components/BottomBar';
 
 const Home = ({navigation}) => {
+  const [toggleLayout, setToggleLayout] = useState(false);
   const goToNotes = () => {
     navigation.navigate('AddNotes');
   };
   return (
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
-        <SearchBar />
+        <SearchBar
+          toggleLayout={toggleLayout}
+          setToggleLayout={setToggleLayout}
+          onPress={() => {
+            setToggleLayout(!toggleLayout);
+          }}
+        />
       </View>
       <View style={styles.notesContainer}>
-        <Notes navigation={navigation}/>
+        <Notes
+          navigation={navigation}
+          toggleLayout={toggleLayout}
+          setToggleLayout={setToggleLayout}
+        />
       </View>
       <View style={styles.bottomBarContainer}>
         <BottomBar
@@ -38,10 +49,10 @@ const styles = StyleSheet.create({
   },
   searchBarContainer: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
     marginTop: 20,
-    alignSelf: 'flex-start',
-    justifyContent: 'flex-start',
+    alignSelf: 'center',
+    //justifyContent: 'flex-start',
   },
   notesContainer: {
     flex: 13,
