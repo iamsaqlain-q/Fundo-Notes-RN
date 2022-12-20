@@ -52,33 +52,89 @@ const Notes = ({navigation, toggleLayout}) => {
     });
   };
 
-  const DATA = [
-    {
-      title: 'Pinned',
-      data: pinnedNotes,
-    },
+  // const DATA = [
+  //   {
+  //     title: 'Pinned',
+  //     data: pinnedNotes,
+  //   },
 
-    {
-      title: 'Others',
-      data: otherNotes,
-    },
-  ];
+  //   {
+  //     title: 'Others',
+  //     data: otherNotes,
+  //   },
+  // ];
+
+  const PinnedNotesFlatList = () => {
+    return (
+      <View>
+        <Text style={styles.listText}>
+          {pinnedNotes.length > 0 ? 'Pinned' : ''}
+        </Text>
+        <FlatList
+          numColumns={toggleLayout ? 2 : 1}
+          key={toggleLayout ? 2 : 1}
+          data={pinnedNotes}
+          keyExtractor={item => item.id}
+          ListFooterComponent={<OtherNotesFlatList />}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              style={toggleLayout ? styles.gridLayout : styles.listLayout}
+              onPress={() => {
+                goToEditNotes({item});
+              }}>
+              <NoteCard {...item} />
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    );
+  };
+
+  const OtherNotesFlatList = () => {
+    return (
+      <View>
+        <Text style={styles.listText}>Others</Text>
+        <FlatList
+          numColumns={toggleLayout ? 2 : 1}
+          key={toggleLayout ? 2 : 1}
+          data={otherNotes}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              style={toggleLayout ? styles.gridLayout : styles.listLayout}
+              onPress={() => {
+                goToEditNotes({item});
+              }}>
+              <NoteCard {...item} />
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    );
+  };
+
   return (
     <View>
-      {/* <FlatList
-        data={pinnedNotes}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            onPress={() => {
-              goToEditNotes({item});
-            }}>
-            <NoteCard {...item} />
-          </TouchableOpacity>
-        )}
-      /> */}
+      <View>
+        <FlatList
+          numColumns={toggleLayout ? 2 : 1}
+          key={toggleLayout ? 2 : 1}
+          //data={pinnedNotes}
+          keyExtractor={item => item.id}
+          ListHeaderComponent={<PinnedNotesFlatList />}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              style={toggleLayout ? styles.gridLayout : styles.listLayout}
+              onPress={() => {
+                goToEditNotes({item});
+              }}>
+              <NoteCard {...item} />
+            </TouchableOpacity>
+          )}
+        />
+      </View>
 
-      <SectionList
+      {/* <SectionList
         sections={DATA}
         //numColumns={toggleLayout ? 2 : 1}
         //key={toggleLayout ? 2 : 1}
@@ -100,7 +156,7 @@ const Notes = ({navigation, toggleLayout}) => {
             <Text style={styles.listText}>{section.title}</Text>
           </View>
         )}
-      />
+      /> */}
 
       {/* {notesObj.map(item => (
           <TouchableOpacity key={item.id} onPress={() => {}}>
@@ -124,6 +180,7 @@ const styles = StyleSheet.create({
   },
 
   gridLayout: {
-    width: '50%',
+    width: '49%',
+    marginRight: '1%',
   },
 });

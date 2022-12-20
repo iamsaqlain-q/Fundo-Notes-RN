@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import SearchBar from '../components/SearchBar';
 import Notes from './Notes';
 import BottomBar from '../components/BottomBar';
