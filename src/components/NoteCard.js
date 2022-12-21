@@ -19,7 +19,7 @@ export default NoteCard;
 const styles = StyleSheet.create({
   cardContainer: {
     width: '100%',
-    height: 60,
+    height: 'auto',
     backgroundColor: '#f2f2f2',
     borderRadius: 10,
     borderWidth: 2,
