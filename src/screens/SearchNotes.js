@@ -39,6 +39,15 @@ const SearchNotes = ({navigation}) => {
     return unsubscribe;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const goToEditNotes = ({item}) => {
+    navigation.navigate('AddNotes', {
+      editdata: item,
+      id: item.id,
+      // isPinned: item.isPinned,
+    });
+  };
+
   return (
     <View style={styles.screenContainer}>
       <View style={styles.searchTopBar}>
@@ -68,7 +77,11 @@ const SearchNotes = ({navigation}) => {
           keyExtractor={item => item.id}
           key={item => item.id}
           renderItem={({item, index}) => (
-            <TouchableOpacity key={index}>
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                goToEditNotes({item});
+              }}>
               <NoteCard {...item} />
             </TouchableOpacity>
           )}
