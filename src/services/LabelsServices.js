@@ -31,3 +31,14 @@ export const fetchLabel = async userId => {
     console.log(e);
   }
 };
+
+export const editLabel = async (labelName, userId, labelId) => {
+  try {
+    await database.doc(userId).collection('LabelData').doc(labelId).update({
+      labelName: labelName,
+    });
+    console.log('Label Updated!');
+  } catch (e) {
+    console.log(e);
+  }
+};

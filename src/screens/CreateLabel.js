@@ -10,7 +10,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useUid} from '../hooks/useUid';
 import {createNewLabel, fetchLabel} from '../services/LabelsServices';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import LabelCard from '../components/LabelCard';
 
 const CreateLabel = ({navigation}) => {
   const [changeIcon, setChangeIcon] = useState(true);
@@ -77,35 +77,28 @@ const CreateLabel = ({navigation}) => {
           <Ionicons
             name={changeIcon ? null : 'checkmark-outline'}
             size={30}
-            style={{marginLeft: 75}}
+            style={{marginLeft: 90}}
           />
         </TouchableOpacity>
       </View>
 
-      {/* <View>
+      <View>
         <FlatList
           data={labelData}
           key={item => item.id}
           keyExtractor={item => item.id}
           renderItem={item => (
-            <TouchableOpacity key={item.id}>
-              <View
-                style={{
-                  // flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  padding: 10,
-                }}>
-                <Icon name="label-outline" size={25} color="#fff" />
-                <Text style={{fontSize: 20, color: '#fff'}}>{item.label}</Text>
-                <Icon name="pencil" size={25} color="#fff" />
-              </View>
-            </TouchableOpacity>
+            <LabelCard
+              {...item}
+              key={item.id}
+              changeIcon={changeIcon}
+              setChangeIcon={setChangeIcon}
+            />
           )}
         />
-      </View> */}
+      </View>
 
-      <View>
+      {/* <View>
         {labelData.map(item => {
           //console.log('Items in array:', item);
           return (
@@ -118,16 +111,23 @@ const CreateLabel = ({navigation}) => {
                   padding: 10,
                 }}>
                 <Icon name="label-outline" size={25} color="#fff" />
-                <Text
-                  style={{fontSize: 20, color: '#fff', marginHorizontal: 100}}>
+                <Text style={{fontSize: 20, color: '#fff', marginLeft: 30}}>
                   {item.label}
                 </Text>
-                <Icon name="pencil" size={25} color="#fff" />
+                <TouchableOpacity
+                  onPress={() => setChangeIcon(!changeIcon)}
+                  style={{marginLeft: 110}}>
+                  <Icon
+                    name={changeIcon ? 'pencil' : 'check'}
+                    size={25}
+                    color="#fff"
+                  />
+                </TouchableOpacity>
               </View>
             </TouchableOpacity>
           );
         })}
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -136,13 +136,13 @@ export default CreateLabel;
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    padding: 15,
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: '#97e5fb',
   },
 
   topContainer: {
+    padding: 15,
     flexDirection: 'row',
     alignItems: 'center',
     alignSelf: 'flex-start',
@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
   },
 
   createLabelContainer: {
+    padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
