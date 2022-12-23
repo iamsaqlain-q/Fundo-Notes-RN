@@ -7,6 +7,7 @@ import {
   TextInput,
 } from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+import LabelModal from '../components/LabelModal';
 import {AuthContext} from '../navigations/AuthProvider';
 import {createNote, editNote} from '../services/NotesServices';
 
@@ -25,6 +26,7 @@ const AddNotes = ({navigation, route}) => {
   const [isInTrash, setIsInTrash] = useState(
     noteData?.editdata?.isInTrash || false,
   );
+  const [showModal, setShowModal] = useState(false);
   const {user} = useContext(AuthContext);
   const handleBackPress = async () => {
     let userId = user.uid;
@@ -135,10 +137,16 @@ const AddNotes = ({navigation, route}) => {
           </TouchableOpacity>
         </View>
         <View style={styles.bottomIcons}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              setShowModal(!showModal);
+            }}>
             <Icons name="dots-vertical" size={25} color="#fff" />
           </TouchableOpacity>
         </View>
+      </View>
+      <View>
+        <LabelModal setShowModal={setShowModal} showModal={showModal}/>
       </View>
     </View>
   );
