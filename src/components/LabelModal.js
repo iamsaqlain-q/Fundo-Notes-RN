@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text, View, StyleSheet, Modal, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const LabelModal = ({showModal, setShowModal}) => {
+const LabelModal = ({navigation, showModal, setShowModal}) => {
   return (
     <View>
       <Modal
@@ -33,9 +33,12 @@ const LabelModal = ({showModal, setShowModal}) => {
             }}>
             <View style={{flexDirection: 'row', marginBottom: 20}}>
               <TouchableOpacity>
-                <Icon name="label-outline" size={23} color="#fff" />
+                <Icons name="label-outline" size={23} color="#fff" />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('Labels');
+                }}>
                 <Text
                   style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
                   Labels
@@ -45,7 +48,7 @@ const LabelModal = ({showModal, setShowModal}) => {
 
             <View style={{flexDirection: 'row', marginBottom: 20}}>
               <TouchableOpacity>
-                <Icon name="share-variant-outline" size={23} color="#fff" />
+                <Icons name="share-variant-outline" size={23} color="#fff" />
               </TouchableOpacity>
               <TouchableOpacity>
                 <Text
@@ -57,7 +60,7 @@ const LabelModal = ({showModal, setShowModal}) => {
 
             <View style={{flexDirection: 'row', marginBottom: 20}}>
               <TouchableOpacity>
-                <Icon name="message-alert-outline" size={23} color="#fff" />
+                <Icons name="message-alert-outline" size={23} color="#fff" />
               </TouchableOpacity>
               <TouchableOpacity>
                 <Text

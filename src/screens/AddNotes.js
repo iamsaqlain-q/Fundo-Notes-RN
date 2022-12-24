@@ -11,7 +11,26 @@ import LabelModal from '../components/LabelModal';
 import {AuthContext} from '../navigations/AuthProvider';
 import {createNote, editNote} from '../services/NotesServices';
 
+const Chip = ({children}) => (
+  <Text
+    style={{
+      flexDirection: 'row',
+      backgroundColor: 'grey',
+      borderRadius: 15,
+      fontSize: 15,
+      padding: 10,
+      margin: 10,
+    }}>
+    {children}
+  </Text>
+);
+
 const AddNotes = ({navigation, route}) => {
+  const labelsData = (route.params?.data || []).reduce((prev, curr) => {
+    prev?.push(curr.split('|'));
+    return prev;
+  }, []);
+  //console.log(labelsData);
   const noteData = route.params;
   const [title, setTitle] = useState(noteData?.editdata?.title || '');
   const [description, setDescription] = useState(
@@ -124,6 +143,11 @@ const AddNotes = ({navigation, route}) => {
             onChangeText={input => setDescription(input)}
           />
         </View>
+        <View>
+          {labelsData.map(label => (
+            <Chip key={label[0]}>{label[1]}</Chip>
+          ))}
+        </View>
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.bottomIcons}>
@@ -146,7 +170,11 @@ const AddNotes = ({navigation, route}) => {
         </View>
       </View>
       <View>
-        <LabelModal setShowModal={setShowModal} showModal={showModal}/>
+        <LabelModal
+          setShowModal={setShowModal}
+          showModal={showModal}
+          navigation={navigation}
+        />
       </View>
     </View>
   );

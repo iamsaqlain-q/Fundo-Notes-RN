@@ -4,6 +4,7 @@ import {Keyboard} from 'react-native';
 import {Text, View, StyleSheet} from 'react-native';
 import {
   FlatList,
+  ScrollView,
   TextInput,
   TouchableOpacity,
 } from 'react-native-gesture-handler';
@@ -29,12 +30,13 @@ const CreateLabel = ({navigation}) => {
     });
     return unsubscribe;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigation, getLabels()]);
+  }, [navigation]);
 
   const handleDoneLabel = async () => {
     setChangeIcon(!changeIcon);
     if (label !== '') {
       await createNewLabel(label, userId);
+      await getLabels();
       setLabel('');
       Keyboard.dismiss();
     }
@@ -70,10 +72,7 @@ const CreateLabel = ({navigation}) => {
           style={styles.labelInput}
         />
 
-        <TouchableOpacity
-          onPress={() => {
-            handleDoneLabel();
-          }}>
+        <TouchableOpacity onPress={handleDoneLabel}>
           <Ionicons
             name={changeIcon ? null : 'checkmark-outline'}
             size={30}
@@ -81,23 +80,18 @@ const CreateLabel = ({navigation}) => {
           />
         </TouchableOpacity>
       </View>
-
       <View>
-        <FlatList
-          data={labelData}
-          key={item => item.id}
-          keyExtractor={item => item.id}
-          renderItem={item => (
-            <LabelCard
-              {...item}
-              key={item.id}
-              changeIcon={changeIcon}
-              setChangeIcon={setChangeIcon}
-            />
-          )}
-        />
+        <ScrollView>
+          <FlatList
+            data={labelData}
+            key={item => item.id}
+            keyExtractor={item => item.id}
+            renderItem={item => (
+              <LabelCard label={label} getLabels={getLabels} {...item} />
+            )}
+          />
+        </ScrollView>
       </View>
-
       {/* <View>
         {labelData.map(item => {
           //console.log('Items in array:', item);
