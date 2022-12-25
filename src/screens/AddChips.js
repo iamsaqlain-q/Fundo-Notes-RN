@@ -1,0 +1,120 @@
+import React, {useEffect, useState} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
+import {TextInput} from 'react-native-gesture-handler';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useUid} from '../hooks/useUid';
+import {fetchLabel} from '../services/LabelsServices';
+
+const LabelCheck = ({data, onCheck, selectedLabels}) => {
+  //console.log('Data', data.label);
+  const labelStr = data.id + '|' + data.label;
+  return (
+    <View style={styles.labelCheckContainer}>
+      <Icons name="label-outline" size={25} color="#fff" />
+      <Text style={styles.labelNames}>{data.label}</Text>
+      <View style={styles.checkBoxStyle}>
+        <CheckBox
+          value={selectedLabels.includes(labelStr) ? true : false}
+          onValueChange={() => onCheck(labelStr)}
+        />
+      </View>
+    </View>
+  );
+};
+
+const AddChips = ({navigation}) => {
+  const [selectedLabels, setSelectedLabels] = useState([]);
+  const [labelData, setLabelData] = useState([]);
+  const userId = useUid();
+
+  const getLabels = async () => {
+    let data = await fetchLabel(userId);
+    setLabelData(data);
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      getLabels();
+    });
+    return unsubscribe;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigation]);
+
+  const onCheck = item => {
+    const index = selectedLabels.indexOf(item);
+    if (index === -1) {
+      setSelectedLabels(prev => [...prev, item]);
+    } else {
+      const selected = [...selectedLabels];
+      selected.splice(index, 1);
+      setSelectedLabels(selected);
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.seachLabelBar}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('AddNotes', {data: selectedLabels});
+          }}>
+          <Icons name="arrow-left" size={25} color="#fff" />
+        </TouchableOpacity>
+        <TextInput
+          placeholder="Enter label name"
+          placeholderTextColor="#f2f2f2"
+          style={styles.searchInput}
+        />
+      </View>
+      <View style={{marginTop: 20}}>
+        {labelData.map(itm => (
+          <LabelCheck
+            key={itm.id}
+            data={itm}
+            onCheck={onCheck}
+            selectedLabels={selectedLabels}
+          />
+        ))}
+      </View>
+    </View>
+  );
+};
+
+export default AddChips;
+
+const styles = StyleSheet.create({
+  labelCheckContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingHorizontal: 15,
+  },
+
+  labelNames: {
+    fontSize: 20,
+    color: '#fff',
+    marginVertical: 10,
+    marginLeft: 25,
+  },
+  checkBoxStyle: {
+    marginLeft: 150,
+    alignItems: 'center',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#97e5fb',
+    padding: 15,
+  },
+  seachLabelBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  searchInput: {
+    fontSize: 17,
+    color: '#fff',
+    width: '80%',
+    height: 50,
+    marginLeft: 10,
+  },
+});

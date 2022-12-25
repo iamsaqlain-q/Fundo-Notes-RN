@@ -12,17 +12,7 @@ import {AuthContext} from '../navigations/AuthProvider';
 import {createNote, editNote} from '../services/NotesServices';
 
 const Chip = ({children}) => (
-  <Text
-    style={{
-      flexDirection: 'row',
-      backgroundColor: 'grey',
-      borderRadius: 15,
-      fontSize: 15,
-      padding: 10,
-      margin: 10,
-    }}>
-    {children}
-  </Text>
+  <Text style={styles.chipTextStyle}>{children}</Text>
 );
 
 const AddNotes = ({navigation, route}) => {
@@ -143,7 +133,7 @@ const AddNotes = ({navigation, route}) => {
             onChangeText={input => setDescription(input)}
           />
         </View>
-        <View>
+        <View style={styles.chipStyle}>
           {labelsData.map(label => (
             <Chip key={label[0]}>{label[1]}</Chip>
           ))}
@@ -223,5 +213,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 12,
+  },
+
+  chipTextStyle: {
+    borderRadius: 15,
+    color: '#4ebef4',
+    backgroundColor: '#fff',
+    fontSize: 13,
+    padding: 10,
+    margin: 10,
+  },
+
+  chipStyle: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
 });
