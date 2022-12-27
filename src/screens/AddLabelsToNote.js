@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {TextInput} from 'react-native-gesture-handler';
@@ -6,31 +6,37 @@ import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useUid} from '../hooks/useUid';
 import {fetchLabel} from '../services/LabelsServices';
 
-const LabelCheck = ({data, onCheck, selectedLabels}) => {
-  //console.log('Data', data.label);
-  const labelStr = data.id + '|' + data.label;
+const LabelCheck = ({data, onCheck, isCheck}) => {
+  //console.log('Data', selectedLabels);
+  //console.log('Render LabelCheck', data.label);
+ // const labelStr = data.id + '|' + data.label;
   return (
     <View style={styles.labelCheckContainer}>
       <Icons name="label-outline" size={25} color="#fff" />
       <Text style={styles.labelNames}>{data.label}</Text>
       <View style={styles.checkBoxStyle}>
         <CheckBox
-          value={selectedLabels.includes(labelStr) ? true : false}
-          onValueChange={() => onCheck(labelStr)}
+          value={isCheck(data)}
+          onValueChange={() => onCheck(data)}
         />
       </View>
     </View>
   );
 };
 
-const AddChips = ({navigation}) => {
+const LabelCheckWithMemo = React.memo(LabelCheck);
+
+const AddLabelsToNote = ({navigation, route}) => {
   const [selectedLabels, setSelectedLabels] = useState([]);
   const [labelData, setLabelData] = useState([]);
+  const noteId = route.params?.noteId;
+  console.log('ID', noteId);
   const userId = useUid();
 
   const getLabels = async () => {
     let data = await fetchLabel(userId);
     setLabelData(data);
+    //console.log('LabelData', labelData);
   };
 
   useEffect(() => {
@@ -41,23 +47,38 @@ const AddChips = ({navigation}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation]);
 
-  const onCheck = item => {
-    const index = selectedLabels.indexOf(item);
-    if (index === -1) {
-      setSelectedLabels(prev => [...prev, item]);
-    } else {
-      const selected = [...selectedLabels];
-      selected.splice(index, 1);
-      setSelectedLabels(selected);
-    }
-  };
+  const onCheck = useCallback(
+    item => {
+      const index = selectedLabels.indexOf(item);
+      if (index === -1) {
+        setSelectedLabels(prev => [...prev, item]);
+      } else {
+        const selected = [...selectedLabels];
+        selected.splice(index, 1);
+        setSelectedLabels(selected);
+      }
+    },
+    [selectedLabels],
+  );
 
+  const isCheck = useCallback(
+    dataStr => {
+      return selectedLabels.includes(dataStr);
+    },
+    [selectedLabels],
+  );
+  //console.log('Selected', labelData);
+  //console.log('Render addLabels');
   return (
     <View style={styles.container}>
       <View style={styles.seachLabelBar}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('AddNotes', {data: selectedLabels});
+            navigation.navigate('AddNotes', {
+             // data: selectedLabels,
+              labelData: selectedLabels,
+              noteId: noteId,
+            });
           }}>
           <Icons name="arrow-left" size={25} color="#fff" />
         </TouchableOpacity>
@@ -69,11 +90,12 @@ const AddChips = ({navigation}) => {
       </View>
       <View style={{marginTop: 20}}>
         {labelData.map(itm => (
-          <LabelCheck
+          <LabelCheckWithMemo
             key={itm.id}
             data={itm}
+            isCheck={isCheck}
             onCheck={onCheck}
-            selectedLabels={selectedLabels}
+            // selectedLabels={selectedLabels}
           />
         ))}
       </View>
@@ -81,7 +103,7 @@ const AddChips = ({navigation}) => {
   );
 };
 
-export default AddChips;
+export default AddLabelsToNote;
 
 const styles = StyleSheet.create({
   labelCheckContainer: {

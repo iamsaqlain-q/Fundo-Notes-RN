@@ -9,6 +9,7 @@ export const createNote = async (
   isPinned,
   isInArchive,
   isInTrash,
+  labelData,
 ) => {
   try {
     await database.doc(userId).collection('NoteData').add({
@@ -17,6 +18,7 @@ export const createNote = async (
       isPinned: isPinned,
       isInArchive: isInArchive,
       isInTrash: isInTrash,
+      labelData: labelData,
     });
     console.log('Note Created!');
   } catch (e) {
@@ -60,6 +62,7 @@ export const editNote = async (
   isPinned,
   isInArchive,
   isInTrash,
+  labelData,
 ) => {
   try {
     await database.doc(userId).collection('NoteData').doc(noteId).update({
@@ -67,7 +70,8 @@ export const editNote = async (
       description: description,
       isPinned: isPinned,
       isInArchive: isInArchive,
-      isInTrash,
+      isInTrash: isInTrash,
+      labelData: labelData,
     });
     console.log('Note Updated!');
   } catch (e) {

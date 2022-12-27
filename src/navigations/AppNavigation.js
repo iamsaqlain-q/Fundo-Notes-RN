@@ -4,7 +4,7 @@ import DrawerNavigation from './DrawerNavigation';
 import {createStackNavigator} from '@react-navigation/stack';
 import AddNotes from '../screens/AddNotes';
 import SearchNotes from '../screens/SearchNotes';
-import AddChips from '../screens/AddChips';
+import AddLabelsToNote from '../screens/AddLabelsToNote';
 
 const Stack = createStackNavigator();
 
@@ -27,8 +27,8 @@ const AppNavigation = () => {
         options={{header: () => null}}
       />
       <Stack.Screen
-        name="Labels"
-        component={AddChips}
+        name="AddLabelsToNote"
+        component={AddLabelsToNote}
         options={{header: () => null}}
       />
     </Stack.Navigator>

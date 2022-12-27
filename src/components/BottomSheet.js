@@ -2,7 +2,13 @@ import React from 'react';
 import {Text, View, StyleSheet, Modal, TouchableOpacity} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const LabelModal = ({navigation, showModal, setShowModal}) => {
+const BottomSheet = ({
+  navigation,
+  showModal,
+  setShowModal,
+  noteId,
+  selectedLabels,
+}) => {
   return (
     <View>
       <Modal
@@ -12,32 +18,18 @@ const LabelModal = ({navigation, showModal, setShowModal}) => {
         onRequestClose={() => {
           setShowModal(false);
         }}>
-        <View
-          style={{
-            flex: 1,
-            marginTop: 500,
-            alignSelf: 'flex-start',
-            width: '100%',
-            //height: 'auto',
-            backgroundColor: '#00000099',
-            borderWidth: 0.5,
-            borderColor: '#4ebef4',
-          }}>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: '#97e5fb',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              padding: 20,
-            }}>
-            <View style={{flexDirection: 'row', marginBottom: 20}}>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalItems}>
+            <View style={styles.bottomMargin}>
               <TouchableOpacity>
                 <Icons name="label-outline" size={23} color="#fff" />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('Labels');
+                  navigation.navigate('AddLabelsToNote', {
+                    data: selectedLabels,
+                    noteId: noteId,
+                  });
                 }}>
                 <Text
                   style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
@@ -46,7 +38,7 @@ const LabelModal = ({navigation, showModal, setShowModal}) => {
               </TouchableOpacity>
             </View>
 
-            <View style={{flexDirection: 'row', marginBottom: 20}}>
+            <View style={styles.bottomMargin}>
               <TouchableOpacity>
                 <Icons name="share-variant-outline" size={23} color="#fff" />
               </TouchableOpacity>
@@ -58,7 +50,7 @@ const LabelModal = ({navigation, showModal, setShowModal}) => {
               </TouchableOpacity>
             </View>
 
-            <View style={{flexDirection: 'row', marginBottom: 20}}>
+            <View style={styles.bottomMargin}>
               <TouchableOpacity>
                 <Icons name="message-alert-outline" size={23} color="#fff" />
               </TouchableOpacity>
@@ -76,4 +68,30 @@ const LabelModal = ({navigation, showModal, setShowModal}) => {
   );
 };
 
-export default LabelModal;
+export default BottomSheet;
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    marginTop: 500,
+    alignSelf: 'flex-start',
+    width: '100%',
+    //height: 'auto',
+    backgroundColor: '#00000099',
+    borderWidth: 0.5,
+    borderColor: '#4ebef4',
+  },
+
+  modalItems: {
+    flex: 1,
+    backgroundColor: '#97e5fb',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    padding: 20,
+  },
+
+  bottomMargin: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+});

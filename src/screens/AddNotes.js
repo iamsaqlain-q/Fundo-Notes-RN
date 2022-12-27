@@ -7,7 +7,7 @@ import {
   TextInput,
 } from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-import LabelModal from '../components/LabelModal';
+import BottomSheet from '../components/BottomSheet';
 import {AuthContext} from '../navigations/AuthProvider';
 import {createNote, editNote} from '../services/NotesServices';
 
@@ -16,12 +16,16 @@ const Chip = ({children}) => (
 );
 
 const AddNotes = ({navigation, route}) => {
-  const labelsData = (route.params?.data || []).reduce((prev, curr) => {
-    prev?.push(curr.split('|'));
-    return prev;
-  }, []);
-  //console.log(labelsData);
   const noteData = route.params;
+  const noteId = noteData?.noteId;
+  console.log('noteId', noteId);
+  //const labelData = noteData?.labelData;
+  //console.log('LabelData', labelData);
+  //console.log('nid', noteId);
+  let labelData = route.params?.labelData || [];
+  //const obj = Object.assign({}, labelData);
+  console.log(labelData);
+  //console.log('Rout Data', noteData?.labelData);
   const [title, setTitle] = useState(noteData?.editdata?.title || '');
   const [description, setDescription] = useState(
     noteData?.editdata?.description || '',
@@ -37,9 +41,9 @@ const AddNotes = ({navigation, route}) => {
   );
   const [showModal, setShowModal] = useState(false);
   const {user} = useContext(AuthContext);
+
   const handleBackPress = async () => {
     let userId = user.uid;
-    let noteId = route.params?.id;
     if (noteId) {
       await editNote(
         title,
@@ -49,6 +53,7 @@ const AddNotes = ({navigation, route}) => {
         isPinned,
         isInArchive,
         isInTrash,
+        labelData,
       );
     } else {
       await createNote(
@@ -58,6 +63,7 @@ const AddNotes = ({navigation, route}) => {
         isPinned,
         isInArchive,
         isInTrash,
+        labelData,
       );
     }
     navigation.navigate('Home');
@@ -68,7 +74,9 @@ const AddNotes = ({navigation, route}) => {
       <View style={styles.topRowItems}>
         <View style={styles.leftArrrow}>
           <TouchableOpacity
-            onPress={() => handleBackPress(isPinned, isInArchive, isInTrash)}>
+            onPress={() => {
+              handleBackPress();
+            }}>
             <Icons name="arrow-left" size={25} color="#fff" />
           </TouchableOpacity>
         </View>
@@ -134,8 +142,8 @@ const AddNotes = ({navigation, route}) => {
           />
         </View>
         <View style={styles.chipStyle}>
-          {labelsData.map(label => (
-            <Chip key={label[0]}>{label[1]}</Chip>
+          {labelData.map(label => (
+            <Chip key={label.id}>{label.label}</Chip>
           ))}
         </View>
       </View>
@@ -160,10 +168,11 @@ const AddNotes = ({navigation, route}) => {
         </View>
       </View>
       <View>
-        <LabelModal
+        <BottomSheet
           setShowModal={setShowModal}
           showModal={showModal}
           navigation={navigation}
+          noteId={noteId}
         />
       </View>
     </View>

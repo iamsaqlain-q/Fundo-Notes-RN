@@ -45,10 +45,13 @@ const Notes = ({navigation, toggleLayout}) => {
   }, [navigation]);
 
   const goToEditNotes = ({item}) => {
+    //console.log('LabelData', item.labelData);
     navigation.navigate('AddNotes', {
       editdata: item,
-      id: item.id,
-      // isPinned: item.isPinned,
+      noteId: item.id,
+      labelData: item.labelData,
+      //data: item.data,
+      //isPinned: item.isPinned,
     });
   };
 

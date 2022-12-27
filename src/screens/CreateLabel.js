@@ -4,7 +4,6 @@ import {Keyboard} from 'react-native';
 import {Text, View, StyleSheet} from 'react-native';
 import {
   FlatList,
-  ScrollView,
   TextInput,
   TouchableOpacity,
 } from 'react-native-gesture-handler';
@@ -12,17 +11,18 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useUid} from '../hooks/useUid';
 import {createNewLabel, fetchLabel} from '../services/LabelsServices';
 import LabelCard from '../components/LabelCard';
+import {useSelector, useDispatch} from 'react-redux';
+import {labelList} from '../redux/actions';
+import {useCallback} from 'react';
 
 const CreateLabel = ({navigation}) => {
   const [changeIcon, setChangeIcon] = useState(true);
   const [label, setLabel] = useState([]);
   const [labelData, setLabelData] = useState([]);
   const userId = useUid();
-
-  const getLabels = async () => {
-    let data = await fetchLabel(userId);
-    setLabelData(data);
-  };
+  const labelList = useSelector(state => state.labelList);
+  const dispatch = useDispatch();
+  //console.log('labelList', labelList);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -31,6 +31,13 @@ const CreateLabel = ({navigation}) => {
     return unsubscribe;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation]);
+
+  const getLabels = useCallback(async () => {
+    let data = await fetchLabel(userId);
+    //dispatch(labelList(data));
+    setLabelData(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleDoneLabel = async () => {
     setChangeIcon(!changeIcon);
@@ -81,16 +88,14 @@ const CreateLabel = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <View>
-        <ScrollView>
-          <FlatList
-            data={labelData}
-            key={item => item.id}
-            keyExtractor={item => item.id}
-            renderItem={item => (
-              <LabelCard label={label} getLabels={getLabels} {...item} />
-            )}
-          />
-        </ScrollView>
+        <FlatList
+          data={labelData}
+          key={item => item.id}
+          keyExtractor={item => item.id}
+          renderItem={item => (
+            <LabelCard label={label} getLabels={getLabels} {...item} />
+          )}
+        />
       </View>
       {/* <View>
         {labelData.map(item => {

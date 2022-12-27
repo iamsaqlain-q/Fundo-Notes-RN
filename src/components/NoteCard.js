@@ -1,8 +1,10 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
+import {Chip} from 'react-native-paper';
 
 const NoteCard = props => {
-  // console.log('NoteCard');
+  const labelsData = props.labelData || [];
+ // console.log('LabelsData', labelsData);
   return (
     <View style={styles.cardContainer}>
       <View>
@@ -10,6 +12,11 @@ const NoteCard = props => {
       </View>
       <View>
         <Text style={styles.descriptionStyle}>{props.description}</Text>
+      </View>
+      <View style={{margin: 5, flexDirection: 'row'}}>
+        {labelsData.map((label, index) => (
+          <Chip key={label.id}>{label.label}</Chip>
+        ))}
       </View>
     </View>
   );
