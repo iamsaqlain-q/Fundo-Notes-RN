@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {useEffect} from 'react';
 import {Keyboard} from 'react-native';
 import {Text, View, StyleSheet} from 'react-native';
 import {
@@ -18,24 +17,24 @@ import {useCallback} from 'react';
 const CreateLabel = ({navigation}) => {
   const [changeIcon, setChangeIcon] = useState(true);
   const [label, setLabel] = useState([]);
-  const [labelData, setLabelData] = useState([]);
+  //const [labelData, setLabelData] = useState([]);
   const userId = useUid();
-  const labelList = useSelector(state => state.labelList);
+  const labels_list = useSelector(state => state.labels_list);
   const dispatch = useDispatch();
   //console.log('labelList', labelList);
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      getLabels();
-    });
-    return unsubscribe;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigation]);
+  // useEffect(() => {
+  //   const unsubscribe = navigation.addListener('focus', () => {
+  //     getLabels();
+  //   });
+  //   return unsubscribe;
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [navigation]);
 
   const getLabels = useCallback(async () => {
     let data = await fetchLabel(userId);
-    //dispatch(labelList(data));
-    setLabelData(data);
+    dispatch(labelList(data));
+    //setLabelData(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -89,7 +88,7 @@ const CreateLabel = ({navigation}) => {
       </View>
       <View>
         <FlatList
-          data={labelData}
+          data={labels_list}
           key={item => item.id}
           keyExtractor={item => item.id}
           renderItem={item => (

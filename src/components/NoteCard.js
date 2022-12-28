@@ -4,7 +4,7 @@ import {Chip} from 'react-native-paper';
 
 const NoteCard = props => {
   const labelsData = props.labelData || [];
- // console.log('LabelsData', labelsData);
+  // console.log('LabelsData', labelsData);
   return (
     <View style={styles.cardContainer}>
       <View>
@@ -13,9 +13,11 @@ const NoteCard = props => {
       <View>
         <Text style={styles.descriptionStyle}>{props.description}</Text>
       </View>
-      <View style={{margin: 5, flexDirection: 'row'}}>
+      <View style={styles.chipContainer}>
         {labelsData.map((label, index) => (
-          <Chip key={label.id}>{label.label}</Chip>
+          <Chip key={label.id} style={{margin: 3}}>
+            {label.label}
+          </Chip>
         ))}
       </View>
     </View>
@@ -42,5 +44,10 @@ const styles = StyleSheet.create({
   descriptionStyle: {
     fontSize: 15,
     color: '#4ebef4',
+  },
+  chipContainer: {
+    margin: 5,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
 });

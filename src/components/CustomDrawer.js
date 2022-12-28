@@ -62,6 +62,10 @@ const CustomDrawer = props => {
           />
 
           <View style={styles.labelsContainer}>
+            <View style={styles.labelsTopText}>
+              <Text>Labels</Text>
+              <Text>Edit</Text>
+            </View>
             {labels_list?.map(item => {
               return (
                 <TouchableOpacity
@@ -77,17 +81,21 @@ const CustomDrawer = props => {
               );
             })}
           </View>
-
-          <DrawerItem
-            icon={({color}) => (
-              <Ionicons name="add-outline" size={23} style={{color: '#fff'}} />
-            )}
-            label={() => (
-              <Text style={styles.screenText}>Create new label</Text>
-            )}
-            onPress={() => navigation.navigate('Create new label')}
-          />
-
+          <View style={styles.borderBottom}>
+            <DrawerItem
+              icon={({color}) => (
+                <Ionicons
+                  name="add-outline"
+                  size={23}
+                  style={{color: '#fff'}}
+                />
+              )}
+              label={() => (
+                <Text style={styles.screenText}>Create new label</Text>
+              )}
+              onPress={() => navigation.navigate('Create new label')}
+            />
+          </View>
           <DrawerItem
             icon={({color}) => (
               <Ionicons
@@ -155,6 +163,15 @@ const styles = StyleSheet.create({
   labelsContainer: {
     paddingLeft: 10,
     borderTopWidth: 1,
+    //borderBottomWidth: 1,
+    borderColor: '#fff',
+  },
+  labelsTopText: {
+    padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  borderBottom: {
     borderBottomWidth: 1,
     borderColor: '#fff',
   },

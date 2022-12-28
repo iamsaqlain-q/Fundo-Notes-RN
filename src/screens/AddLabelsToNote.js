@@ -1,24 +1,23 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
-import {TextInput} from 'react-native-gesture-handler';
+import {FlatList, ScrollView, TextInput} from 'react-native-gesture-handler';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useUid} from '../hooks/useUid';
 import {fetchLabel} from '../services/LabelsServices';
+import {labelList} from '../redux/actions';
+import {useDispatch, useSelector} from 'react-redux';
 
 const LabelCheck = ({data, onCheck, isCheck}) => {
   //console.log('Data', selectedLabels);
   //console.log('Render LabelCheck', data.label);
- // const labelStr = data.id + '|' + data.label;
+  // const labelStr = data.id + '|' + data.label;
   return (
     <View style={styles.labelCheckContainer}>
       <Icons name="label-outline" size={25} color="#fff" />
       <Text style={styles.labelNames}>{data.label}</Text>
       <View style={styles.checkBoxStyle}>
-        <CheckBox
-          value={isCheck(data)}
-          onValueChange={() => onCheck(data)}
-        />
+        <CheckBox value={isCheck(data)} onValueChange={() => onCheck(data)} />
       </View>
     </View>
   );
@@ -28,14 +27,17 @@ const LabelCheckWithMemo = React.memo(LabelCheck);
 
 const AddLabelsToNote = ({navigation, route}) => {
   const [selectedLabels, setSelectedLabels] = useState([]);
-  const [labelData, setLabelData] = useState([]);
+  //const [labelData, setLabelData] = useState([]);
+  const labels_list = useSelector(state => state.labels_list);
+  const dispatch = useDispatch();
   const noteId = route.params?.noteId;
-  console.log('ID', noteId);
+  //console.log('ID', noteId);
   const userId = useUid();
 
   const getLabels = async () => {
     let data = await fetchLabel(userId);
-    setLabelData(data);
+    dispatch(labelList(data));
+    //setLabelData(data);
     //console.log('LabelData', labelData);
   };
 
@@ -75,7 +77,7 @@ const AddLabelsToNote = ({navigation, route}) => {
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('AddNotes', {
-             // data: selectedLabels,
+              // data: selectedLabels,
               labelData: selectedLabels,
               noteId: noteId,
             });
@@ -88,17 +90,19 @@ const AddLabelsToNote = ({navigation, route}) => {
           style={styles.searchInput}
         />
       </View>
-      <View style={{marginTop: 20}}>
-        {labelData.map(itm => (
-          <LabelCheckWithMemo
-            key={itm.id}
-            data={itm}
-            isCheck={isCheck}
-            onCheck={onCheck}
-            // selectedLabels={selectedLabels}
-          />
-        ))}
-      </View>
+      <ScrollView>
+        <View style={{marginTop: 20}}>
+          {labels_list.map(itm => (
+            <LabelCheckWithMemo
+              key={itm.id}
+              data={itm}
+              isCheck={isCheck}
+              onCheck={onCheck}
+              // selectedLabels={selectedLabels}
+            />
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 };

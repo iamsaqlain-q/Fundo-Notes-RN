@@ -18,13 +18,13 @@ const Chip = ({children}) => (
 const AddNotes = ({navigation, route}) => {
   const noteData = route.params;
   const noteId = noteData?.noteId;
-  console.log('noteId', noteId);
+ // console.log('noteId', noteId);
   //const labelData = noteData?.labelData;
   //console.log('LabelData', labelData);
   //console.log('nid', noteId);
   let labelData = route.params?.labelData || [];
   //const obj = Object.assign({}, labelData);
-  console.log(labelData);
+  //console.log(labelData);
   //console.log('Rout Data', noteData?.labelData);
   const [title, setTitle] = useState(noteData?.editdata?.title || '');
   const [description, setDescription] = useState(
