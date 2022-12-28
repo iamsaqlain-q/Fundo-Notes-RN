@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
 
-const ArchiveTopBar = ({changeLayout, setChangeLayout}) => {
+const DrawerLabelsTop = () => {
+  const [changeLayout, setChangeLayout] = useState(false);
   const navigation = useNavigation();
   return (
     <View style={styles.topContainer}>
@@ -22,7 +24,7 @@ const ArchiveTopBar = ({changeLayout, setChangeLayout}) => {
             color: '#fff',
             fontSize: 20,
           }}>
-          Archive
+          Drawer Labels
         </Text>
       </View>
       <View>
@@ -35,21 +37,26 @@ const ArchiveTopBar = ({changeLayout, setChangeLayout}) => {
           onPress={() => {
             setChangeLayout(!changeLayout);
           }}>
-          <Ionicons
-            name={changeLayout ? 'grid-outline' : 'list-outline'}
-            size={20}
+          <Icon
+            name={changeLayout ? 'view-agenda-outline' : 'view-grid-outline'}
+            size={25}
             style={{color: '#fff'}}
           />
+        </TouchableOpacity>
+      </View>
+      <View>
+        <TouchableOpacity>
+          <Icon name="dots-vertical" size={25} color="#fff" />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
-export default ArchiveTopBar;
+export default DrawerLabelsTop;
 
 const styles = StyleSheet.create({
   topContainer: {
-    flex: 1,
+    height: 50,
     backgroundColor: '#97e5fb',
     justifyContent: 'space-between',
     flexDirection: 'row',

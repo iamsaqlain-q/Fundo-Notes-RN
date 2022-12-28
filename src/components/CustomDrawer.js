@@ -69,6 +69,7 @@ const CustomDrawer = props => {
             {labels_list?.map(item => {
               return (
                 <TouchableOpacity
+                  onPress={() => navigation.navigate('DrawerLabels')}
                   style={{flexDirection: 'row', padding: 10}}
                   key={item.id}>
                   <View>

@@ -14,7 +14,9 @@ import {useSelector, useDispatch} from 'react-redux';
 import {labelList} from '../redux/actions';
 import {useCallback} from 'react';
 
-const CreateLabel = ({navigation}) => {
+const CreateLabel = ({navigation, route}) => {
+  const noteId = route.params?.id;
+  //console.log('nid', noteId);
   const [changeIcon, setChangeIcon] = useState(true);
   const [label, setLabel] = useState([]);
   //const [labelData, setLabelData] = useState([]);

@@ -8,6 +8,7 @@ import Trash from '../screens/Trash';
 import Settings from '../screens/Settings';
 import Home from '../screens/Home';
 import CreateLabel from '../screens/CreateLabel';
+import DrawerLabels from '../screens/DrawerLabels';
 
 const Drawer = createDrawerNavigator();
 
@@ -48,12 +49,23 @@ const DrawerNavigation = () => {
           ),
         }}
       />
+
+      <Drawer.Screen
+        name="DrawerLabels"
+        component={DrawerLabels}
+        options={{header: () => null}}
+      />
+
       <Drawer.Screen
         name="Create new label"
         component={CreateLabel}
         options={{
           drawerIcon: () => (
-            <Ionicons name="add-outline" size={25} style={{color: '#fff', marginRight: -5}} />
+            <Ionicons
+              name="add-outline"
+              size={25}
+              style={{color: '#fff', marginRight: -5}}
+            />
           ),
         }}
       />
