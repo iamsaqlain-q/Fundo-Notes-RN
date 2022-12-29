@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
 
-const DrawerLabelsTop = () => {
+const DrawerLabelsTop = ({label}) => {
   const [changeLayout, setChangeLayout] = useState(false);
   const navigation = useNavigation();
   return (
@@ -24,7 +24,7 @@ const DrawerLabelsTop = () => {
             color: '#fff',
             fontSize: 20,
           }}>
-          Drawer Labels
+        {label}
         </Text>
       </View>
       <View>

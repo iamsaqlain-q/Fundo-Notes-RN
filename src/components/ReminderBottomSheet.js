@@ -2,62 +2,54 @@ import React from 'react';
 import {Text, View, StyleSheet, Modal, TouchableOpacity} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const BottomSheet = ({
+const ReminderBottomSheet = ({
   navigation,
-  showModal,
-  setShowModal,
-  noteId,
-  selectedLabels,
+  showReminderSheet,
+  setShowReminderSheet,
 }) => {
   return (
     <View>
       <Modal
-        visible={showModal}
+        visible={showReminderSheet}
         transparent
         animationType="slide"
         onRequestClose={() => {
-          setShowModal(false);
+          setShowReminderSheet(false);
         }}>
         <View style={styles.modalContainer}>
           <View style={styles.modalItems}>
             <View style={styles.bottomMargin}>
               <TouchableOpacity>
-                <Icons name="label-outline" size={23} color="#fff" />
+                <Icons name="clock-outline" size={23} color="#fff" />
               </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('AddLabelsToNote', {
-                    data: selectedLabels,
-                    noteId: noteId,
-                  });
-                }}>
+              <TouchableOpacity onPress={() => {}}>
                 <Text
                   style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
-                  Labels
+                  Pick a date & time
                 </Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.bottomMargin}>
               <TouchableOpacity>
-                <Icons name="share-variant-outline" size={23} color="#fff" />
+                <Icons name="map-marker-outline" size={23} color="#fff" />
               </TouchableOpacity>
               <TouchableOpacity>
                 <Text
                   style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
-                  Send
+                  Pick a place
                 </Text>
               </TouchableOpacity>
             </View>
 
             <View style={styles.bottomMargin}>
               <TouchableOpacity>
-                <Icons name="message-alert-outline" size={23} color="#fff" />
+                <Icons name="home" size={23} color="#fff" />
               </TouchableOpacity>
               <TouchableOpacity>
                 <Text
                   style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
-                  Help & Feedback
+                  Home
                 </Text>
               </TouchableOpacity>
             </View>
@@ -68,7 +60,7 @@ const BottomSheet = ({
   );
 };
 
-export default BottomSheet;
+export default ReminderBottomSheet;
 
 const styles = StyleSheet.create({
   modalContainer: {

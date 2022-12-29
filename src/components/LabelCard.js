@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useUid} from '../hooks/useUid';
 import {editLabel} from '../services/LabelsServices';
 
-const LabelCard = ({item, getLabels, label}) => {
+const LabelCard = ({item, getLabels}) => {
   //console.log('Item in notecard', item.id);
   //console.log('Labels', item.label);
   const userId = useUid();
@@ -17,7 +17,7 @@ const LabelCard = ({item, getLabels, label}) => {
     const labelId = item.id;
     setChangeIcon(!changeIcon);
     if (labelName !== '') {
-      await editLabel(labelName, userId, labelId, label);
+      await editLabel(labelName, userId, labelId);
       await getLabels();
     }
   };

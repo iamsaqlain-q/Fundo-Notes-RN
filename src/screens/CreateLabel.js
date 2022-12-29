@@ -94,7 +94,7 @@ const CreateLabel = ({navigation, route}) => {
           key={item => item.id}
           keyExtractor={item => item.id}
           renderItem={item => (
-            <LabelCard label={label} getLabels={getLabels} {...item} />
+            <LabelCard getLabels={getLabels} {...item} />
           )}
         />
       </View>

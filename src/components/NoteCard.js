@@ -4,7 +4,7 @@ import {Chip} from 'react-native-paper';
 
 const NoteCard = props => {
   const labelsData = props.labelData || [];
-  // console.log('LabelsData', labelsData);
+  //console.log('LabelsData', props.labelData);
   return (
     <View style={styles.cardContainer}>
       <View>

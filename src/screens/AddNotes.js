@@ -1,4 +1,5 @@
 import React, {useState, useContext} from 'react';
+import {useEffect} from 'react';
 import {
   Text,
   View,
@@ -8,7 +9,9 @@ import {
 } from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import BottomSheet from '../components/BottomSheet';
+import ReminderBottomSheet from '../components/ReminderBottomSheet';
 import {AuthContext} from '../navigations/AuthProvider';
+import {addLabelsToNotes} from '../services/LabelsServices';
 import {createNote, editNote} from '../services/NotesServices';
 
 const Chip = ({children}) => (
@@ -19,13 +22,8 @@ const AddNotes = ({navigation, route}) => {
   const noteData = route.params;
   const noteId = noteData?.noteId;
   //console.log('noteId', noteId);
-  //const labelData = noteData?.labelData;
-  //console.log('LabelData', labelData);
-  //console.log('nid', noteId);
   let labelData = route.params?.labelData || [];
   //const obj = Object.assign({}, labelData);
-  //console.log(labelData);
-  //console.log('Rout Data', noteData?.labelData);
   const [title, setTitle] = useState(noteData?.editdata?.title || '');
   const [description, setDescription] = useState(
     noteData?.editdata?.description || '',
@@ -40,10 +38,27 @@ const AddNotes = ({navigation, route}) => {
     noteData?.editdata?.isInTrash || false,
   );
   const [showModal, setShowModal] = useState(false);
+  const [showReminderSheet, setShowReminderSheet] = useState(false);
   const {user} = useContext(AuthContext);
+  const [currentTime, setCurrentTime] = useState('');
 
-  const handleBackPress = async () => {
+  useEffect(() => {
+    var hours = new Date().getHours();
+    var minutes = new Date().getMinutes();
+    setCurrentTime(hours + ' ' + ':' + ' ' + minutes);
+  }, []);
+
+  const handleBackPress = async (changeData = {}) => {
     let userId = user.uid;
+    const data = {
+      title,
+      description,
+      isPinned,
+      isInArchive,
+      isInTrash,
+      labelData,
+      ...changeData,
+    };
     if (noteId) {
       await editNote(
         title,
@@ -66,6 +81,10 @@ const AddNotes = ({navigation, route}) => {
         labelData,
       );
     }
+    labelData.forEach(item => {
+      //console.log('item', item);
+      addLabelsToNotes(userId, noteId, item.id, data);
+    });
     navigation.navigate('Home');
   };
 
@@ -120,6 +139,14 @@ const AddNotes = ({navigation, route}) => {
             />
           </TouchableOpacity>
         </View>
+        <View style={styles.topRightIcons}>
+          <TouchableOpacity
+            onPress={() => {
+              setShowReminderSheet(!showReminderSheet);
+            }}>
+            <Icons name="bell-plus-outline" size={25} color="#fff" />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.inputBox}>
@@ -155,7 +182,9 @@ const AddNotes = ({navigation, route}) => {
         </View>
         <View style={styles.bottomIcons}>
           <TouchableOpacity>
-            <Text>Edited 11:00 PM</Text>
+            <Text style={{fontSize: 15, color: '#fff'}}>
+              Edited {currentTime}
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.bottomIcons}>
@@ -173,6 +202,13 @@ const AddNotes = ({navigation, route}) => {
           showModal={showModal}
           navigation={navigation}
           noteId={noteId}
+        />
+      </View>
+      <View>
+        <ReminderBottomSheet
+          showReminderSheet={showReminderSheet}
+          setShowReminderSheet={setShowReminderSheet}
+          navigation={navigation}
         />
       </View>
     </View>

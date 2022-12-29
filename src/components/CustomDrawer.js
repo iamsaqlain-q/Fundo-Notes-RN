@@ -12,8 +12,8 @@ import {fetchLabel} from '../services/LabelsServices';
 import {useUid} from '../hooks/useUid';
 import {useNavigation} from '@react-navigation/native';
 
-const CustomDrawer = props => {
-  const navigation = useNavigation();
+const CustomDrawer = ({props, navigation}) => {
+  //const navigation = useNavigation();
   //const [labelData, setLabelData] = useState([]);
   const labels_list = useSelector(state => state.labels_list);
   const dispatch = useDispatch();
@@ -66,21 +66,25 @@ const CustomDrawer = props => {
               <Text>Labels</Text>
               <Text>Edit</Text>
             </View>
-            {labels_list?.map(item => {
-              return (
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('DrawerLabels')}
-                  style={{flexDirection: 'row', padding: 10}}
-                  key={item.id}>
-                  <View>
-                    <Icons name="label-outline" size={23} color="#fff" />
-                  </View>
-                  <Text style={{marginLeft: 20, fontSize: 15, color: '#fff'}}>
-                    {item.label}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
+            {labels_list?.map(
+              item => (
+                (
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate('DrawerLabels', {...item})
+                    }
+                    style={{flexDirection: 'row', padding: 10}}
+                    key={item.id}>
+                    <View>
+                      <Icons name="label-outline" size={23} color="#fff" />
+                    </View>
+                    <Text style={{marginLeft: 20, fontSize: 15, color: '#fff'}}>
+                      {item.label}
+                    </Text>
+                  </TouchableOpacity>
+                )
+              ),
+            )}
           </View>
           <View style={styles.borderBottom}>
             <DrawerItem
