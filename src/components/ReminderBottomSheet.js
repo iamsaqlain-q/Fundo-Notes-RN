@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, StyleSheet, Modal, TouchableOpacity} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 const ReminderBottomSheet = ({
   navigation,
   showReminderSheet,
   setShowReminderSheet,
 }) => {
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
+
   return (
     <View>
       <Modal
@@ -20,12 +25,42 @@ const ReminderBottomSheet = ({
           <View style={styles.modalItems}>
             <View style={styles.bottomMargin}>
               <TouchableOpacity>
+                <Icons name="calendar-outline" size={23} color="#fff" />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setShowDatePicker(!showDatePicker);
+                }}>
+                <Text
+                  style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
+                  Pick a date
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.bottomMargin}>
+              <TouchableOpacity>
                 <Icons name="clock-outline" size={23} color="#fff" />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setShowTimePicker(!showTimePicker);
+                }}>
+                <Text
+                  style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
+                  Pick a time
+                </Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.bottomMargin}>
+              <TouchableOpacity>
+                <Ionicons name="alarm-outline" size={23} color="#fff" />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => {}}>
                 <Text
                   style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
-                  Pick a date & time
+                  Later Today
                 </Text>
               </TouchableOpacity>
             </View>
@@ -56,6 +91,29 @@ const ReminderBottomSheet = ({
           </View>
         </View>
       </Modal>
+      <View>
+        {showDatePicker && (
+          <RNDateTimePicker
+            value={new Date()}
+            mode={'date'}
+            is24Hour={true}
+            display={'spinner'}
+            onChange={() => setShowDatePicker(!showDatePicker)}
+          />
+        )}
+      </View>
+
+      <View>
+        {showTimePicker && (
+          <RNDateTimePicker
+            value={new Date()}
+            mode={'time'}
+            is24Hour={true}
+            display={'spinner'}
+            onChange={() => setShowTimePicker(!showTimePicker)}
+          />
+        )}
+      </View>
     </View>
   );
 };

@@ -2,6 +2,20 @@ import firestore from '@react-native-firebase/firestore';
 
 const database = firestore().collection('UserData');
 
+export const deleteAddedLabels = async (userId, labelId, noteId) => {
+  try {
+    await database
+      .doc(userId)
+      .collection('LabelData')
+      .doc(labelId)
+      .collection('NoteId')
+      .doc(noteId)
+      .delete();
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const addLabelsToNotes = async (userId, noteId, labelId, noteData) => {
   try {
     await database
@@ -9,7 +23,8 @@ export const addLabelsToNotes = async (userId, noteId, labelId, noteData) => {
       .collection('LabelData')
       .doc(labelId)
       .collection('NoteId')
-      .add({
+      .doc(noteId)
+      .set({
         noteData: noteData,
       });
   } catch (e) {
@@ -62,6 +77,7 @@ export const fetchLabel = async userId => {
       const data = documentSnapshot.data();
       data.id = documentSnapshot.id;
       labelsArray.push(data);
+      //console.log('doc', documentSnapshot);
       //console.log('LabelsArray', labelsArray);
     });
     return labelsArray;

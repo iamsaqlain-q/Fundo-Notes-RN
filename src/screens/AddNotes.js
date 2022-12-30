@@ -8,10 +8,11 @@ import {
   TextInput,
 } from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useSelector} from 'react-redux';
 import BottomSheet from '../components/BottomSheet';
 import ReminderBottomSheet from '../components/ReminderBottomSheet';
 import {AuthContext} from '../navigations/AuthProvider';
-import {addLabelsToNotes} from '../services/LabelsServices';
+import {addLabelsToNotes, deleteAddedLabels} from '../services/LabelsServices';
 import {createNote, editNote} from '../services/NotesServices';
 
 const Chip = ({children}) => (
@@ -19,6 +20,7 @@ const Chip = ({children}) => (
 );
 
 const AddNotes = ({navigation, route}) => {
+  const labels_list = useSelector(state => state.labels_list);
   const noteData = route.params;
   const noteId = noteData?.noteId;
   //console.log('noteId', noteId);
@@ -83,7 +85,11 @@ const AddNotes = ({navigation, route}) => {
     }
     labelData.forEach(item => {
       //console.log('item', item);
+      const datalist = labels_list.find(itm => item.id === itm.id);
+      console.log('data', datalist);
+      console.log('labelData', labelData);
       addLabelsToNotes(userId, noteId, item.id, data);
+     // deleteAddedLabels()
     });
     navigation.navigate('Home');
   };
