@@ -33,9 +33,7 @@ const CustomDrawer = ({props, navigation}) => {
   };
   //console.log('label List', labels_list);
   return (
-    <DrawerContentScrollView
-      props={props}
-      contentContainerStyle={{backgroundColor: '#97e5fb'}}>
+    <DrawerContentScrollView props={props}>
       <View style={styles.nameContainer}>
         <View style={styles.nameView}>
           <Text style={styles.nameText}>Fun-Do Notes</Text>
@@ -66,25 +64,19 @@ const CustomDrawer = ({props, navigation}) => {
               <Text>Labels</Text>
               <Text>Edit</Text>
             </View>
-            {labels_list?.map(
-              item => (
-                (
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate('DrawerLabels', {...item})
-                    }
-                    style={{flexDirection: 'row', padding: 10}}
-                    key={item.id}>
-                    <View>
-                      <Icons name="label-outline" size={23} color="#fff" />
-                    </View>
-                    <Text style={{marginLeft: 20, fontSize: 15, color: '#fff'}}>
-                      {item.label}
-                    </Text>
-                  </TouchableOpacity>
-                )
-              ),
-            )}
+            {labels_list?.map(item => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate('DrawerLabels', {...item})}
+                style={{flexDirection: 'row', padding: 10}}
+                key={item.id}>
+                <View>
+                  <Icons name="label-outline" size={23} color="#fff" />
+                </View>
+                <Text style={{marginLeft: 20, fontSize: 15, color: '#fff'}}>
+                  {item.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
           </View>
           <View style={styles.borderBottom}>
             <DrawerItem

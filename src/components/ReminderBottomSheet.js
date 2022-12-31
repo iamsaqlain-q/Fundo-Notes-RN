@@ -3,17 +3,58 @@ import {Text, View, StyleSheet, Modal, TouchableOpacity} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import Notifications from '../services/Notifications';
+import moment from 'moment';
 
 const ReminderBottomSheet = ({
   navigation,
   showReminderSheet,
   setShowReminderSheet,
 }) => {
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [showTimePicker, setShowTimePicker] = useState(false);
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+  const [dateText, setDateText] = useState('');
+  const [timeText, setTimeText] = useState('');
+  const [myDate, setMyDate] = useState(new Date());
+  const tomorrowMorning = moment().format();
+
+  const changeSelectedDate = (event, selectedDate) => {
+    const currentDate = selectedDate || myDate;
+    setMyDate(currentDate);
+
+    let fDate =
+      myDate.getDate() +
+      '/' +
+      (myDate.getMonth() + 1) +
+      '/' +
+      myDate.getFullYear();
+    let fTime = myDate.getHours() + ' ' + ':' + ' ' + myDate.getMinutes();
+    console.log('fDate', fDate);
+    console.log('fTime', fTime);
+    setDateText(fDate);
+    setTimeText(fTime);
+    Notifications.schduleNotification(myDate);
+    setShow(false);
+  };
+
+  const showMode = currentMode => {
+    setShow(true);
+    setMode(currentMode);
+  };
 
   return (
     <View>
+      <View>
+        {show && (
+          <RNDateTimePicker
+            value={myDate}
+            mode={mode}
+            is24Hour={true}
+            display={'default'}
+            onChange={changeSelectedDate}
+          />
+        )}
+      </View>
       <Modal
         visible={showReminderSheet}
         transparent
@@ -29,12 +70,13 @@ const ReminderBottomSheet = ({
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  setShowDatePicker(!showDatePicker);
-                }}>
-                <Text
-                  style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
-                  Pick a date
-                </Text>
+                  showMode('date');
+                }}
+                style={{flexDirection: 'row'}}>
+                <Text style={styles.txt}>Pick a date</Text>
+                <View style={styles.dateAndTimeText}>
+                  <Text style={styles.txtAfterSettingDate}>{dateText}</Text>
+                </View>
               </TouchableOpacity>
             </View>
 
@@ -43,13 +85,15 @@ const ReminderBottomSheet = ({
                 <Icons name="clock-outline" size={23} color="#fff" />
               </TouchableOpacity>
               <TouchableOpacity
+                style={{flexDirection: 'row'}}
                 onPress={() => {
-                  setShowTimePicker(!showTimePicker);
+                  showMode('time');
                 }}>
-                <Text
-                  style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
-                  Pick a time
-                </Text>
+                <Text style={styles.txt}>Pick a time</Text>
+
+                <View style={styles.dateAndTimeText}>
+                  <Text style={styles.txtAfterSettingDate}>{timeText}</Text>
+                </View>
               </TouchableOpacity>
             </View>
 
@@ -57,11 +101,15 @@ const ReminderBottomSheet = ({
               <TouchableOpacity>
                 <Ionicons name="alarm-outline" size={23} color="#fff" />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => {}}>
-                <Text
-                  style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
-                  Later Today
-                </Text>
+              <TouchableOpacity
+                style={{flexDirection: 'row'}}
+                onPress={() => {}}>
+                <Text style={styles.txt}>Tomorrow</Text>
+                <View style={styles.dateAndTimeText}>
+                  <Text style={styles.txtAfterSettingDate}>
+                    {tomorrowMorning}
+                  </Text>
+                </View>
               </TouchableOpacity>
             </View>
 
@@ -70,10 +118,7 @@ const ReminderBottomSheet = ({
                 <Icons name="map-marker-outline" size={23} color="#fff" />
               </TouchableOpacity>
               <TouchableOpacity>
-                <Text
-                  style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
-                  Pick a place
-                </Text>
+                <Text style={styles.txt}>Pick a place</Text>
               </TouchableOpacity>
             </View>
 
@@ -82,38 +127,23 @@ const ReminderBottomSheet = ({
                 <Icons name="home" size={23} color="#fff" />
               </TouchableOpacity>
               <TouchableOpacity>
-                <Text
-                  style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
-                  Home
-                </Text>
+                <Text style={styles.txt}>Home</Text>
               </TouchableOpacity>
             </View>
           </View>
         </View>
       </Modal>
-      <View>
-        {showDatePicker && (
-          <RNDateTimePicker
-            value={new Date()}
-            mode={'date'}
-            is24Hour={true}
-            display={'spinner'}
-            onChange={() => setShowDatePicker(!showDatePicker)}
-          />
-        )}
-      </View>
-
-      <View>
+      {/* <View>
         {showTimePicker && (
           <RNDateTimePicker
             value={new Date()}
             mode={'time'}
             is24Hour={true}
-            display={'spinner'}
+            display={'default'}
             onChange={() => setShowTimePicker(!showTimePicker)}
           />
         )}
-      </View>
+      </View> */}
     </View>
   );
 };
@@ -141,5 +171,27 @@ const styles = StyleSheet.create({
   bottomMargin: {
     flexDirection: 'row',
     marginBottom: 20,
+  },
+
+  txt: {
+    color: '#fff',
+    fontSize: 17,
+    marginHorizontal: 20,
+  },
+
+  dateAndTimeText: {
+    width: 110,
+    height: 30,
+    backgroundColor: '#4ebef4',
+    padding: 3,
+    borderRadius: 10,
+    marginLeft: 50,
+  },
+
+  txtAfterSettingDate: {
+    color: '#fff',
+    fontSize: 15,
+    alignSelf: 'center',
+    marginTop: 1,
   },
 });
