@@ -12,8 +12,9 @@ import {useSelector} from 'react-redux';
 import BottomSheet from '../components/BottomSheet';
 import ReminderBottomSheet from '../components/ReminderBottomSheet';
 import {AuthContext} from '../navigations/AuthProvider';
-import {addLabelsToNotes, deleteAddedLabels} from '../services/LabelsServices';
+import {addLabelsToNotes} from '../services/LabelsServices';
 import {createNote, editNote} from '../services/NotesServices';
+import Notifications from '../services/Notifications';
 
 const Chip = ({children}) => (
   <Text style={styles.chipTextStyle}>{children}</Text>
@@ -43,6 +44,7 @@ const AddNotes = ({navigation, route}) => {
   const [showReminderSheet, setShowReminderSheet] = useState(false);
   const {user} = useContext(AuthContext);
   const [currentTime, setCurrentTime] = useState('');
+  const [myDate, setMyDate] = useState(new Date());
 
   useEffect(() => {
     var hours = new Date().getHours();
@@ -89,8 +91,9 @@ const AddNotes = ({navigation, route}) => {
       console.log('data', datalist);
       console.log('labelData', labelData);
       addLabelsToNotes(userId, noteId, item.id, data);
-     // deleteAddedLabels()
+      // deleteAddedLabels()
     });
+    Notifications.schduleNotification(myDate);
     navigation.navigate('Home');
   };
 
@@ -213,6 +216,8 @@ const AddNotes = ({navigation, route}) => {
       <View>
         <ReminderBottomSheet
           showReminderSheet={showReminderSheet}
+          myDate={myDate}
+          setMyDate={setMyDate}
           setShowReminderSheet={setShowReminderSheet}
           navigation={navigation}
         />

@@ -3,38 +3,51 @@ import {Text, View, StyleSheet, Modal, TouchableOpacity} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
-import Notifications from '../services/Notifications';
 import moment from 'moment';
 
 const ReminderBottomSheet = ({
   navigation,
   showReminderSheet,
   setShowReminderSheet,
+  myDate,
+  setMyDate,
 }) => {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const [dateText, setDateText] = useState('');
   const [timeText, setTimeText] = useState('');
-  const [myDate, setMyDate] = useState(new Date());
-  const tomorrowMorning = moment().format();
+  // const [myDate, setMyDate] = useState(new Date());
+  const tomorrowMorning = moment()
+    .add(1, 'days')
+    .hour(7)
+    .minute(0)
+    .format('hh : mm a');
+  //console.log('Tomorrow', tomorrowMorning);
 
   const changeSelectedDate = (event, selectedDate) => {
-    const currentDate = selectedDate || myDate;
-    setMyDate(currentDate);
+    setShow(false);
+    const {
+      type,
+      nativeEvent: {timestamp},
+    } = event;
+    console.log('Type', type);
+    console.log('times', timestamp);
+    const currentDate = selectedDate;
+    console.log('currentDate', currentDate);
 
     let fDate =
-      myDate.getDate() +
+      currentDate.getDate() +
       '/' +
-      (myDate.getMonth() + 1) +
+      (currentDate.getMonth() + 1) +
       '/' +
-      myDate.getFullYear();
-    let fTime = myDate.getHours() + ' ' + ':' + ' ' + myDate.getMinutes();
+      currentDate.getFullYear();
+    let fTime =
+      currentDate.getHours() + ' ' + ':' + ' ' + currentDate.getMinutes();
     console.log('fDate', fDate);
     console.log('fTime', fTime);
     setDateText(fDate);
     setTimeText(fTime);
-    Notifications.schduleNotification(myDate);
-    setShow(false);
+    setMyDate(currentDate);
   };
 
   const showMode = currentMode => {
@@ -73,7 +86,9 @@ const ReminderBottomSheet = ({
                   showMode('date');
                 }}
                 style={{flexDirection: 'row'}}>
-                <Text style={styles.txt}>Pick a date</Text>
+                <View style={{width: '65%'}}>
+                  <Text style={styles.txt}>Pick a date</Text>
+                </View>
                 <View style={styles.dateAndTimeText}>
                   <Text style={styles.txtAfterSettingDate}>{dateText}</Text>
                 </View>
@@ -89,8 +104,9 @@ const ReminderBottomSheet = ({
                 onPress={() => {
                   showMode('time');
                 }}>
-                <Text style={styles.txt}>Pick a time</Text>
-
+                <View style={{width: '65%'}}>
+                  <Text style={styles.txt}>Pick a time</Text>
+                </View>
                 <View style={styles.dateAndTimeText}>
                   <Text style={styles.txtAfterSettingDate}>{timeText}</Text>
                 </View>
@@ -104,7 +120,9 @@ const ReminderBottomSheet = ({
               <TouchableOpacity
                 style={{flexDirection: 'row'}}
                 onPress={() => {}}>
-                <Text style={styles.txt}>Tomorrow</Text>
+                <View style={{width: '65%'}}>
+                  <Text style={styles.txt}>Tomorrow morning</Text>
+                </View>
                 <View style={styles.dateAndTimeText}>
                   <Text style={styles.txtAfterSettingDate}>
                     {tomorrowMorning}
@@ -180,12 +198,12 @@ const styles = StyleSheet.create({
   },
 
   dateAndTimeText: {
-    width: 110,
+    width: '30%',
     height: 30,
     backgroundColor: '#4ebef4',
     padding: 3,
     borderRadius: 10,
-    marginLeft: 50,
+    //marginLeft: 50,
   },
 
   txtAfterSettingDate: {

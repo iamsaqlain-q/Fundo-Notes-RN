@@ -33,6 +33,10 @@ class Notifications {
       date,
     });
   }
+
+  cancelNotification(date) {
+    PushNotification.cancelLocalNotification({id: 'reminders'});
+  }
 }
 
 export default new Notifications();
