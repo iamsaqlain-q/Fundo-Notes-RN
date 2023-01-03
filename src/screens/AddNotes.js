@@ -45,6 +45,8 @@ const AddNotes = ({navigation, route}) => {
   const {user} = useContext(AuthContext);
   const [currentTime, setCurrentTime] = useState('');
   const [myDate, setMyDate] = useState(new Date());
+  const [timeText, setTimeText] = useState('');
+  const [dateText, setDateText] = useState('');
 
   useEffect(() => {
     var hours = new Date().getHours();
@@ -177,6 +179,26 @@ const AddNotes = ({navigation, route}) => {
             onChangeText={input => setDescription(input)}
           />
         </View>
+        <View style={styles.reminderView}>
+          <View style={{margin: 5}}>
+            <TouchableOpacity
+              onPress={() => {
+                setShowReminderSheet(!showReminderSheet);
+              }}>
+              <Icons name="alarm" size={21} color="#fff" />
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.reminderText}>{dateText} at </Text>
+          <Text style={styles.reminderText}>{timeText}</Text>
+          <View style={{margin: 5}}>
+            <TouchableOpacity
+              onPress={() => {
+                Notifications.cancelReminder();
+              }}>
+              <Icons name="close" size={21} color="#fff" />
+            </TouchableOpacity>
+          </View>
+        </View>
         <View style={styles.chipStyle}>
           {labelData.map(label => (
             <Chip key={label.id}>{label.label}</Chip>
@@ -219,6 +241,10 @@ const AddNotes = ({navigation, route}) => {
           myDate={myDate}
           setMyDate={setMyDate}
           setShowReminderSheet={setShowReminderSheet}
+          timeText={timeText}
+          setTimeText={setTimeText}
+          dateText={dateText}
+          setDateText={setDateText}
           navigation={navigation}
         />
       </View>
@@ -284,5 +310,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+  },
+
+  reminderView: {
+    marginVertical: 10,
+    flexDirection: 'row',
+    backgroundColor: '#4ebef4',
+    width: '60%',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  reminderText: {
+    color: '#fff',
+    fontSize: 15,
+    alignSelf: 'center',
   },
 });

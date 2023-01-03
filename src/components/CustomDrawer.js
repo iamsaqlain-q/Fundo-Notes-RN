@@ -10,7 +10,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useEffect} from 'react';
 import {fetchLabel} from '../services/LabelsServices';
 import {useUid} from '../hooks/useUid';
-import {useNavigation} from '@react-navigation/native';
 
 const CustomDrawer = ({props, navigation}) => {
   //const navigation = useNavigation();

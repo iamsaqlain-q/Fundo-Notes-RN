@@ -26,7 +26,9 @@ class Notifications {
     });
   }
   schduleNotification(date) {
+    //console.log('id', id);
     PushNotification.localNotificationSchedule({
+      id: '123',
       channelId: 'reminders',
       title: 'Reminder!',
       message: 'You have set this reminder',
@@ -34,8 +36,8 @@ class Notifications {
     });
   }
 
-  cancelNotification(date) {
-    PushNotification.cancelLocalNotification({id: 'reminders'});
+  cancelReminder() {
+    PushNotification.cancelLocalNotification('123');
   }
 }
 

@@ -11,11 +11,15 @@ const ReminderBottomSheet = ({
   setShowReminderSheet,
   myDate,
   setMyDate,
+  timeText,
+  setTimeText,
+  dateText,
+  setDateText,
 }) => {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
-  const [dateText, setDateText] = useState('');
-  const [timeText, setTimeText] = useState('');
+  //const [dateText, setDateText] = useState('');
+  //const [timeText, setTimeText] = useState('');
   // const [myDate, setMyDate] = useState(new Date());
   const tomorrowMorning = moment()
     .add(1, 'days')
@@ -26,14 +30,14 @@ const ReminderBottomSheet = ({
 
   const changeSelectedDate = (event, selectedDate) => {
     setShow(false);
-    const {
-      type,
-      nativeEvent: {timestamp},
-    } = event;
-    console.log('Type', type);
-    console.log('times', timestamp);
+    // const {
+    //   type,
+    //   nativeEvent: {timestamp},
+    // } = event;
+    //console.log('Type', type);
+    //console.log('times', timestamp);
     const currentDate = selectedDate;
-    console.log('currentDate', currentDate);
+    //console.log('currentDate', currentDate);
 
     let fDate =
       currentDate.getDate() +
@@ -43,8 +47,8 @@ const ReminderBottomSheet = ({
       currentDate.getFullYear();
     let fTime =
       currentDate.getHours() + ' ' + ':' + ' ' + currentDate.getMinutes();
-    console.log('fDate', fDate);
-    console.log('fTime', fTime);
+    //console.log('fDate', fDate);
+    //console.log('fTime', fTime);
     setDateText(fDate);
     setTimeText(fTime);
     setMyDate(currentDate);
