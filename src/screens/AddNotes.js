@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 import React, {useState, useContext} from 'react';
 import {useEffect} from 'react';
 import {
@@ -8,24 +9,27 @@ import {
   TextInput,
 } from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSelector} from 'react-redux';
 import BottomSheet from '../components/BottomSheet';
 import ReminderBottomSheet from '../components/ReminderBottomSheet';
 import {AuthContext} from '../navigations/AuthProvider';
 import {addLabelsToNotes} from '../services/LabelsServices';
 import {createNote, editNote} from '../services/NotesServices';
 import Notifications from '../services/Notifications';
+import 'react-native-get-random-values';
+import moment from 'moment';
 
 const Chip = ({children}) => (
   <Text style={styles.chipTextStyle}>{children}</Text>
 );
 
 const AddNotes = ({navigation, route}) => {
-  const labels_list = useSelector(state => state.labels_list);
+  //const labels_list = useSelector(state => state.labels_list);
   const noteData = route.params;
-  const noteId = noteData?.noteId;
-  //console.log('noteId', noteId);
+  //console.log('noteData', noteData);
+  //const newId = uuidv4();
   let labelData = route.params?.labelData || [];
+  let reminders = noteData?.editdata?.reminderData || {};
+  console.log('reminders', reminders);
   //const obj = Object.assign({}, labelData);
   const [title, setTitle] = useState(noteData?.editdata?.title || '');
   const [description, setDescription] = useState(
@@ -40,13 +44,26 @@ const AddNotes = ({navigation, route}) => {
   const [isInTrash, setIsInTrash] = useState(
     noteData?.editdata?.isInTrash || false,
   );
+  // const [reminderData, setReminderData] = useState(
+  //   noteData?.editdata?.reminderData || {},
+  // );
   const [showModal, setShowModal] = useState(false);
   const [showReminderSheet, setShowReminderSheet] = useState(false);
   const {user} = useContext(AuthContext);
   const [currentTime, setCurrentTime] = useState('');
-  const [myDate, setMyDate] = useState(new Date());
+  const [myDate, setMyDate] = useState(
+    new Date() || noteData?.editData?.reminderData || '',
+  );
   const [timeText, setTimeText] = useState('');
   const [dateText, setDateText] = useState('');
+
+  const getId = () => {
+    return Math.floor(Math.random() * 1000000);
+  };
+
+  const receivId = noteData?.noteId;
+  const noteId = receivId || getId();
+  //console.log('noteId', noteId);
 
   useEffect(() => {
     var hours = new Date().getHours();
@@ -56,6 +73,7 @@ const AddNotes = ({navigation, route}) => {
 
   const handleBackPress = async (changeData = {}) => {
     let userId = user.uid;
+    let momentDate = moment(myDate).format('LLL');
     const data = {
       title,
       description,
@@ -65,7 +83,7 @@ const AddNotes = ({navigation, route}) => {
       labelData,
       ...changeData,
     };
-    if (noteId) {
+    if (receivId) {
       await editNote(
         title,
         description,
@@ -85,20 +103,20 @@ const AddNotes = ({navigation, route}) => {
         isInArchive,
         isInTrash,
         labelData,
+        JSON.stringify(momentDate),
+        noteId.toString(),
       );
     }
     labelData.forEach(item => {
       //console.log('item', item);
-      const datalist = labels_list.find(itm => item.id === itm.id);
-      console.log('data', datalist);
-      console.log('labelData', labelData);
+      // const datalist = labels_list.find(itm => item.id === itm.id);
       addLabelsToNotes(userId, noteId, item.id, data);
       // deleteAddedLabels()
     });
-    Notifications.schduleNotification(myDate);
+    Notifications.schduleNotification(myDate, noteId);
     navigation.navigate('Home');
   };
-
+  //console.log('myDate', myDate);
   return (
     <View style={styles.container}>
       <View style={styles.topRowItems}>
@@ -179,26 +197,31 @@ const AddNotes = ({navigation, route}) => {
             onChangeText={input => setDescription(input)}
           />
         </View>
-        <View style={styles.reminderView}>
-          <View style={{margin: 5}}>
-            <TouchableOpacity
-              onPress={() => {
-                setShowReminderSheet(!showReminderSheet);
-              }}>
-              <Icons name="alarm" size={21} color="#fff" />
-            </TouchableOpacity>
+        {dateText !== '' || reminders !== '' ? (
+          <View style={styles.reminderView}>
+            <View style={{margin: 5}}>
+              <TouchableOpacity
+                onPress={() => {
+                  setShowReminderSheet(!showReminderSheet);
+                }}>
+                <Icons name="alarm" size={21} color="#fff" />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.reminderText}>
+              {dateText !== ''
+                ? dateText + ' at ' + timeText
+                : reminders.toString()}
+            </Text>
+            <View style={{margin: 5}}>
+              <TouchableOpacity
+                onPress={() => {
+                  Notifications.cancelReminder(parseInt(noteId));
+                }}>
+                <Icons name="close" size={21} color="#fff" />
+              </TouchableOpacity>
+            </View>
           </View>
-          <Text style={styles.reminderText}>{dateText} at </Text>
-          <Text style={styles.reminderText}>{timeText}</Text>
-          <View style={{margin: 5}}>
-            <TouchableOpacity
-              onPress={() => {
-                Notifications.cancelReminder();
-              }}>
-              <Icons name="close" size={21} color="#fff" />
-            </TouchableOpacity>
-          </View>
-        </View>
+        ) : null}
         <View style={styles.chipStyle}>
           {labelData.map(label => (
             <Chip key={label.id}>{label.label}</Chip>
@@ -316,7 +339,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     flexDirection: 'row',
     backgroundColor: '#4ebef4',
-    width: '60%',
+    width: '75%',
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',

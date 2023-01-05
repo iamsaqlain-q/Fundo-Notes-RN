@@ -10,15 +10,18 @@ export const createNote = async (
   isInArchive,
   isInTrash,
   labelData,
+  reminderData,
+  uniqueId,
 ) => {
   try {
-    await database.doc(userId).collection('NoteData').add({
+    await database.doc(userId).collection('NoteData').doc(uniqueId).set({
       title: title,
       description: description,
       isPinned: isPinned,
       isInArchive: isInArchive,
       isInTrash: isInTrash,
       labelData: labelData,
+      reminderData: reminderData,
     });
     console.log('Note Created!');
   } catch (e) {

@@ -34,11 +34,11 @@ const ReminderBottomSheet = ({
     //   type,
     //   nativeEvent: {timestamp},
     // } = event;
-    //console.log('Type', type);
-    //console.log('times', timestamp);
+    // console.log('Type', type);
+    // console.log('times', timestamp);
+    // console.log('moment date', moment(timestamp).format('LLL'));
     const currentDate = selectedDate;
     //console.log('currentDate', currentDate);
-
     let fDate =
       currentDate.getDate() +
       '/' +
