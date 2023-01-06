@@ -1,6 +1,7 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import CustomDrawer from '../components/CustomDrawer';
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Reminder from '../screens/Reminder';
 import Archive from '../screens/Archive';
@@ -9,6 +10,7 @@ import Settings from '../screens/Settings';
 import Home from '../screens/Home';
 import CreateLabel from '../screens/CreateLabel';
 import DrawerLabels from '../screens/DrawerLabels';
+import Tasks from '../screens/Tasks';
 
 const Drawer = createDrawerNavigator();
 
@@ -101,6 +103,20 @@ const DrawerNavigation = () => {
           drawerIcon: () => (
             <Ionicons
               name="settings-outline"
+              size={20}
+              style={{color: '#fff'}}
+            />
+          ),
+        }}
+      />
+
+      <Drawer.Screen
+        name="Tasks"
+        component={Tasks}
+        options={{
+          drawerIcon: () => (
+            <Icons
+              name="file-document-edit-outline"
               size={20}
               style={{color: '#fff'}}
             />

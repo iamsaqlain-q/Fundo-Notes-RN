@@ -27,7 +27,6 @@ const BottomSheet = ({
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('AddLabelsToNote', {
-                    data: selectedLabels,
                     noteId: noteId,
                   });
                 }}>

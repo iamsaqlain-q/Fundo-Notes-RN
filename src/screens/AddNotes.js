@@ -51,14 +51,14 @@ const AddNotes = ({navigation, route}) => {
   const [showReminderSheet, setShowReminderSheet] = useState(false);
   const {user} = useContext(AuthContext);
   const [currentTime, setCurrentTime] = useState('');
-  const [myDate, setMyDate] = useState(
-    new Date() || noteData?.editData?.reminderData || '',
-  );
+  const [myDate, setMyDate] = useState('' || noteData?.editData?.reminderData);
   const [timeText, setTimeText] = useState('');
   const [dateText, setDateText] = useState('');
 
   const getId = () => {
-    return Math.floor(Math.random() * 1000000);
+    let data = Date.now();
+    data = data.toString().substring(4);
+    return data;
   };
 
   const receivId = noteData?.noteId;
@@ -74,6 +74,7 @@ const AddNotes = ({navigation, route}) => {
   const handleBackPress = async (changeData = {}) => {
     let userId = user.uid;
     let momentDate = moment(myDate).format('LLL');
+    //console.log('moment', momentDate);
     const data = {
       title,
       description,
@@ -113,10 +114,12 @@ const AddNotes = ({navigation, route}) => {
       addLabelsToNotes(userId, noteId, item.id, data);
       // deleteAddedLabels()
     });
-    Notifications.schduleNotification(myDate, noteId);
+    if (myDate) {
+      Notifications.schduleNotification(myDate, noteId.toString());
+    }
     navigation.navigate('Home');
   };
-  //console.log('myDate', myDate);
+  console.log('myDate', myDate);
   return (
     <View style={styles.container}>
       <View style={styles.topRowItems}>

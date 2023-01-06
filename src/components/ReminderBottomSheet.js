@@ -64,7 +64,7 @@ const ReminderBottomSheet = ({
       <View>
         {show && (
           <RNDateTimePicker
-            value={myDate}
+            value={new Date()}
             mode={mode}
             is24Hour={true}
             display={'default'}

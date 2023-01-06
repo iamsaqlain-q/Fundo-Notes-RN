@@ -118,6 +118,18 @@ const CustomDrawer = ({props, navigation}) => {
 
           <DrawerItem
             icon={({color}) => (
+              <Icons
+                name="file-document-edit-outline"
+                size={23}
+                style={{color: '#fff'}}
+              />
+            )}
+            label={() => <Text style={styles.screenText}>Tasks</Text>}
+            onPress={() => navigation.navigate('Tasks')}
+          />
+
+          <DrawerItem
+            icon={({color}) => (
               <Ionicons
                 name="settings-outline"
                 size={23}

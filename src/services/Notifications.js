@@ -26,13 +26,13 @@ class Notifications {
     });
   }
   schduleNotification(date, id) {
-    console.log('id', id);
+    //console.log('id', id);
     PushNotification.localNotificationSchedule({
       id: id,
       channelId: 'reminders',
       title: 'Reminder!',
       message: 'You have set this reminder',
-      date,
+      date : date,
     });
   }
 
