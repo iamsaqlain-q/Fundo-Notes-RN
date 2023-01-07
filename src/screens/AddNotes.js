@@ -17,20 +17,20 @@ import {createNote, editNote} from '../services/NotesServices';
 import Notifications from '../services/Notifications';
 import 'react-native-get-random-values';
 import moment from 'moment';
+import { v4 as uuidv4 } from 'uuid';
 
 const Chip = ({children}) => (
   <Text style={styles.chipTextStyle}>{children}</Text>
 );
 
 const AddNotes = ({navigation, route}) => {
-  //const labels_list = useSelector(state => state.labels_list);
+
   const noteData = route.params;
-  //console.log('noteData', noteData);
-  //const newId = uuidv4();
+  const newId = uuidv4();
+  console.log('newId', newId);
   let labelData = route.params?.labelData || [];
   let reminders = noteData?.editdata?.reminderData || {};
-  console.log('reminders', reminders);
-  //const obj = Object.assign({}, labelData);
+
   const [title, setTitle] = useState(noteData?.editdata?.title || '');
   const [description, setDescription] = useState(
     noteData?.editdata?.description || '',
@@ -44,9 +44,7 @@ const AddNotes = ({navigation, route}) => {
   const [isInTrash, setIsInTrash] = useState(
     noteData?.editdata?.isInTrash || false,
   );
-  // const [reminderData, setReminderData] = useState(
-  //   noteData?.editdata?.reminderData || {},
-  // );
+
   const [showModal, setShowModal] = useState(false);
   const [showReminderSheet, setShowReminderSheet] = useState(false);
   const {user} = useContext(AuthContext);
@@ -63,7 +61,6 @@ const AddNotes = ({navigation, route}) => {
 
   const receivId = noteData?.noteId;
   const noteId = receivId || getId();
-  //console.log('noteId', noteId);
 
   useEffect(() => {
     var hours = new Date().getHours();
@@ -74,7 +71,6 @@ const AddNotes = ({navigation, route}) => {
   const handleBackPress = async (changeData = {}) => {
     let userId = user.uid;
     let momentDate = moment(myDate).format('LLL');
-    //console.log('moment', momentDate);
     const data = {
       title,
       description,
@@ -109,17 +105,14 @@ const AddNotes = ({navigation, route}) => {
       );
     }
     labelData.forEach(item => {
-      //console.log('item', item);
-      // const datalist = labels_list.find(itm => item.id === itm.id);
-      addLabelsToNotes(userId, noteId, item.id, data);
-      // deleteAddedLabels()
+      addLabelsToNotes(userId, newId, item.id, data);
     });
     if (myDate) {
       Notifications.schduleNotification(myDate, noteId.toString());
     }
     navigation.navigate('Home');
   };
-  console.log('myDate', myDate);
+
   return (
     <View style={styles.container}>
       <View style={styles.topRowItems}>
@@ -200,7 +193,7 @@ const AddNotes = ({navigation, route}) => {
             onChangeText={input => setDescription(input)}
           />
         </View>
-        {dateText !== '' || reminders !== '' ? (
+        {dateText !== '' ? (
           <View style={styles.reminderView}>
             <View style={{margin: 5}}>
               <TouchableOpacity

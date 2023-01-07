@@ -17,13 +17,12 @@ export const deleteAddedLabels = async (userId, labelId, noteId) => {
 };
 
 export const addLabelsToNotes = async (userId, noteId, labelId, noteData) => {
+  console.log('addlabels', userId, noteId, labelId, noteData);
   try {
     await database
       .doc(userId)
       .collection('LabelData')
       .doc(labelId)
-      .collection('NoteId')
-      .doc(noteId)
       .set({
         noteData: noteData,
       });
