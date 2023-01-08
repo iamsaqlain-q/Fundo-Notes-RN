@@ -125,7 +125,7 @@ const CustomDrawer = ({props, navigation}) => {
               />
             )}
             label={() => <Text style={styles.screenText}>Tasks</Text>}
-            onPress={() => navigation.navigate('Tasks')}
+            onPress={() => navigation.navigate('TaskManager')}
           />
 
           <DrawerItem

@@ -4,6 +4,7 @@ import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import TasksTopBar from '../components/TasksTopBar';
 import SQLite from 'react-native-sqlite-storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const db = SQLite.openDatabase(
   {
@@ -15,14 +16,15 @@ const db = SQLite.openDatabase(
     console.log(error);
   },
 );
-const Tasks = () => {
-  const [category, setCategory] = useState('');
-  const [categories, setCategories] = useState([]);
+const TaskManager = () => {
+  const [task, setTask] = useState('');
+  const [taskList, setTaskList] = useState([]);
+  console.log('taskList', taskList);
 
   const createTables = () => {
     db.transaction(txn => {
       txn.executeSql(
-        'CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(20))',
+        'CREATE TABLE IF NOT EXISTS taskList (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(20))',
         [],
         (sqlTxn, res) => {
           console.log('Table created !');
@@ -34,36 +36,51 @@ const Tasks = () => {
     });
   };
 
-  const addCategory = async () => {
-    if (!category) {
-      Alert.alert('Please Enter Category!');
+  const addTask = () => {
+    if (!task) {
+      Alert.alert('Please Enter task First!');
       return false;
     } else {
-      try {
-        await db.transaction(async txn => {
-          await txn.executeSql(
-            'INSERT INTO categories (name) VALUES (?)',
-            [category],
-            (sqlTxn, res) => {
-              console.log(`${category} category added successfully!`);
-              getCategories();
-              setCategory('');
-            },
-          );
-        });
-      } catch (e) {
-        console.log(e);
-      }
+      db.transaction(txn => {
+        txn.executeSql(
+          'INSERT INTO taskList (name) VALUES (?)',
+          [task],
+          (sqlTxn, res) => {
+            console.log(`${task} task added successfully!`);
+            getTaskList();
+            setTask('');
+          },
+          error => {
+            console.log('Error on adding task', error.message);
+          },
+        );
+      });
     }
   };
 
-  const getCategories = () => {
+  const deleteTask = () => {
     db.transaction(txn => {
       txn.executeSql(
-        'SELECT * FROM categories ORDER BY id DESC',
+        "DELETE FROM taskList WHERE id = '3'",
         [],
         (sqlTxn, res) => {
-          console.log('Categories retrieved successfully!');
+          console.log('task deleted successfully!');
+          getTaskList();
+        },
+        error => {
+          console.log('Error on deleting task', error.message);
+        },
+      );
+    });
+  };
+
+  const getTaskList = () => {
+    db.transaction(txn => {
+      txn.executeSql(
+        'SELECT * FROM taskList ORDER BY id DESC',
+        [],
+        (sqlTxn, res) => {
+          console.log('taskList retrieved successfully!');
           let len = res.rows.length;
 
           if (len > 0) {
@@ -72,22 +89,27 @@ const Tasks = () => {
               let item = res.rows.item(i);
               results.push({id: item.id, name: item.name});
             }
-            setCategories(results);
+            setTaskList(results);
           }
         },
         error => {
-          console.log('Error on getting categories', error.message);
+          console.log('Error on getting taskList', error.message);
         },
       );
     });
   };
 
-  const renderCategory = ({item}) => {
+  const renderTask = ({item}) => {
     return (
       <View style={styles.todoView}>
         <View style={styles.itemView}>
           <Text style={styles.itemText}>{item.id}</Text>
           <Text style={styles.itemText}>{item.name}</Text>
+          <View>
+            <TouchableOpacity onPress={deleteTask}>
+              <Icon name="delete" size={20} color="#fff" />
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -95,7 +117,7 @@ const Tasks = () => {
 
   useEffect(() => {
     createTables();
-    getCategories();
+    getTaskList();
   }, []);
 
   return (
@@ -111,25 +133,21 @@ const Tasks = () => {
         <TextInput
           placeholder="Enter task"
           placeholderTextColor="#4ebef4"
-          value={category}
-          onChangeText={setCategory}
+          value={task}
+          onChangeText={setTask}
           style={styles.txtInput}
         />
 
-        <TouchableOpacity onPress={addCategory} style={styles.addBtn}>
+        <TouchableOpacity onPress={addTask} style={styles.addBtn}>
           <Text style={styles.addBtnText}>Add</Text>
         </TouchableOpacity>
 
-        <FlatList
-          data={categories}
-          renderItem={renderCategory}
-          key={cat => cat.id}
-        />
+        <FlatList data={taskList} renderItem={renderTask} key={cat => cat.id} />
       </View>
     </View>
   );
 };
-export default Tasks;
+export default TaskManager;
 
 const styles = StyleSheet.create({
   archiveContainer: {
@@ -158,8 +176,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#97e5fb',
     width: '100%',
     borderRadius: 5,
-    padding: 5,
-    justifyContent: 'center',
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    justifyContent: 'space-between',
+    alignItems: 'center',
     flexDirection: 'row',
   },
 
@@ -193,7 +213,7 @@ const styles = StyleSheet.create({
 
   addBtn: {
     backgroundColor: '#4ebef4',
-    width: 100,
+    width: 90,
     height: 50,
     borderRadius: 15,
     justifyContent: 'center',

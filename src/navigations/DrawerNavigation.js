@@ -10,7 +10,7 @@ import Settings from '../screens/Settings';
 import Home from '../screens/Home';
 import CreateLabel from '../screens/CreateLabel';
 import DrawerLabels from '../screens/DrawerLabels';
-import Tasks from '../screens/Tasks';
+import TaskManager from '../screens/TaskManager';
 
 const Drawer = createDrawerNavigator();
 
@@ -111,8 +111,8 @@ const DrawerNavigation = () => {
       />
 
       <Drawer.Screen
-        name="Tasks"
-        component={Tasks}
+        name="TaskManager"
+        component={TaskManager}
         options={{
           drawerIcon: () => (
             <Icons
