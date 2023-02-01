@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import React, {useState, useContext} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import FormInput from '../components/FormInput';
@@ -5,16 +6,16 @@ import FormButton from '../components/FormButton';
 import CheckBox from '@react-native-community/checkbox';
 import {AuthContext} from '../navigations/AuthProvider';
 import GoogleButton from '../components/GoogleButton';
-import {useBoolean} from '../hooks/useBoolean';
+import stringsOfLanguages from '../services/Translation';
 
-const SignIn = ({navigation}) => {
+const SignIn = ({route, navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [isToggle, {setToggle, setTrue, setFalse}] = useBoolean(false);
-  //const [hidePass, setHidePass] = useState(false);
+  const [hidePass, setHidePass] = useState(false);
   const [checkValidEmail, setCheckValidEmail] = useState('');
   const [checkValidPassword, setCheckValidPassword] = useState('');
   const [error, setError] = useState();
+  const [lang, setLang] = useState(true);
 
   const {signin, googleSignin} = useContext(AuthContext);
 
@@ -44,11 +45,19 @@ const SignIn = ({navigation}) => {
     setError(e);
     console.log(e);
   };
-
   return (
     <View style={styles.container}>
       <Image source={require('../assets/logo.png')} style={styles.logo} />
-      <Text style={styles.text}>Fun-Do Notes</Text>
+      <TouchableOpacity
+        onPress={() => {
+          setLang(!lang);
+        }}>
+        <Text style={styles.text}>
+          {lang
+            ? stringsOfLanguages._props.en.fundoonotes
+            : stringsOfLanguages._props.urdu.fundoonotes}
+        </Text>
+      </TouchableOpacity>
       <FormInput
         labelValue={email}
         onChangeText={text => handleCheckEmail(text)}
@@ -68,7 +77,7 @@ const SignIn = ({navigation}) => {
         onChangeText={text => handleCheckPassword(text)}
         placeholderText="Password"
         iconType="lock"
-        secureTextEntry={isToggle}
+        secureTextEntry={!hidePass}
       />
 
       {checkValidPassword ? (
@@ -79,9 +88,11 @@ const SignIn = ({navigation}) => {
 
       <View style={styles.showPass}>
         <CheckBox
-          //disabled={false}
-          value={isToggle}
-          onValueChange={setToggle}
+          disabled={false}
+          value={hidePass}
+          onValueChange={() => {
+            setHidePass(!hidePass);
+          }}
           tintColors={{true: '#51C1F6', false: 'black'}}
         />
         <Text style={styles.showPassText}>Show Password</Text>
@@ -96,7 +107,11 @@ const SignIn = ({navigation}) => {
       <TouchableOpacity
         style={styles.forgotButton}
         onPress={() => navigation.navigate('Forgotpassword')}>
-        <Text style={styles.navButtonText}>Forgot Password?</Text>
+        <Text style={styles.navButtonText}>
+          {lang
+            ? stringsOfLanguages._props.en.forgotpassword
+            : stringsOfLanguages._props.urdu.forgotpassword}
+        </Text>
       </TouchableOpacity>
 
       <GoogleButton
@@ -108,7 +123,11 @@ const SignIn = ({navigation}) => {
       />
 
       <View style={styles.regContainer}>
-        <Text style={styles.navButtonText}>Don't Have Any Account?</Text>
+        <Text style={styles.navButtonText}>
+          {lang
+            ? stringsOfLanguages._props.en.createaccount
+            : stringsOfLanguages._props.urdu.createaccount}
+        </Text>
         <TouchableOpacity
           style={styles.forgotButton}
           onPress={() => navigation.navigate('Signup')}>

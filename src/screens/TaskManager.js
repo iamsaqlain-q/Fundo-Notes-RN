@@ -19,7 +19,7 @@ const db = SQLite.openDatabase(
 const TaskManager = () => {
   const [task, setTask] = useState('');
   const [taskList, setTaskList] = useState([]);
-  console.log('taskList', taskList);
+  //console.log('taskList', taskList);
 
   const createTables = () => {
     db.transaction(txn => {
@@ -61,7 +61,7 @@ const TaskManager = () => {
   const deleteTask = () => {
     db.transaction(txn => {
       txn.executeSql(
-        "DELETE FROM taskList WHERE id = '3'",
+        "DELETE FROM taskList WHERE id = '4'",
         [],
         (sqlTxn, res) => {
           console.log('task deleted successfully!');

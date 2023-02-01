@@ -17,17 +17,16 @@ import {createNote, editNote} from '../services/NotesServices';
 import Notifications from '../services/Notifications';
 import 'react-native-get-random-values';
 import moment from 'moment';
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
+import Share from 'react-native-share';
 
 const Chip = ({children}) => (
   <Text style={styles.chipTextStyle}>{children}</Text>
 );
 
 const AddNotes = ({navigation, route}) => {
-
   const noteData = route.params;
   const newId = uuidv4();
-  console.log('newId', newId);
   let labelData = route.params?.labelData || [];
   let reminders = noteData?.editdata?.reminderData || {};
 
@@ -68,6 +67,17 @@ const AddNotes = ({navigation, route}) => {
     setCurrentTime(hours + ' ' + ':' + ' ' + minutes);
   }, []);
 
+  const handleSend = async () => {
+    const shareOptions = {
+      message: noteData?.editdata?.title.toString(), 
+    };
+    try {
+      const shareResponse = await Share.open(shareOptions);
+    } catch (error) {
+      console.log('Error : ', error);
+    }
+  };
+
   const handleBackPress = async (changeData = {}) => {
     let userId = user.uid;
     let momentDate = moment(myDate).format('LLL');
@@ -104,9 +114,9 @@ const AddNotes = ({navigation, route}) => {
         noteId.toString(),
       );
     }
-    labelData.forEach(item => {
-      addLabelsToNotes(userId, newId, item.id, data);
-    });
+    // labelData.forEach(item => {
+    //   addLabelsToNotes(userId, noteId.toString(), item.id, data);
+    // });
     if (myDate) {
       Notifications.schduleNotification(myDate, noteId.toString());
     }
@@ -252,6 +262,7 @@ const AddNotes = ({navigation, route}) => {
           showModal={showModal}
           navigation={navigation}
           noteId={noteId}
+          handleSend={handleSend}
         />
       </View>
       <View>

@@ -11,10 +11,10 @@ export const createNote = async (
   isInTrash,
   labelData,
   reminderData,
-  uniqueId,
+  noteId,
 ) => {
   try {
-    await database.doc(userId).collection('NoteData').doc(uniqueId).set({
+    await database.doc(userId).collection('NoteData').doc(noteId).set({
       title: title,
       description: description,
       isPinned: isPinned,
@@ -28,16 +28,6 @@ export const createNote = async (
     console.log(e);
   }
 };
-
-// export const getPinnedData = async (userId, noteId) => {
-//   const pinnedArr = [];
-//   const pinnedCollection = await database
-//     .doc(userId)
-//     .collection('NoteData')
-//     .doc(noteId)
-//     .get();
-//     console.log('Total notes', pinnedCollection);
-// };
 
 export const fetchNote = async userId => {
   const notesArray = [];
@@ -81,16 +71,3 @@ export const editNote = async (
     console.log(e);
   }
 };
-
-// export const fetchNote = async userId => {
-//   const querySnapshot = await firestore()
-//     .collection('UserData')
-//     .doc(userId)
-//     .collection('NoteData')
-//     .get();
-//   console.log('Total data: ', querySnapshot.size);
-
-//   querySnapshot.forEach(documentSnapshot => {
-//     console.log('Note ID: ', documentSnapshot.id, documentSnapshot.data());
-//   });
-// };

@@ -8,6 +8,7 @@ const BottomSheet = ({
   setShowModal,
   noteId,
   selectedLabels,
+  handleSend,
 }) => {
   return (
     <View>
@@ -41,7 +42,7 @@ const BottomSheet = ({
               <TouchableOpacity>
                 <Icons name="share-variant-outline" size={23} color="#fff" />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={handleSend}>
                 <Text
                   style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
                   Send
