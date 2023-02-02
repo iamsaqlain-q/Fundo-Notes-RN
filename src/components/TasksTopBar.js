@@ -1,9 +1,10 @@
 import React from 'react';
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, View, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import Sizes from '../constants/Sizes';
 import Colors from '../constants/Colors';
+import {styles} from '../utility/Styles';
 
 const TasksTopBar = () => {
   const navigation = useNavigation();
@@ -36,15 +37,3 @@ const TasksTopBar = () => {
   );
 };
 export default TasksTopBar;
-
-const styles = StyleSheet.create({
-  topContainer: {
-    flex: 1,
-    backgroundColor: Colors.mainColor,
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-    borderRadius: Sizes.avatar,
-    alignItems: 'center',
-    paddingHorizontal: 15,
-  },
-});
