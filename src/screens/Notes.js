@@ -1,16 +1,10 @@
 import React, {useState} from 'react';
 import {useEffect} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  SectionList,
-  StyleSheet,
-} from 'react-native';
+import {View, Text, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import NoteCard from '../components/NoteCard';
 import {fetchNote} from '../services/NotesServices';
 import {useUid} from '../hooks/useUid';
+import Colors from '../constants/Colors';
 
 const Notes = ({navigation, toggleLayout}) => {
   const [otherNotes, setOtherNotes] = useState([]);
@@ -30,10 +24,7 @@ const Notes = ({navigation, toggleLayout}) => {
     });
     setPinnedNotes(pinned);
     setOtherNotes(unPinned);
-    //setNotesObj(noteData);
   };
-  //console.log('Pinned Data', pinnedNotes);
-  //console.log('Others Data', otherNotes);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -45,27 +36,12 @@ const Notes = ({navigation, toggleLayout}) => {
   }, [navigation]);
 
   const goToEditNotes = ({item}) => {
-    //console.log('LabelData', item.labelData);
     navigation.navigate('AddNotes', {
       editdata: item,
       noteId: item.id,
       labelData: item.labelData,
-      //data: item.data,
-      //isPinned: item.isPinned,
     });
   };
-
-  // const DATA = [
-  //   {
-  //     title: 'Pinned',
-  //     data: pinnedNotes,
-  //   },
-
-  //   {
-  //     title: 'Others',
-  //     data: otherNotes,
-  //   },
-  // ];
 
   const PinnedNotesFlatList = () => {
     return (
@@ -122,7 +98,6 @@ const Notes = ({navigation, toggleLayout}) => {
         <FlatList
           numColumns={toggleLayout ? 2 : 1}
           key={toggleLayout ? 2 : 1}
-          //data={pinnedNotes}
           keyExtractor={item => item.id}
           ListHeaderComponent={<PinnedNotesFlatList />}
           renderItem={({item}) => (
@@ -136,36 +111,6 @@ const Notes = ({navigation, toggleLayout}) => {
           )}
         />
       </View>
-
-      {/* <SectionList
-        sections={DATA}
-        //numColumns={toggleLayout ? 2 : 1}
-        //key={toggleLayout ? 2 : 1}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => {
-          //console.log('Item', item);
-          return (
-            <TouchableOpacity
-              style={toggleLayout ? styles.gridLayout : styles.listLayout}
-              onPress={() => {
-                goToEditNotes({item});
-              }}>
-              <NoteCard {...item} />
-            </TouchableOpacity>
-          );
-        }}
-        renderSectionHeader={({section}) => (
-          <View>
-            <Text style={styles.listText}>{section.title}</Text>
-          </View>
-        )}
-      /> */}
-
-      {/* {notesObj.map(item => (
-          <TouchableOpacity key={item.id} onPress={() => {}}>
-          <NoteCard {...item} />
-          </TouchableOpacity>
-        ))} */}
     </View>
   );
 };
@@ -173,7 +118,7 @@ export default Notes;
 
 const styles = StyleSheet.create({
   listText: {
-    color: '#4ebef4',
+    color: Colors.backColor,
     marginVertical: 7,
     fontWeight: 'bold',
   },

@@ -7,6 +7,8 @@ import {fetchNote} from '../services/NotesServices';
 import NoteCard from '../components/NoteCard';
 import {useNavigation} from '@react-navigation/native';
 import TrashTopBar from '../components/TrashTopBar';
+import Strings from '../constants/Strings';
+import Colors from '../constants/Colors';
 
 const Trash = () => {
   const {user} = useContext(AuthContext);
@@ -30,7 +32,7 @@ const Trash = () => {
   }, []);
 
   const goToEditNotes = ({item}) => {
-    navigation.navigate('AddNotes', {
+    navigation.navigate(Strings.addNotesScreen, {
       editdata: item,
       id: item.id,
       isInTrash: item.isInTrash,
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
   trashContainer: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: Colors.lightWhite,
   },
 
   listStyle: {

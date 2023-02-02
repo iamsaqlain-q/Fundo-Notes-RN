@@ -17,15 +17,10 @@ export const deleteAddedLabels = async (userId, labelId, noteId) => {
 };
 
 export const addLabelsToNotes = async (userId, noteId, labelId, noteData) => {
-  //console.log('addlabels', userId, noteId, labelId, noteData);
   try {
-    await database
-      .doc(userId)
-      .collection('LabelData')
-      .doc(labelId)
-      .set({
-        noteData: noteData,
-      });
+    await database.doc(userId).collection('LabelData').doc(labelId).set({
+      noteData: noteData,
+    });
   } catch (e) {
     console.log(e);
   }
@@ -57,7 +52,6 @@ export const fetchNotesWithLabels = async (userId, labelId) => {
       data.id = documentSnapshot.id;
       notesWithLabels.push(data);
     });
-    //console.log('......', notesWithLabels);
     return notesWithLabels;
   } catch (e) {
     console.log(e);
@@ -76,8 +70,6 @@ export const fetchLabel = async userId => {
       const data = documentSnapshot.data();
       data.id = documentSnapshot.id;
       labelsArray.push(data);
-      //console.log('doc', documentSnapshot);
-      //console.log('LabelsArray', labelsArray);
     });
     return labelsArray;
   } catch (e) {

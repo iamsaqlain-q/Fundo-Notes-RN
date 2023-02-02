@@ -10,13 +10,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useEffect} from 'react';
 import {fetchLabel} from '../services/LabelsServices';
 import {useUid} from '../hooks/useUid';
+import Sizes from '../constants/Sizes';
+import Colors from '../constants/Colors';
 
 const CustomDrawer = ({props, navigation}) => {
-  //const navigation = useNavigation();
-  //const [labelData, setLabelData] = useState([]);
   const labels_list = useSelector(state => state.labels_list);
   const dispatch = useDispatch();
-  //console.log('labelData', labelList);
   const userId = useUid();
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
@@ -28,9 +27,7 @@ const CustomDrawer = ({props, navigation}) => {
   const getLabels = async () => {
     let data = await fetchLabel(userId);
     dispatch(labelList(data));
-    //setLabelData(data);
   };
-  //console.log('label List', labels_list);
   return (
     <DrawerContentScrollView props={props}>
       <View style={styles.nameContainer}>
@@ -40,7 +37,11 @@ const CustomDrawer = ({props, navigation}) => {
         <View>
           <DrawerItem
             icon={({color}) => (
-              <Ionicons name="bulb-outline" size={23} style={{color: '#fff'}} />
+              <Ionicons
+                name="bulb-outline"
+                size={Sizes.midBtn}
+                color={Colors.white}
+              />
             )}
             label={() => <Text style={styles.screenText}>Notes</Text>}
             onPress={() => navigation.navigate('Home')}
@@ -50,8 +51,8 @@ const CustomDrawer = ({props, navigation}) => {
             icon={({color}) => (
               <Ionicons
                 name="notifications-outline"
-                size={23}
-                style={{color: '#fff'}}
+                size={Sizes.midBtn}
+                color={Colors.white}
               />
             )}
             label={() => <Text style={styles.screenText}>Reminders</Text>}
@@ -69,9 +70,14 @@ const CustomDrawer = ({props, navigation}) => {
                 style={{flexDirection: 'row', padding: 10}}
                 key={item.id}>
                 <View>
-                  <Icons name="label-outline" size={23} color="#fff" />
+                  <Icons
+                    name="label-outline"
+                    size={Sizes.midBtn}
+                    color={Colors.white}
+                  />
                 </View>
-                <Text style={{marginLeft: 20, fontSize: 15, color: '#fff'}}>
+                <Text
+                  style={{marginLeft: 20, fontSize: 15, color: Colors.white}}>
                   {item.label}
                 </Text>
               </TouchableOpacity>
@@ -82,8 +88,8 @@ const CustomDrawer = ({props, navigation}) => {
               icon={({color}) => (
                 <Ionicons
                   name="add-outline"
-                  size={23}
-                  style={{color: '#fff'}}
+                  size={Sizes.midBtn}
+                  color={Colors.white}
                 />
               )}
               label={() => (
@@ -96,8 +102,8 @@ const CustomDrawer = ({props, navigation}) => {
             icon={({color}) => (
               <Ionicons
                 name="archive-outline"
-                size={23}
-                style={{color: '#fff'}}
+                size={Sizes.midBtn}
+                color={Colors.white}
               />
             )}
             label={() => <Text style={styles.screenText}>Archive</Text>}
@@ -108,8 +114,8 @@ const CustomDrawer = ({props, navigation}) => {
             icon={({color}) => (
               <Ionicons
                 name="trash-outline"
-                size={23}
-                style={{color: '#fff'}}
+                size={Sizes.midBtn}
+                color={Colors.white}
               />
             )}
             label={() => <Text style={styles.screenText}>Trash</Text>}
@@ -120,8 +126,8 @@ const CustomDrawer = ({props, navigation}) => {
             icon={({color}) => (
               <Icons
                 name="file-document-edit-outline"
-                size={23}
-                style={{color: '#fff'}}
+                size={Sizes.midBtn}
+                color={Colors.white}
               />
             )}
             label={() => <Text style={styles.screenText}>Tasks</Text>}
@@ -132,8 +138,8 @@ const CustomDrawer = ({props, navigation}) => {
             icon={({color}) => (
               <Ionicons
                 name="settings-outline"
-                size={23}
-                style={{color: '#fff'}}
+                size={Sizes.midBtn}
+                color={Colors.white}
               />
             )}
             label={() => <Text style={styles.screenText}>Settings</Text>}
@@ -149,7 +155,7 @@ export default CustomDrawer;
 const styles = StyleSheet.create({
   nameContainer: {
     flex: 1,
-    backgroundColor: '#97e5fb',
+    backgroundColor: Colors.mainColor,
   },
   nameView: {
     justifyContent: 'flex-start',
@@ -157,22 +163,21 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   nameText: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 20,
     fontWeight: 'bold',
   },
 
   screenText: {
     fontSize: 17,
-    color: '#fff',
+    color: Colors.white,
     marginLeft: -10,
   },
 
   labelsContainer: {
     paddingLeft: 10,
     borderTopWidth: 1,
-    //borderBottomWidth: 1,
-    borderColor: '#fff',
+    borderColor: Colors.white,
   },
   labelsTopText: {
     padding: 10,
@@ -181,6 +186,6 @@ const styles = StyleSheet.create({
   },
   borderBottom: {
     borderBottomWidth: 1,
-    borderColor: '#fff',
+    borderColor: Colors.white,
   },
 });

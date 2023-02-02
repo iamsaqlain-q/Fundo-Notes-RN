@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {useState, useContext} from 'react';
 import {Text, View, StyleSheet, Modal, Pressable, Alert} from 'react-native';
 import {Avatar} from 'react-native-paper';
@@ -9,6 +10,8 @@ import {useNavigation} from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import Sizes from '../constants/Sizes';
+import Colors from '../constants/Colors';
 
 const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
   const navigation = useNavigation();
@@ -54,7 +57,11 @@ const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
           onPress={() => {
             navigation.openDrawer();
           }}>
-          <FontAwesome5 name="bars" size={20} style={{color: '#fff'}} />
+          <FontAwesome5
+            name="bars"
+            size={Sizes.smallBtn}
+            style={{color: Colors.white}}
+          />
         </TouchableOpacity>
       </View>
 
@@ -71,20 +78,20 @@ const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
           <TouchableOpacity onPress={onPress}>
             <Icon
               name={toggleLayout ? 'view-agenda-outline' : 'view-grid-outline'}
-              size={25}
-              style={{color: '#fff'}}
+              size={Sizes.normalBtn}
+              style={{color: Colors.white}}
             />
           </TouchableOpacity>
         </View>
 
         <View style={styles.avatarStyle}>
           <Pressable
-            android_ripple={{color: '#fff'}}
+            android_ripple={{color: Colors.white}}
             onPress={() => {
               setShowModal(true);
             }}>
             <Avatar.Image
-              size={30}
+              size={Sizes.avatar}
               source={image ? {uri: image} : require('../assets/avatar.png')}
             />
           </Pressable>
@@ -119,10 +126,10 @@ const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
                 </Pressable>
               </View>
               <View style={styles.idName}>
-                <Text style={{color: '#fff', fontSize: 15}}>
+                <Text style={{color: Colors.white, fontSize: 15}}>
                   Saqlain Qureshi
                 </Text>
-                <Text style={{color: '#fff', fontSize: 15}}>
+                <Text style={{color: Colors.white, fontSize: 15}}>
                   test@gmail.com
                 </Text>
               </View>
@@ -130,9 +137,9 @@ const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
                 <View>
                   <Ionicons
                     name="exit-outline"
-                    size={35}
+                    size={Sizes.avatar}
                     onPress={() => signout()}
-                    style={{color: '#fff'}}
+                    style={{color: Colors.white}}
                   />
                 </View>
                 <View>
@@ -160,26 +167,25 @@ const styles = StyleSheet.create({
   searchContainer: {
     flex: 1,
     width: '100%',
-    backgroundColor: '#97e5fb',
+    backgroundColor: Colors.mainColor,
     justifyContent: 'space-between',
     flexDirection: 'row',
-    borderRadius: 30,
+    borderRadius: Sizes.avatar,
     alignItems: 'center',
-    // marginVertical: 20,
     paddingHorizontal: 15,
   },
 
   searchText: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 17,
   },
 
   avatarStyle: {
-    marginLeft: 30,
+    marginLeft: Sizes.avatar,
   },
 
   gridIcon: {
-    marginLeft: 30,
+    marginLeft: Sizes.avatar,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -191,20 +197,20 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     paddingVertical: 50,
     paddingHorizontal: 40,
-    backgroundColor: '#00000099',
+    backgroundColor: Colors.modalBack,
   },
   modal: {
     width: 300,
     height: 300,
     flexDirection: 'row',
-    backgroundColor: '#97e5fb',
+    backgroundColor: Colors.mainColor,
     borderBottomStartRadius: 25,
     borderBottomEndRadius: 25,
     borderTopStartRadius: 25,
     flexWrap: 'wrap',
   },
   googleText: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 20,
     padding: 20,
     fontWeight: 'bold',
@@ -214,7 +220,7 @@ const styles = StyleSheet.create({
     width: 300,
     justifyContent: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#52c2f5',
+    borderBottomColor: Colors.borderBottom,
   },
   avatarInModal: {
     alignSelf: 'flex-start',
@@ -234,13 +240,13 @@ const styles = StyleSheet.create({
     padding: 10,
     borderTopWidth: 1,
     width: '100%',
-    borderColor: '#52c2f5',
+    borderColor: Colors.borderBottom,
     borderBottomWidth: 1,
   },
   sign_out_text: {
     fontSize: 17,
     fontWeight: 'bold',
-    color: '#fff',
+    color: Colors.white,
     margin: 5,
   },
   privacy_policy: {
@@ -251,7 +257,7 @@ const styles = StyleSheet.create({
   },
   privacy_text: {
     fontSize: 13,
-    color: '#fff',
+    color: Colors.white,
     textAlign: 'center',
   },
 });

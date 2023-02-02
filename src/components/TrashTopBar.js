@@ -2,6 +2,8 @@ import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import Sizes from '../constants/Sizes';
+import Colors from '../constants/Colors';
 
 const TrashTopBar = () => {
   const navigation = useNavigation();
@@ -12,7 +14,11 @@ const TrashTopBar = () => {
           onPress={() => {
             navigation.openDrawer();
           }}>
-          <Ionicons name="menu" size={25} style={{color: '#fff'}} />
+          <Ionicons
+            name="menu"
+            size={Sizes.normalBtn}
+            style={{color: Colors.white}}
+          />
         </TouchableOpacity>
       </View>
       <View style={{marginLeft: 20}}>
@@ -33,10 +39,10 @@ export default TrashTopBar;
 const styles = StyleSheet.create({
   topContainer: {
     flex: 1,
-    backgroundColor: '#97e5fb',
+    backgroundColor: Colors.mainColor,
     justifyContent: 'flex-start',
     flexDirection: 'row',
-    borderRadius: 30,
+    borderRadius: Sizes.avatar,
     alignItems: 'center',
     paddingHorizontal: 15,
   },

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
+import Colors from '../constants/Colors';
 
 const Settings = () => {
   return (
@@ -17,6 +18,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     fontSize: 20,
-    color: '#ccc',
+    color: Colors.lightGrey,
   },
 });

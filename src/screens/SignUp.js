@@ -1,8 +1,12 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-useless-escape */
 import React, {useContext, useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import {AuthContext} from '../navigations/AuthProvider';
+import Strings from '../constants/Strings';
+import Colors from '../constants/Colors';
 
 const SignUp = ({navigation}) => {
   const handleCheckEmail = text => {
@@ -48,7 +52,7 @@ const SignUp = ({navigation}) => {
       <FormInput
         labelValue={firstName}
         onChangeText={userName => setFirstName(userName)}
-        placeholderText="First Name"
+        placeholderText={Strings.firstName}
         iconType="user"
         keyboardType="email-address"
       />
@@ -56,7 +60,7 @@ const SignUp = ({navigation}) => {
       <FormInput
         labelValue={lastName}
         onChangeText={userName => setLastName(userName)}
-        placeholderText="Last Name"
+        placeholderText={Strings.lastName}
         iconType="user"
         keyboardType="email-address"
       />
@@ -64,7 +68,7 @@ const SignUp = ({navigation}) => {
       <FormInput
         labelValue={email}
         onChangeText={text => handleCheckEmail(text)}
-        placeholderText="Email"
+        placeholderText={Strings.email}
         iconType="mail"
         keyboardType="email-address"
       />
@@ -78,7 +82,7 @@ const SignUp = ({navigation}) => {
       <FormInput
         labelValue={password}
         onChangeText={text => handleCheckPassword(text)}
-        placeholderText="Password"
+        placeholderText={Strings.password}
         iconType="lock"
         secureTextEntry={true}
       />
@@ -100,7 +104,9 @@ const SignUp = ({navigation}) => {
       <Text style={styles.errorText}>{error}</Text>
       <FormButton
         buttonTitle="Sign Up"
-        onPress={() => signup(firstName, lastName, email, password, handleError)}
+        onPress={() =>
+          signup(firstName, lastName, email, password, handleError)
+        }
       />
 
       <TouchableOpacity
@@ -118,7 +124,7 @@ export default SignUp;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -132,26 +138,26 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#8bd91d',
+    color: Colors.navBtnTwo,
   },
   terms: {
     fontSize: 11,
     marginTop: 15,
-    color: '#808080',
+    color: Colors.terms,
   },
   conditions: {
     fontSize: 11,
     marginTop: 5,
     alignSelf: 'center',
-    color: '#FF6347',
+    color: Colors.conditions,
   },
   errorText: {
     fontSize: 13,
-    color: 'red',
+    color: Colors.red,
   },
   validtext: {
     fontSize: 13,
-    color: 'red',
+    color: Colors.red,
     alignSelf: 'flex-end',
   },
 });

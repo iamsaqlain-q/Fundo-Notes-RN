@@ -4,6 +4,8 @@ import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
+import Sizes from '../constants/Sizes';
+import Colors from '../constants/Colors';
 
 const ReminderBottomSheet = ({
   navigation,
@@ -26,13 +28,6 @@ const ReminderBottomSheet = ({
 
   const changeSelectedDate = (event, selectedDate) => {
     setShow(false);
-    // const {
-    //   type,
-    //   nativeEvent: {timestamp},
-    // } = event;
-    // console.log('Type', type);
-    // console.log('times', timestamp);
-    // console.log('moment date', moment(timestamp).format('LLL'));
     const currentDate = selectedDate;
     let fDate =
       currentDate.getDate() +
@@ -76,7 +71,11 @@ const ReminderBottomSheet = ({
           <View style={styles.modalItems}>
             <View style={styles.bottomMargin}>
               <TouchableOpacity>
-                <Icons name="calendar-outline" size={23} color="#fff" />
+                <Icons
+                  name="calendar-outline"
+                  size={Sizes.midBtn}
+                  color={Colors.white}
+                />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
@@ -94,7 +93,11 @@ const ReminderBottomSheet = ({
 
             <View style={styles.bottomMargin}>
               <TouchableOpacity>
-                <Icons name="clock-outline" size={23} color="#fff" />
+                <Icons
+                  name="clock-outline"
+                  size={Sizes.midBtn}
+                  color={Colors.white}
+                />
               </TouchableOpacity>
               <TouchableOpacity
                 style={{flexDirection: 'row'}}
@@ -112,7 +115,11 @@ const ReminderBottomSheet = ({
 
             <View style={styles.bottomMargin}>
               <TouchableOpacity>
-                <Ionicons name="alarm-outline" size={23} color="#fff" />
+                <Ionicons
+                  name="alarm-outline"
+                  size={Sizes.midBtn}
+                  color={Colors.white}
+                />
               </TouchableOpacity>
               <TouchableOpacity
                 style={{flexDirection: 'row'}}
@@ -130,7 +137,11 @@ const ReminderBottomSheet = ({
 
             <View style={styles.bottomMargin}>
               <TouchableOpacity>
-                <Icons name="map-marker-outline" size={23} color="#fff" />
+                <Icons
+                  name="map-marker-outline"
+                  size={Sizes.midBtn}
+                  color={Colors.white}
+                />
               </TouchableOpacity>
               <TouchableOpacity>
                 <Text style={styles.txt}>Pick a place</Text>
@@ -139,7 +150,7 @@ const ReminderBottomSheet = ({
 
             <View style={styles.bottomMargin}>
               <TouchableOpacity>
-                <Icons name="home" size={23} color="#fff" />
+                <Icons name="home" size={Sizes.midBtn} color={Colors.white} />
               </TouchableOpacity>
               <TouchableOpacity>
                 <Text style={styles.txt}>Home</Text>
@@ -148,17 +159,6 @@ const ReminderBottomSheet = ({
           </View>
         </View>
       </Modal>
-      {/* <View>
-        {showTimePicker && (
-          <RNDateTimePicker
-            value={new Date()}
-            mode={'time'}
-            is24Hour={true}
-            display={'default'}
-            onChange={() => setShowTimePicker(!showTimePicker)}
-          />
-        )}
-      </View> */}
     </View>
   );
 };
@@ -171,13 +171,12 @@ const styles = StyleSheet.create({
     paddingTop: 500,
     alignSelf: 'flex-start',
     width: '100%',
-    //height: 'auto',
-    backgroundColor: '#00000099',
+    backgroundColor: Colors.modalBack,
   },
 
   modalItems: {
     flex: 1,
-    backgroundColor: '#97e5fb',
+    backgroundColor: Colors.mainColor,
     flexDirection: 'column',
     alignItems: 'flex-start',
     padding: 20,
@@ -189,7 +188,7 @@ const styles = StyleSheet.create({
   },
 
   txt: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 17,
     marginHorizontal: 20,
   },
@@ -197,14 +196,13 @@ const styles = StyleSheet.create({
   dateAndTimeText: {
     width: '30%',
     height: 30,
-    backgroundColor: '#4ebef4',
+    backgroundColor: Colors.backColor,
     padding: 3,
     borderRadius: 10,
-    //marginLeft: 50,
   },
 
   txtAfterSettingDate: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 15,
     alignSelf: 'center',
     marginTop: 1,

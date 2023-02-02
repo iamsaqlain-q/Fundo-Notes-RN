@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable radix */
 import React, {useState, useContext} from 'react';
 import {useEffect} from 'react';
@@ -19,6 +20,9 @@ import 'react-native-get-random-values';
 import moment from 'moment';
 import {v4 as uuidv4} from 'uuid';
 import Share from 'react-native-share';
+import Strings from '../constants/Strings';
+import Colors from '../constants/Colors';
+import Sizes from '../constants/Sizes';
 
 const Chip = ({children}) => (
   <Text style={styles.chipTextStyle}>{children}</Text>
@@ -69,7 +73,7 @@ const AddNotes = ({navigation, route}) => {
 
   const handleSend = async () => {
     const shareOptions = {
-      message: noteData?.editdata?.title.toString(), 
+      message: noteData?.editdata?.title.toString(),
     };
     try {
       const shareResponse = await Share.open(shareOptions);
@@ -114,9 +118,6 @@ const AddNotes = ({navigation, route}) => {
         noteId.toString(),
       );
     }
-    // labelData.forEach(item => {
-    //   addLabelsToNotes(userId, noteId.toString(), item.id, data);
-    // });
     if (myDate) {
       Notifications.schduleNotification(myDate, noteId.toString());
     }
@@ -131,7 +132,11 @@ const AddNotes = ({navigation, route}) => {
             onPress={() => {
               handleBackPress();
             }}>
-            <Icons name="arrow-left" size={25} color="#fff" />
+            <Icons
+              name="arrow-left"
+              size={Sizes.normalBtn}
+              color={Colors.white}
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.topRightIcons}>
@@ -142,7 +147,7 @@ const AddNotes = ({navigation, route}) => {
             <Icons
               name={isPinned ? 'pin' : 'pin-outline'}
               size={25}
-              color="#fff"
+              color={Colors.white}
             />
           </TouchableOpacity>
         </View>
@@ -154,7 +159,7 @@ const AddNotes = ({navigation, route}) => {
             <Icons
               name={isInTrash ? 'trash-can' : 'trash-can-outline'}
               size={25}
-              color="#fff"
+              color={Colors.white}
             />
           </TouchableOpacity>
         </View>
@@ -170,7 +175,7 @@ const AddNotes = ({navigation, route}) => {
                   : 'archive-arrow-down-outline'
               }
               size={25}
-              color="#fff"
+              color={Colors.white}
             />
           </TouchableOpacity>
         </View>
@@ -179,7 +184,11 @@ const AddNotes = ({navigation, route}) => {
             onPress={() => {
               setShowReminderSheet(!showReminderSheet);
             }}>
-            <Icons name="bell-plus-outline" size={25} color="#fff" />
+            <Icons
+              name="bell-plus-outline"
+              size={Sizes.normalBtn}
+              color={Colors.white}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -210,7 +219,11 @@ const AddNotes = ({navigation, route}) => {
                 onPress={() => {
                   setShowReminderSheet(!showReminderSheet);
                 }}>
-                <Icons name="alarm" size={21} color="#fff" />
+                <Icons
+                  name="alarm"
+                  size={Sizes.smallBtn}
+                  color={Colors.white}
+                />
               </TouchableOpacity>
             </View>
             <Text style={styles.reminderText}>
@@ -223,7 +236,11 @@ const AddNotes = ({navigation, route}) => {
                 onPress={() => {
                   Notifications.cancelReminder(parseInt(noteId));
                 }}>
-                <Icons name="close" size={21} color="#fff" />
+                <Icons
+                  name="close"
+                  size={Sizes.smallBtn}
+                  color={Colors.white}
+                />
               </TouchableOpacity>
             </View>
           </View>
@@ -237,12 +254,16 @@ const AddNotes = ({navigation, route}) => {
       <View style={styles.bottomContainer}>
         <View style={styles.bottomIcons}>
           <TouchableOpacity>
-            <Icons name="palette-outline" size={25} color="#fff" />
+            <Icons
+              name="palette-outline"
+              size={Sizes.normalBtn}
+              color={Colors.white}
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.bottomIcons}>
           <TouchableOpacity>
-            <Text style={{fontSize: 15, color: '#fff'}}>
+            <Text style={{fontSize: 15, color: Colors.white}}>
               Edited {currentTime}
             </Text>
           </TouchableOpacity>
@@ -252,7 +273,11 @@ const AddNotes = ({navigation, route}) => {
             onPress={() => {
               setShowModal(!showModal);
             }}>
-            <Icons name="dots-vertical" size={25} color="#fff" />
+            <Icons
+              name="dots-vertical"
+              size={Sizes.normalBtn}
+              color={Colors.white}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -286,7 +311,7 @@ export default AddNotes;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#97e5fb',
+    backgroundColor: Colors.mainColor,
   },
 
   topRowItems: {
@@ -329,8 +354,8 @@ const styles = StyleSheet.create({
 
   chipTextStyle: {
     borderRadius: 15,
-    color: '#4ebef4',
-    backgroundColor: '#fff',
+    color: Colors.backColor,
+    backgroundColor: Colors.white,
     fontSize: 13,
     padding: 10,
     margin: 10,
@@ -345,7 +370,7 @@ const styles = StyleSheet.create({
   reminderView: {
     marginVertical: 10,
     flexDirection: 'row',
-    backgroundColor: '#4ebef4',
+    backgroundColor: Colors.backColor,
     width: '75%',
     borderRadius: 10,
     alignItems: 'center',
@@ -353,7 +378,7 @@ const styles = StyleSheet.create({
   },
 
   reminderText: {
-    color: '#fff',
+    color: Colors.white,
     fontSize: 15,
     alignSelf: 'center',
   },

@@ -7,6 +7,8 @@ import CheckBox from '@react-native-community/checkbox';
 import {AuthContext} from '../navigations/AuthProvider';
 import GoogleButton from '../components/GoogleButton';
 import stringsOfLanguages from '../services/Translation';
+import Strings from '../constants/Strings';
+import Colors from '../constants/Colors';
 
 const SignIn = ({route, navigation}) => {
   const [email, setEmail] = useState();
@@ -61,7 +63,7 @@ const SignIn = ({route, navigation}) => {
       <FormInput
         labelValue={email}
         onChangeText={text => handleCheckEmail(text)}
-        placeholderText="Email"
+        placeholderText={Strings.email}
         iconType="mail"
         keyboardType="email-address"
       />
@@ -75,7 +77,7 @@ const SignIn = ({route, navigation}) => {
       <FormInput
         labelValue={password}
         onChangeText={text => handleCheckPassword(text)}
-        placeholderText="Password"
+        placeholderText={Strings.password}
         iconType="lock"
         secureTextEntry={!hidePass}
       />
@@ -93,7 +95,7 @@ const SignIn = ({route, navigation}) => {
           onValueChange={() => {
             setHidePass(!hidePass);
           }}
-          tintColors={{true: '#51C1F6', false: 'black'}}
+          tintColors={{true: Colors.tintColor, false: Colors.black}}
         />
         <Text style={styles.showPassText}>Show Password</Text>
       </View>
@@ -106,7 +108,7 @@ const SignIn = ({route, navigation}) => {
 
       <TouchableOpacity
         style={styles.forgotButton}
-        onPress={() => navigation.navigate('Forgotpassword')}>
+        onPress={() => navigation.navigate(Strings.forgotPasswordScreen)}>
         <Text style={styles.navButtonText}>
           {lang
             ? stringsOfLanguages._props.en.forgotpassword
@@ -117,8 +119,8 @@ const SignIn = ({route, navigation}) => {
       <GoogleButton
         buttonTitle={'Sign In with Google'}
         btnTyp="google"
-        color="#fff"
-        backgroundColor="#fd5ebf"
+        color={Colors.white}
+        backgroundColor={Colors.googleBtn}
         onPress={() => googleSignin()}
       />
 
@@ -130,7 +132,7 @@ const SignIn = ({route, navigation}) => {
         </Text>
         <TouchableOpacity
           style={styles.forgotButton}
-          onPress={() => navigation.navigate('Signup')}>
+          onPress={() => navigation.navigate(Strings.signUpScreen)}>
           <Text style={styles.navButtonText2}> Create One</Text>
         </TouchableOpacity>
       </View>
@@ -141,7 +143,7 @@ export default SignIn;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -159,7 +161,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#50c0f5',
+    color: Colors.fundooNotes,
   },
   forgotButton: {
     marginVertical: 10,
@@ -167,12 +169,12 @@ const styles = StyleSheet.create({
   navButtonText: {
     fontSize: 17,
     marginTop: 15,
-    color: '#2e64e5',
+    color: Colors.navBtn,
   },
   navButtonText2: {
     fontSize: 17,
     marginTop: 5,
-    color: '#8bd91d',
+    color: Colors.navBtnTwo,
   },
   showPass: {
     flexDirection: 'row',
@@ -182,7 +184,7 @@ const styles = StyleSheet.create({
   showPassText: {
     marginTop: 9,
     fontSize: 11,
-    color: '#666',
+    color: Colors.midGrey,
   },
   validtext: {
     fontSize: 13,
@@ -191,6 +193,6 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 13,
-    color: 'red',
+    color: Colors.red,
   },
 });

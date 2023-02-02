@@ -4,6 +4,9 @@ import {View, StyleSheet, TextInput} from 'react-native';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import NoteCard from '../components/NoteCard';
+import Colors from '../constants/Colors';
+import Sizes from '../constants/Sizes';
+import Strings from '../constants/Strings';
 import {AuthContext} from '../navigations/AuthProvider';
 import {fetchNote} from '../services/NotesServices';
 
@@ -28,7 +31,6 @@ const SearchNotes = ({navigation}) => {
         item.description.toLowerCase().includes(text.toLowerCase()),
     );
     setSearchedNotes(searchItems);
-    //console.log('Searched Notes:', searchedNotes);
   };
 
   useEffect(() => {
@@ -41,10 +43,9 @@ const SearchNotes = ({navigation}) => {
   }, []);
 
   const goToEditNotes = ({item}) => {
-    navigation.navigate('AddNotes', {
+    navigation.navigate(Strings.addNotesScreen, {
       editdata: item,
       id: item.id,
-      // isPinned: item.isPinned,
     });
   };
 
@@ -56,7 +57,7 @@ const SearchNotes = ({navigation}) => {
             onPress={() => {
               navigation.goBack();
             }}>
-            <Ionicons name="arrow-back" size={25} />
+            <Ionicons name="arrow-back" size={Sizes.normalBtn} />
           </TouchableOpacity>
         </View>
         <View>
@@ -64,8 +65,8 @@ const SearchNotes = ({navigation}) => {
             value={input}
             onChangeText={handleInput}
             autoFocus={true}
-            placeholder="Search your notes"
-            placeholderTextColor="#f2f2f2"
+            placeholder={Strings.searchYourNotes}
+            placeholderTextColor={Colors.lightWhite}
             style={styles.textInput}
           />
         </View>
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
   searchTopBar: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    backgroundColor: '#97e5fb',
+    backgroundColor: Colors.mainColor,
     padding: 10,
   },
 

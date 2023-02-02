@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
+import Colors from '../constants/Colors';
 
 const FormButton = ({buttonTitle, ...rest}) => {
   return (
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: '100%',
     height: '6.66%',
-    backgroundColor: '#2e64e5',
+    backgroundColor: Colors.backColor,
     padding: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -23,6 +24,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    color: '#ffffff',
+    color: Colors.white,
   },
 });

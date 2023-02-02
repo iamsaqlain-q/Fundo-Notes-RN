@@ -1,6 +1,8 @@
 import React from 'react';
 import {Text, View, StyleSheet, Modal, TouchableOpacity} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Colors from '../constants/Colors';
+import Sizes from '../constants/Sizes';
 
 const BottomSheet = ({
   navigation,
@@ -23,7 +25,11 @@ const BottomSheet = ({
           <View style={styles.modalItems}>
             <View style={styles.bottomMargin}>
               <TouchableOpacity>
-                <Icons name="label-outline" size={23} color="#fff" />
+                <Icons
+                  name="label-outline"
+                  size={Sizes.midBtn}
+                  color={Colors.white}
+                />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
@@ -32,7 +38,11 @@ const BottomSheet = ({
                   });
                 }}>
                 <Text
-                  style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
+                  style={{
+                    color: Colors.white,
+                    fontSize: 17,
+                    marginHorizontal: 20,
+                  }}>
                   Labels
                 </Text>
               </TouchableOpacity>
@@ -40,11 +50,19 @@ const BottomSheet = ({
 
             <View style={styles.bottomMargin}>
               <TouchableOpacity>
-                <Icons name="share-variant-outline" size={23} color="#fff" />
+                <Icons
+                  name="share-variant-outline"
+                  size={Sizes.midBtn}
+                  color={Colors.white}
+                />
               </TouchableOpacity>
               <TouchableOpacity onPress={handleSend}>
                 <Text
-                  style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
+                  style={{
+                    color: Colors.white,
+                    fontSize: 17,
+                    marginHorizontal: 20,
+                  }}>
                   Send
                 </Text>
               </TouchableOpacity>
@@ -52,11 +70,19 @@ const BottomSheet = ({
 
             <View style={styles.bottomMargin}>
               <TouchableOpacity>
-                <Icons name="message-alert-outline" size={23} color="#fff" />
+                <Icons
+                  name="message-alert-outline"
+                  size={Sizes.midBtn}
+                  color={Colors.white}
+                />
               </TouchableOpacity>
               <TouchableOpacity>
                 <Text
-                  style={{color: '#fff', fontSize: 17, marginHorizontal: 20}}>
+                  style={{
+                    color: Colors.white,
+                    fontSize: 17,
+                    marginHorizontal: 20,
+                  }}>
                   Help & Feedback
                 </Text>
               </TouchableOpacity>
@@ -76,13 +102,12 @@ const styles = StyleSheet.create({
     paddingTop: 500,
     alignSelf: 'flex-start',
     width: '100%',
-    //height: 'auto',
-    backgroundColor: '#00000099',
+    backgroundColor: Colors.modalBack,
   },
 
   modalItems: {
     flex: 1,
-    backgroundColor: '#97e5fb',
+    backgroundColor: Colors.mainColor,
     flexDirection: 'column',
     alignItems: 'flex-start',
     padding: 20,

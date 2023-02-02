@@ -21,8 +21,6 @@ export const AuthProvider = ({children}) => {
               email,
               password,
             );
-            //console.log(userDetails.user.uid);
-            //console.log(userDetails);
             await userCollection
               .doc(userDetails.user.uid)
               .set({firstName, lastName, email});

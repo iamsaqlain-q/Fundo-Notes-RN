@@ -7,14 +7,13 @@ import {useUid} from '../hooks/useUid';
 import {fetchLabel} from '../services/LabelsServices';
 import {labelList} from '../redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
+import Colors from '../constants/Colors';
+import Sizes from '../constants/Sizes';
 
 const LabelCheck = ({data, onCheck, isCheck}) => {
-  //console.log('Data', selectedLabels);
-  //console.log('Render LabelCheck', data.label);
-  // const labelStr = data.id + '|' + data.label;
   return (
     <View style={styles.labelCheckContainer}>
-      <Icons name="label-outline" size={25} color="#fff" />
+      <Icons name="label-outline" size={Sizes.normalBtn} color={Colors.white} />
       <Text style={styles.labelNames}>{data.label}</Text>
       <View style={styles.checkBoxStyle}>
         <CheckBox value={isCheck(data)} onValueChange={() => onCheck(data)} />
@@ -27,18 +26,14 @@ const LabelCheckWithMemo = React.memo(LabelCheck);
 
 const AddLabelsToNote = ({navigation, route}) => {
   const [selectedLabels, setSelectedLabels] = useState([]);
-  //const [labelData, setLabelData] = useState([]);
   const labels_list = useSelector(state => state.labels_list);
   const dispatch = useDispatch();
   const noteId = route.params?.noteId;
-  //console.log('ID', noteId);
   const userId = useUid();
 
   const getLabels = async () => {
     let data = await fetchLabel(userId);
     dispatch(labelList(data));
-    //setLabelData(data);
-    //console.log('LabelData', labelData);
   };
 
   useEffect(() => {
@@ -69,8 +64,6 @@ const AddLabelsToNote = ({navigation, route}) => {
     },
     [selectedLabels],
   );
-  //console.log('Selected', labelData);
-  //console.log('Render addLabels');
   return (
     <View style={styles.container}>
       <View style={styles.seachLabelBar}>
@@ -82,11 +75,11 @@ const AddLabelsToNote = ({navigation, route}) => {
               noteId: noteId,
             });
           }}>
-          <Icons name="arrow-left" size={25} color="#fff" />
+          <Icons name="arrow-left" size={Sizes.normalBtn} color={Colors.white} />
         </TouchableOpacity>
         <TextInput
           placeholder="Enter label name"
-          placeholderTextColor="#f2f2f2"
+          placeholderTextColor={Colors.lightWhite}
           style={styles.searchInput}
         />
       </View>
@@ -98,7 +91,6 @@ const AddLabelsToNote = ({navigation, route}) => {
               data={itm}
               isCheck={isCheck}
               onCheck={onCheck}
-              // selectedLabels={selectedLabels}
             />
           ))}
         </View>
@@ -119,7 +111,7 @@ const styles = StyleSheet.create({
 
   labelNames: {
     fontSize: 20,
-    color: '#fff',
+    color: Colors.white,
     marginVertical: 10,
     marginLeft: 25,
   },
@@ -129,7 +121,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#97e5fb',
+    backgroundColor: Colors.mainColor,
     padding: 15,
   },
   seachLabelBar: {
@@ -138,7 +130,7 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     fontSize: 17,
-    color: '#fff',
+    color: Colors.white,
     width: '80%',
     height: 50,
     marginLeft: 10,

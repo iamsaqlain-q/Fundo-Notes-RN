@@ -11,6 +11,8 @@ import Home from '../screens/Home';
 import CreateLabel from '../screens/CreateLabel';
 import DrawerLabels from '../screens/DrawerLabels';
 import TaskManager from '../screens/TaskManager';
+import Colors from '../constants/Colors';
+import Sizes from '../constants/Sizes';
 
 const Drawer = createDrawerNavigator();
 
@@ -20,16 +22,16 @@ const DrawerNavigation = () => {
       drawerContent={props => <CustomDrawer {...props} />}
       screenOptions={{
         drawerStyle: {
-          backgroundColor: '#97e5fb',
+          backgroundColor: Colors.mainColor,
         },
         headerShown: false,
-        drawerActiveBackgroundColor: '#52c2f5',
-        drawerActiveTintColor: '#fff',
+        drawerActiveBackgroundColor: Colors.drawerActive,
+        drawerActiveTintColor: Colors.white,
         drawerLabelStyle: {
           marginLeft: -15,
           fontSize: 15,
           fontWeight: 'bold',
-          color: '#fff',
+          color: Colors.white,
         },
       }}>
       <Drawer.Screen
@@ -37,7 +39,11 @@ const DrawerNavigation = () => {
         component={Home}
         options={{
           drawerIcon: () => (
-            <Ionicons name="bulb-outline" size={20} style={{color: '#fff'}} />
+            <Ionicons
+              name="bulb-outline"
+              size={Sizes.smallBtn}
+              style={{color: Colors.white}}
+            />
           ),
         }}
       />
@@ -48,8 +54,8 @@ const DrawerNavigation = () => {
           drawerIcon: () => (
             <Ionicons
               name="notifications-outline"
-              size={20}
-              style={{color: '#fff'}}
+              size={Sizes.smallBtn}
+              style={{color: Colors.white}}
             />
           ),
         }}
@@ -68,8 +74,8 @@ const DrawerNavigation = () => {
           drawerIcon: () => (
             <Ionicons
               name="add-outline"
-              size={25}
-              style={{color: '#fff', marginRight: -5}}
+              size={Sizes.normalBtn}
+              style={{color: Colors.white, marginRight: -5}}
             />
           ),
         }}
@@ -81,8 +87,8 @@ const DrawerNavigation = () => {
           drawerIcon: () => (
             <Ionicons
               name="archive-outline"
-              size={20}
-              style={{color: '#fff'}}
+              size={Sizes.smallBtn}
+              style={{color: Colors.white}}
             />
           ),
         }}
@@ -92,7 +98,11 @@ const DrawerNavigation = () => {
         component={Trash}
         options={{
           drawerIcon: () => (
-            <Ionicons name="trash-outline" size={20} style={{color: '#fff'}} />
+            <Ionicons
+              name="trash-outline"
+              size={Sizes.smallBtn}
+              style={{color: Colors.white}}
+            />
           ),
         }}
       />
@@ -103,8 +113,8 @@ const DrawerNavigation = () => {
           drawerIcon: () => (
             <Ionicons
               name="settings-outline"
-              size={20}
-              style={{color: '#fff'}}
+              size={Sizes.smallBtn}
+              style={{color: Colors.white}}
             />
           ),
         }}
@@ -117,8 +127,8 @@ const DrawerNavigation = () => {
           drawerIcon: () => (
             <Icons
               name="file-document-edit-outline"
-              size={20}
-              style={{color: '#fff'}}
+              size={Sizes.smallBtn}
+              style={{color: Colors.white}}
             />
           ),
         }}

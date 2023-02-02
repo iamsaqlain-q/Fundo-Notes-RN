@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, {useState} from 'react';
 import {Keyboard} from 'react-native';
 import {Text, View, StyleSheet} from 'react-native';
@@ -13,30 +14,20 @@ import LabelCard from '../components/LabelCard';
 import {useSelector, useDispatch} from 'react-redux';
 import {labelList} from '../redux/actions';
 import {useCallback} from 'react';
+import Sizes from '../constants/Sizes';
+import Colors from '../constants/Colors';
 
 const CreateLabel = ({navigation, route}) => {
   const noteId = route.params?.id;
-  //console.log('nid', noteId);
   const [changeIcon, setChangeIcon] = useState(true);
   const [label, setLabel] = useState([]);
-  //const [labelData, setLabelData] = useState([]);
   const userId = useUid();
   const labels_list = useSelector(state => state.labels_list);
   const dispatch = useDispatch();
-  //console.log('labelList', labelList);
-
-  // useEffect(() => {
-  //   const unsubscribe = navigation.addListener('focus', () => {
-  //     getLabels();
-  //   });
-  //   return unsubscribe;
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [navigation]);
 
   const getLabels = useCallback(async () => {
     let data = await fetchLabel(userId);
     dispatch(labelList(data));
-    //setLabelData(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -56,7 +47,11 @@ const CreateLabel = ({navigation, route}) => {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Ionicons name="arrow-back" size={25} style={{color: '#fff'}} />
+          <Ionicons
+            name="arrow-back"
+            size={Sizes.normalBtn}
+            color={Colors.white}
+          />
         </TouchableOpacity>
         <Text style={styles.editText}>Edit labels</Text>
       </View>
@@ -76,7 +71,7 @@ const CreateLabel = ({navigation, route}) => {
           value={label}
           onChangeText={text => setLabel(text)}
           placeholder="Create new label"
-          placeholderTextColor="#f2f2f2"
+          placeholderTextColor={Colors.lightWhite}
           style={styles.labelInput}
         />
 
@@ -93,41 +88,9 @@ const CreateLabel = ({navigation, route}) => {
           data={labels_list}
           key={item => item.id}
           keyExtractor={item => item.id}
-          renderItem={item => (
-            <LabelCard getLabels={getLabels} {...item} />
-          )}
+          renderItem={item => <LabelCard getLabels={getLabels} {...item} />}
         />
       </View>
-      {/* <View>
-        {labelData.map(item => {
-          //console.log('Items in array:', item);
-          return (
-            <TouchableOpacity key={item.id}>
-              <View
-                style={{
-                  // flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  padding: 10,
-                }}>
-                <Icon name="label-outline" size={25} color="#fff" />
-                <Text style={{fontSize: 20, color: '#fff', marginLeft: 30}}>
-                  {item.label}
-                </Text>
-                <TouchableOpacity
-                  onPress={() => setChangeIcon(!changeIcon)}
-                  style={{marginLeft: 110}}>
-                  <Icon
-                    name={changeIcon ? 'pencil' : 'check'}
-                    size={25}
-                    color="#fff"
-                  />
-                </TouchableOpacity>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
-      </View> */}
     </View>
   );
 };
@@ -138,7 +101,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#97e5fb',
+    backgroundColor: Colors.mainColor,
   },
 
   topContainer: {
@@ -151,7 +114,7 @@ const styles = StyleSheet.create({
   editText: {
     textAlign: 'center',
     fontSize: 20,
-    color: '#fff',
+    color: Colors.white,
     marginHorizontal: 15,
   },
 

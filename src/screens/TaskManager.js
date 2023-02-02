@@ -5,6 +5,8 @@ import TasksTopBar from '../components/TasksTopBar';
 import SQLite from 'react-native-sqlite-storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Colors from '../constants/Colors';
+import Sizes from '../constants/Sizes';
 
 const db = SQLite.openDatabase(
   {
@@ -19,7 +21,6 @@ const db = SQLite.openDatabase(
 const TaskManager = () => {
   const [task, setTask] = useState('');
   const [taskList, setTaskList] = useState([]);
-  //console.log('taskList', taskList);
 
   const createTables = () => {
     db.transaction(txn => {
@@ -107,7 +108,7 @@ const TaskManager = () => {
           <Text style={styles.itemText}>{item.name}</Text>
           <View>
             <TouchableOpacity onPress={deleteTask}>
-              <Icon name="delete" size={20} color="#fff" />
+              <Icon name="delete" size={Sizes.smallBtn} color={Colors.white} />
             </TouchableOpacity>
           </View>
         </View>
@@ -127,12 +128,16 @@ const TaskManager = () => {
       </View>
       <View style={styles.listStyle}>
         <View style={styles.headingView}>
-          <Icons name="file-plus-outline" size={20} color="#4ebef4" />
+          <Icons
+            name="file-plus-outline"
+            size={Sizes.smallBtn}
+            color={Colors.backColor}
+          />
           <Text style={styles.headingText}>Add Task</Text>
         </View>
         <TextInput
           placeholder="Enter task"
-          placeholderTextColor="#4ebef4"
+          placeholderTextColor={Colors.backColor}
           value={task}
           onChangeText={setTask}
           style={styles.txtInput}
@@ -152,7 +157,7 @@ export default TaskManager;
 const styles = StyleSheet.create({
   archiveContainer: {
     flex: 1,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: Colors.lightWhite,
   },
 
   topBar: {
@@ -169,11 +174,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderColor: '#ddd',
+    borderColor: Colors.taskBorder,
   },
 
   itemView: {
-    backgroundColor: '#97e5fb',
+    backgroundColor: Colors.mainColor,
     width: '100%',
     borderRadius: 5,
     paddingVertical: 5,
@@ -185,7 +190,7 @@ const styles = StyleSheet.create({
 
   itemText: {
     marginRight: 10,
-    color: '#fff',
+    color: Colors.white,
     fontWeight: '600',
     fontSize: 17,
   },
@@ -198,21 +203,21 @@ const styles = StyleSheet.create({
   headingText: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#4ebef4',
+    color: Colors.backColor,
     marginHorizontal: 5,
   },
 
   txtInput: {
     borderWidth: 3,
     borderRadius: 15,
-    borderColor: '#4ebef4',
-    color: '#4ebef4',
+    borderColor: Colors.backColor,
+    color: Colors.backColor,
     marginVertical: 10,
     padding: 10,
   },
 
   addBtn: {
-    backgroundColor: '#4ebef4',
+    backgroundColor: Colors.backColor,
     width: 90,
     height: 50,
     borderRadius: 15,
@@ -221,7 +226,7 @@ const styles = StyleSheet.create({
   },
 
   addBtnText: {
-    color: '#fff',
+    color: Colors.white,
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',

@@ -36,12 +36,9 @@ export const fetchNote = async userId => {
     .doc(userId)
     .collection('NoteData')
     .get();
-  // console.log('Total users:', notesCollection.size);
   notesCollection.forEach(documentSnapshot => {
     const data = documentSnapshot.data();
     data.id = documentSnapshot.id;
-    //console.log('Note Data:', documentSnapshot.data());
-    //console.log('New Data:', data);
     notesArray.push(data);
   });
   return notesArray;

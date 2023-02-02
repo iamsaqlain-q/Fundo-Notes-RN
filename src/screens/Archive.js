@@ -7,6 +7,7 @@ import {fetchNote} from '../services/NotesServices';
 import ArchiveTopBar from '../components/ArchiveTopBar';
 import NoteCard from '../components/NoteCard';
 import {useNavigation} from '@react-navigation/native';
+import Colors from '../constants/Colors';
 
 const Archive = () => {
   const {user} = useContext(AuthContext);
@@ -38,7 +39,6 @@ const Archive = () => {
     navigation.navigate('AddNotes', {
       editdata: item,
       id: item.id,
-      //isInArchive: item.isInArchive,
     });
   };
 
@@ -76,13 +76,12 @@ const styles = StyleSheet.create({
   archiveContainer: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: Colors.lightWhite,
   },
 
   listStyle: {
     flex: 13,
     width: '100%',
-   // alignSelf: 'center',
     marginVertical: 10,
   },
 

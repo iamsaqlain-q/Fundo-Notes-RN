@@ -1,8 +1,11 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable no-unused-vars */
 import React, {useContext, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import {AuthContext} from '../navigations/AuthProvider';
+import Colors from '../constants/Colors';
 
 const ForgotPassword = ({navigation}) => {
   const [email, setEmail] = useState();
@@ -58,7 +61,7 @@ export default ForgotPassword;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -69,11 +72,11 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#51C1F6',
+    color: Colors.setPass,
   },
   validtext: {
     fontSize: 13,
-    color: 'red',
+    color: Colors.red,
     alignSelf: 'flex-end',
   },
   errorText: {

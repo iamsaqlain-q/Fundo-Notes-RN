@@ -2,6 +2,8 @@ import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import Sizes from '../constants/Sizes';
+import Colors from '../constants/Colors';
 
 const TasksTopBar = () => {
   const navigation = useNavigation();
@@ -12,14 +14,18 @@ const TasksTopBar = () => {
           onPress={() => {
             navigation.openDrawer();
           }}>
-          <Ionicons name="menu" size={25} style={{color: '#fff'}} />
+          <Ionicons
+            name="menu"
+            size={Sizes.normalBtn}
+            style={{color: Colors.white}}
+          />
         </TouchableOpacity>
       </View>
       <View>
         <Text
           style={{
             textAlign: 'center',
-            color: '#fff',
+            color: Colors.white,
             marginHorizontal: 10,
             fontSize: 20,
           }}>
@@ -34,10 +40,10 @@ export default TasksTopBar;
 const styles = StyleSheet.create({
   topContainer: {
     flex: 1,
-    backgroundColor: '#97e5fb',
+    backgroundColor: Colors.mainColor,
     justifyContent: 'flex-start',
     flexDirection: 'row',
-    borderRadius: 30,
+    borderRadius: Sizes.avatar,
     alignItems: 'center',
     paddingHorizontal: 15,
   },

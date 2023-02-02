@@ -1,6 +1,8 @@
 import React from 'react';
 import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Colors from '../constants/Colors';
+import Sizes from '../constants/Sizes';
 
 const GoogleButton = ({
   buttonTitle,
@@ -18,7 +20,7 @@ const GoogleButton = ({
         <FontAwesome
           style={styles.icon}
           name={btnTyp}
-          size={22}
+          size={Sizes.midBtn}
           color={color}
         />
       </View>
@@ -35,7 +37,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: '100%',
     height: '6.66%',
-    backgroundColor: '#fe98bd',
+    backgroundColor: Colors.googleBtnTwo,
     padding: 10,
     flexDirection: 'row',
     borderRadius: 3,

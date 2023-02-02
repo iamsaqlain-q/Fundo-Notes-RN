@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import SearchBar from '../components/SearchBar';
 import Notes from './Notes';
 import BottomBar from '../components/BottomBar';
@@ -52,12 +52,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     marginTop: 20,
     alignSelf: 'center',
-    //justifyContent: 'flex-start',
   },
   notesContainer: {
     flex: 13,
     padding: 20,
-    //height: 500,
     alignSelf: 'center',
     justifyContent: 'flex-start',
     width: '100%',
