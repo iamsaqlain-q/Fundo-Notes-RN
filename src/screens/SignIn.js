@@ -63,7 +63,11 @@ const SignIn = ({route, navigation}) => {
       <FormInput
         labelValue={email}
         onChangeText={text => handleCheckEmail(text)}
-        placeholderText={Strings.email}
+        placeholderText={
+          lang
+            ? stringsOfLanguages._props.en.email
+            : stringsOfLanguages._props.urdu.email
+        }
         iconType="mail"
         keyboardType="email-address"
       />
@@ -77,7 +81,11 @@ const SignIn = ({route, navigation}) => {
       <FormInput
         labelValue={password}
         onChangeText={text => handleCheckPassword(text)}
-        placeholderText={Strings.password}
+        placeholderText={
+          lang
+            ? stringsOfLanguages._props.en.password
+            : stringsOfLanguages._props.urdu.password
+        }
         iconType="lock"
         secureTextEntry={!hidePass}
       />
@@ -97,12 +105,20 @@ const SignIn = ({route, navigation}) => {
           }}
           tintColors={{true: Colors.tintColor, false: Colors.black}}
         />
-        <Text style={styles.showPassText}>Show Password</Text>
+        <Text style={styles.showPassText}>
+          {lang
+            ? stringsOfLanguages._props.en.showpass
+            : stringsOfLanguages._props.urdu.showpass}
+        </Text>
       </View>
 
       <Text style={styles.errorText}>{error}</Text>
       <FormButton
-        buttonTitle="Sign In"
+        buttonTitle={
+          lang
+            ? stringsOfLanguages._props.en.signin
+            : stringsOfLanguages._props.urdu.signin
+        }
         onPress={() => signin(email, password, handleError)}
       />
 
@@ -117,7 +133,11 @@ const SignIn = ({route, navigation}) => {
       </TouchableOpacity>
 
       <GoogleButton
-        buttonTitle={'Sign In with Google'}
+        buttonTitle={
+          lang
+            ? stringsOfLanguages._props.en.signingoogle
+            : stringsOfLanguages._props.urdu.signingoogle
+        }
         btnTyp="google"
         color={Colors.white}
         backgroundColor={Colors.googleBtn}
@@ -133,7 +153,12 @@ const SignIn = ({route, navigation}) => {
         <TouchableOpacity
           style={styles.forgotButton}
           onPress={() => navigation.navigate(Strings.signUpScreen)}>
-          <Text style={styles.navButtonText2}> Create One</Text>
+          <Text style={styles.navButtonText2}>
+            {' '}
+            {lang
+              ? stringsOfLanguages._props.en.createone
+              : stringsOfLanguages._props.urdu.createone}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -1,8 +1,9 @@
 import React from 'react';
-import {Text, View, StyleSheet, Modal, TouchableOpacity} from 'react-native';
+import {Text, View, Modal, TouchableOpacity} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '../constants/Colors';
 import Sizes from '../constants/Sizes';
+import {styles} from '../utility/CommomStyles';
 
 const BottomSheet = ({
   navigation,
@@ -37,14 +38,7 @@ const BottomSheet = ({
                     noteId: noteId,
                   });
                 }}>
-                <Text
-                  style={{
-                    color: Colors.white,
-                    fontSize: 17,
-                    marginHorizontal: 20,
-                  }}>
-                  Labels
-                </Text>
+                <Text style={styles.itemText}>Labels</Text>
               </TouchableOpacity>
             </View>
 
@@ -57,14 +51,7 @@ const BottomSheet = ({
                 />
               </TouchableOpacity>
               <TouchableOpacity onPress={handleSend}>
-                <Text
-                  style={{
-                    color: Colors.white,
-                    fontSize: 17,
-                    marginHorizontal: 20,
-                  }}>
-                  Send
-                </Text>
+                <Text style={styles.itemText}>Send</Text>
               </TouchableOpacity>
             </View>
 
@@ -77,14 +64,7 @@ const BottomSheet = ({
                 />
               </TouchableOpacity>
               <TouchableOpacity>
-                <Text
-                  style={{
-                    color: Colors.white,
-                    fontSize: 17,
-                    marginHorizontal: 20,
-                  }}>
-                  Help & Feedback
-                </Text>
+                <Text style={styles.itemText}>Help & Feedback</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -95,26 +75,3 @@ const BottomSheet = ({
 };
 
 export default BottomSheet;
-
-const styles = StyleSheet.create({
-  modalContainer: {
-    flex: 1,
-    paddingTop: 500,
-    alignSelf: 'flex-start',
-    width: '100%',
-    backgroundColor: Colors.modalBack,
-  },
-
-  modalItems: {
-    flex: 1,
-    backgroundColor: Colors.mainColor,
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    padding: 20,
-  },
-
-  bottomMargin: {
-    flexDirection: 'row',
-    marginBottom: 20,
-  },
-});

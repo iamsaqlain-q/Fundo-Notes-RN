@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, Modal, TouchableOpacity} from 'react-native';
+import {Text, View, Modal, TouchableOpacity} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import Sizes from '../constants/Sizes';
 import Colors from '../constants/Colors';
+import {styles} from '../utility/CommomStyles';
 
 const ReminderBottomSheet = ({
   navigation,
@@ -164,47 +165,3 @@ const ReminderBottomSheet = ({
 };
 
 export default ReminderBottomSheet;
-
-const styles = StyleSheet.create({
-  modalContainer: {
-    flex: 1,
-    paddingTop: 500,
-    alignSelf: 'flex-start',
-    width: '100%',
-    backgroundColor: Colors.modalBack,
-  },
-
-  modalItems: {
-    flex: 1,
-    backgroundColor: Colors.mainColor,
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    padding: 20,
-  },
-
-  bottomMargin: {
-    flexDirection: 'row',
-    marginBottom: 20,
-  },
-
-  txt: {
-    color: Colors.white,
-    fontSize: 17,
-    marginHorizontal: 20,
-  },
-
-  dateAndTimeText: {
-    width: '30%',
-    height: 30,
-    backgroundColor: Colors.backColor,
-    padding: 3,
-    borderRadius: 10,
-  },
-
-  txtAfterSettingDate: {
-    color: Colors.white,
-    fontSize: 15,
-    alignSelf: 'center',
-    marginTop: 1,
-  },
-});
