@@ -23,7 +23,7 @@ import Share from 'react-native-share';
 import Strings from '../constants/Strings';
 import Colors from '../constants/Colors';
 import Sizes from '../constants/Sizes';
-import {styles} from '../utility/AddNotesStyles';
+import {styles} from '../utility/ExternalStyles/AddNotesStyles';
 
 const Chip = ({children}) => (
   <Text style={styles.chipTextStyle}>{children}</Text>

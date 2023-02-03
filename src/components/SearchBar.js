@@ -12,7 +12,7 @@ import storage from '@react-native-firebase/storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Sizes from '../constants/Sizes';
 import Colors from '../constants/Colors';
-import {styles} from '../utility/SearchBarStyles';
+import {styles} from '../utility/ExternalStyles/SearchBarStyles';
 import Strings from '../constants/Strings';
 
 const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
@@ -121,9 +121,7 @@ const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
                   }}>
                   <Avatar.Image
                     size={40}
-                    source={
-                      image ? {uri: image} : require('../assets/avatar.png')
-                    }
+                    source={image ? {uri: image} : {uri: Strings.profileImg}}
                   />
                 </Pressable>
               </View>

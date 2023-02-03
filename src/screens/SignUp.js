@@ -5,8 +5,9 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import {AuthContext} from '../navigations/AuthProvider';
-import Strings from '../constants/Strings';
 import Colors from '../constants/Colors';
+import {useSelector} from 'react-redux';
+import stringsOfLanguages from '../utility/Localization/Translation';
 
 const SignUp = ({navigation}) => {
   const handleCheckEmail = text => {
@@ -43,16 +44,25 @@ const SignUp = ({navigation}) => {
   const [confirmPassword, setConfirmPassword] = useState();
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
+  const toggle = useSelector(state => state.toggle);
 
   const {signup} = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Create An Account</Text>
+      <Text style={styles.text}>
+        {toggle
+          ? stringsOfLanguages._props.en.createanewccount
+          : stringsOfLanguages._props.urdu.createanewccount}
+      </Text>
       <FormInput
         labelValue={firstName}
         onChangeText={userName => setFirstName(userName)}
-        placeholderText={Strings.firstName}
+        placeholderText={
+          toggle
+            ? stringsOfLanguages._props.en.firstname
+            : stringsOfLanguages._props.urdu.firstname
+        }
         iconType="user"
         keyboardType="email-address"
       />
@@ -60,7 +70,11 @@ const SignUp = ({navigation}) => {
       <FormInput
         labelValue={lastName}
         onChangeText={userName => setLastName(userName)}
-        placeholderText={Strings.lastName}
+        placeholderText={
+          toggle
+            ? stringsOfLanguages._props.en.lastname
+            : stringsOfLanguages._props.urdu.lastname
+        }
         iconType="user"
         keyboardType="email-address"
       />
@@ -68,7 +82,11 @@ const SignUp = ({navigation}) => {
       <FormInput
         labelValue={email}
         onChangeText={text => handleCheckEmail(text)}
-        placeholderText={Strings.email}
+        placeholderText={
+          toggle
+            ? stringsOfLanguages._props.en.email
+            : stringsOfLanguages._props.urdu.email
+        }
         iconType="mail"
         keyboardType="email-address"
       />
@@ -82,7 +100,11 @@ const SignUp = ({navigation}) => {
       <FormInput
         labelValue={password}
         onChangeText={text => handleCheckPassword(text)}
-        placeholderText={Strings.password}
+        placeholderText={
+          toggle
+            ? stringsOfLanguages._props.en.password
+            : stringsOfLanguages._props.urdu.password
+        }
         iconType="lock"
         secureTextEntry={true}
       />
@@ -96,14 +118,22 @@ const SignUp = ({navigation}) => {
       <FormInput
         labelValue={confirmPassword}
         onChangeText={userPassword => setConfirmPassword(userPassword)}
-        placeholderText="Confirm Password"
+        placeholderText={
+          toggle
+            ? stringsOfLanguages._props.en.confirmpass
+            : stringsOfLanguages._props.urdu.confirmpass
+        }
         iconType="lock"
         secureTextEntry={true}
       />
 
       <Text style={styles.errorText}>{error}</Text>
       <FormButton
-        buttonTitle="Sign Up"
+        buttonTitle={
+          toggle
+            ? stringsOfLanguages._props.en.signup
+            : stringsOfLanguages._props.urdu.signup
+        }
         onPress={() =>
           signup(firstName, lastName, email, password, handleError)
         }
@@ -113,9 +143,15 @@ const SignUp = ({navigation}) => {
         style={styles.forgotButton}
         onPress={() => alert('Terms & Conditions')}>
         <Text style={styles.terms}>
-          By clicking Sign Up, you are accepting our
+          {toggle
+            ? stringsOfLanguages._props.en.terms
+            : stringsOfLanguages._props.urdu.terms}
         </Text>
-        <Text style={styles.conditions}>Terms & Conditions</Text>
+        <Text style={styles.conditions}>
+          {toggle
+            ? stringsOfLanguages._props.en.andconditions
+            : stringsOfLanguages._props.urdu.andconditions}
+        </Text>
       </TouchableOpacity>
     </View>
   );

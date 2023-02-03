@@ -6,12 +6,15 @@ import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import {AuthContext} from '../navigations/AuthProvider';
 import Colors from '../constants/Colors';
+import {useSelector} from 'react-redux';
+import stringsOfLanguages from '../utility/Localization/Translation';
 
 const ForgotPassword = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [checkValidEmail, setCheckValidEmail] = useState('');
   const [error, setError] = useState();
+  const toggle = useSelector(state => state.toggle);
 
   const {forgetPassword} = useContext(AuthContext);
 
@@ -28,12 +31,21 @@ const ForgotPassword = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Set New Password</Text>
+      <Text style={styles.text}>
+        {' '}
+        {toggle
+          ? stringsOfLanguages._props.en.setnewpass
+          : stringsOfLanguages._props.urdu.setnewpass}
+      </Text>
 
       <FormInput
         labelValue={email}
         onChangeText={text => handleCheckEmail(text)}
-        placeholderText="Email"
+        placeholderText={
+          toggle
+            ? stringsOfLanguages._props.en.email
+            : stringsOfLanguages._props.urdu.email
+        }
         iconType="mail"
         keyboardType="email-address"
       />
@@ -47,13 +59,24 @@ const ForgotPassword = ({navigation}) => {
       <FormInput
         labelValue={password}
         onChangeText={userPassword => setPassword(userPassword)}
-        placeholderText="Old Password"
+        placeholderText={
+          toggle
+            ? stringsOfLanguages._props.en.oldpass
+            : stringsOfLanguages._props.urdu.oldpass
+        }
         iconType="lock"
         secureTextEntry={true}
       />
 
       <Text style={styles.errorText}>{error}</Text>
-      <FormButton buttonTitle="Submit" onPress={() => forgetPassword(email)} />
+      <FormButton
+        buttonTitle={
+          toggle
+            ? stringsOfLanguages._props.en.submit
+            : stringsOfLanguages._props.urdu.submit
+        }
+        onPress={() => forgetPassword(email)}
+      />
     </View>
   );
 };

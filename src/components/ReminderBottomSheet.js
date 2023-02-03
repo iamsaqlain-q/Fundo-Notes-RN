@@ -6,7 +6,7 @@ import RNDateTimePicker from '@react-native-community/datetimepicker';
 import moment from 'moment';
 import Sizes from '../constants/Sizes';
 import Colors from '../constants/Colors';
-import {styles} from '../utility/CommomStyles';
+import {styles} from '../utility/ExternalStyles/CommomStyles';
 
 const ReminderBottomSheet = ({
   navigation,

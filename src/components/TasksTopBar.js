@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import Sizes from '../constants/Sizes';
 import Colors from '../constants/Colors';
-import {styles} from '../utility/CommomStyles';
+import {styles} from '../utility/ExternalStyles/CommomStyles';
 
 const TasksTopBar = () => {
   const navigation = useNavigation();

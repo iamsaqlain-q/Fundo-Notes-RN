@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-import Colors from '../constants/Colors';
-import Sizes from '../constants/Sizes';
+import Colors from '../../constants/Colors';
+import Sizes from '../../constants/Sizes';
 const styles = StyleSheet.create({
   searchContainer: {
     flex: 1,

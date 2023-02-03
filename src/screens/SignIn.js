@@ -6,9 +6,11 @@ import FormButton from '../components/FormButton';
 import CheckBox from '@react-native-community/checkbox';
 import {AuthContext} from '../navigations/AuthProvider';
 import GoogleButton from '../components/GoogleButton';
-import stringsOfLanguages from '../services/Translation';
+import stringsOfLanguages from '../utility/Localization/Translation';
 import Strings from '../constants/Strings';
 import Colors from '../constants/Colors';
+import {useDispatch, useSelector} from 'react-redux';
+import {toggleLang} from '../redux/actions';
 
 const SignIn = ({route, navigation}) => {
   const [email, setEmail] = useState();
@@ -17,7 +19,8 @@ const SignIn = ({route, navigation}) => {
   const [checkValidEmail, setCheckValidEmail] = useState('');
   const [checkValidPassword, setCheckValidPassword] = useState('');
   const [error, setError] = useState();
-  const [lang, setLang] = useState(true);
+  const toggle = useSelector(state => state.toggle);
+  const dispatch = useDispatch();
 
   const {signin, googleSignin} = useContext(AuthContext);
 
@@ -49,13 +52,50 @@ const SignIn = ({route, navigation}) => {
   };
   return (
     <View style={styles.container}>
+      <View style={styles.langContainer}>
+        <TouchableOpacity
+          style={[
+            styles.langBtn,
+            {
+              backgroundColor: toggle ? Colors.backColor : Colors.white,
+              borderColor: toggle ? Colors.white : Colors.backColor,
+            },
+          ]}
+          onPress={() => {
+            dispatch(toggleLang(toggle));
+          }}>
+          <Text
+            style={[
+              styles.langTxt,
+              {color: toggle ? Colors.white : Colors.backColor},
+            ]}>
+            Eng
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.langBtn,
+            {
+              backgroundColor: toggle ? Colors.white : Colors.backColor,
+              borderColor: toggle ? Colors.backColor : Colors.white,
+            },
+          ]}
+          onPress={() => {
+            dispatch(toggleLang(toggle));
+          }}>
+          <Text
+            style={[
+              styles.langTxt,
+              {color: toggle ? Colors.backColor : Colors.white},
+            ]}>
+            Urdu
+          </Text>
+        </TouchableOpacity>
+      </View>
       <Image source={require('../assets/logo.png')} style={styles.logo} />
-      <TouchableOpacity
-        onPress={() => {
-          setLang(!lang);
-        }}>
+      <TouchableOpacity>
         <Text style={styles.text}>
-          {lang
+          {toggle
             ? stringsOfLanguages._props.en.fundoonotes
             : stringsOfLanguages._props.urdu.fundoonotes}
         </Text>
@@ -64,7 +104,7 @@ const SignIn = ({route, navigation}) => {
         labelValue={email}
         onChangeText={text => handleCheckEmail(text)}
         placeholderText={
-          lang
+          toggle
             ? stringsOfLanguages._props.en.email
             : stringsOfLanguages._props.urdu.email
         }
@@ -82,7 +122,7 @@ const SignIn = ({route, navigation}) => {
         labelValue={password}
         onChangeText={text => handleCheckPassword(text)}
         placeholderText={
-          lang
+          toggle
             ? stringsOfLanguages._props.en.password
             : stringsOfLanguages._props.urdu.password
         }
@@ -106,7 +146,7 @@ const SignIn = ({route, navigation}) => {
           tintColors={{true: Colors.tintColor, false: Colors.black}}
         />
         <Text style={styles.showPassText}>
-          {lang
+          {toggle
             ? stringsOfLanguages._props.en.showpass
             : stringsOfLanguages._props.urdu.showpass}
         </Text>
@@ -115,7 +155,7 @@ const SignIn = ({route, navigation}) => {
       <Text style={styles.errorText}>{error}</Text>
       <FormButton
         buttonTitle={
-          lang
+          toggle
             ? stringsOfLanguages._props.en.signin
             : stringsOfLanguages._props.urdu.signin
         }
@@ -126,7 +166,7 @@ const SignIn = ({route, navigation}) => {
         style={styles.forgotButton}
         onPress={() => navigation.navigate(Strings.forgotPasswordScreen)}>
         <Text style={styles.navButtonText}>
-          {lang
+          {toggle
             ? stringsOfLanguages._props.en.forgotpassword
             : stringsOfLanguages._props.urdu.forgotpassword}
         </Text>
@@ -134,7 +174,7 @@ const SignIn = ({route, navigation}) => {
 
       <GoogleButton
         buttonTitle={
-          lang
+          toggle
             ? stringsOfLanguages._props.en.signingoogle
             : stringsOfLanguages._props.urdu.signingoogle
         }
@@ -146,7 +186,7 @@ const SignIn = ({route, navigation}) => {
 
       <View style={styles.regContainer}>
         <Text style={styles.navButtonText}>
-          {lang
+          {toggle
             ? stringsOfLanguages._props.en.createaccount
             : stringsOfLanguages._props.urdu.createaccount}
         </Text>
@@ -154,8 +194,7 @@ const SignIn = ({route, navigation}) => {
           style={styles.forgotButton}
           onPress={() => navigation.navigate(Strings.signUpScreen)}>
           <Text style={styles.navButtonText2}>
-            {' '}
-            {lang
+            {toggle
               ? stringsOfLanguages._props.en.createone
               : stringsOfLanguages._props.urdu.createone}
           </Text>
@@ -219,5 +258,22 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 13,
     color: Colors.red,
+  },
+  langContainer: {
+    alignSelf: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  langBtn: {
+    width: '13%',
+    borderRadius: 11,
+    margin: '0.5%',
+    borderWidth: 2,
+  },
+  langTxt: {
+    fontSize: 13,
+    textAlign: 'center',
+    padding: 5,
   },
 });

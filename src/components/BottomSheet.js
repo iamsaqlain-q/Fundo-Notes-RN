@@ -3,7 +3,7 @@ import {Text, View, Modal, TouchableOpacity} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '../constants/Colors';
 import Sizes from '../constants/Sizes';
-import {styles} from '../utility/CommomStyles';
+import {styles} from '../utility/ExternalStyles/CommomStyles';
 
 const BottomSheet = ({
   navigation,
