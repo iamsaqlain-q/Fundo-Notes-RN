@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, {useState, useContext} from 'react';
-import {Text, View, StyleSheet, Modal, Pressable, Alert} from 'react-native';
+import React, {useState, useContext, useEffect} from 'react';
+import {Text, View, Modal, Pressable, Alert} from 'react-native';
 import {Avatar} from 'react-native-paper';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -17,22 +17,22 @@ import Strings from '../constants/Strings';
 
 const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
   const navigation = useNavigation();
-  const [imageUploaded, setImageUploaded] = useState('');
+  const [image, setImage] = useState('');
+  const [urlOfImage, setUrlOfImage] = useState('');
   const [uploading, setUploading] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   const {signout} = useContext(AuthContext);
 
-  const submitImage = async () => {
-    const uploadUri = imageUploaded;
-    console.log('uploadUri', uploadUri);
+  const submitImage = async img => {
+    const uploadUri = img;
     let fileName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
-    console.log('fileName', fileName);
     setUploading(true);
-
     try {
       await storage().ref(fileName).putFile(uploadUri);
       setUploading(false);
+      const url = await storage().ref(fileName).getDownloadURL();
+      setUrlOfImage(url);
       Alert.alert(
         'Image Uploaded!',
         'Your image has been uploaded to cloud storage',
@@ -40,7 +40,6 @@ const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
     } catch (e) {
       console.log(e);
     }
-    setImageUploaded(imageUploaded);
   };
 
   const chooseFromGallery = () => {
@@ -48,9 +47,9 @@ const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
       width: 300,
       height: 400,
       cropping: true,
-    }).then(image => {
-      console.log(image);
-      setImageUploaded(image.path);
+    }).then(img => {
+      submitImage(img.path);
+      setImage(img.path);
     });
   };
 
@@ -96,9 +95,7 @@ const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
             }}>
             <Avatar.Image
               size={Sizes.avatar}
-              source={
-                imageUploaded ? {uri: imageUploaded} : {uri: Strings.profileImg}
-              }
+              source={image ? {uri: image} : {uri: Strings.profileImg}}
             />
           </Pressable>
         </View>
@@ -121,14 +118,11 @@ const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
                 <Pressable
                   onPress={() => {
                     chooseFromGallery();
-                    submitImage();
                   }}>
                   <Avatar.Image
                     size={40}
                     source={
-                      imageUploaded
-                        ? {uri: imageUploaded}
-                        : {uri: Strings.profileImg}
+                      image ? {uri: image} : require('../assets/avatar.png')
                     }
                   />
                 </Pressable>
