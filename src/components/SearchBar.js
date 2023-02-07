@@ -14,6 +14,8 @@ import Sizes from '../constants/Sizes';
 import Colors from '../constants/Colors';
 import {styles} from '../utility/ExternalStyles/SearchBarStyles';
 import Strings from '../constants/Strings';
+import {useSelector} from 'react-redux';
+import stringsOfLanguages from '../utility/Localization/Translation';
 
 const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
   const navigation = useNavigation();
@@ -21,6 +23,7 @@ const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
   const [urlOfImage, setUrlOfImage] = useState('');
   const [uploading, setUploading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const toggle = useSelector(state => state.toggle);
 
   const {signout} = useContext(AuthContext);
 
@@ -73,7 +76,11 @@ const SearchBar = ({toggleLayout, setToggleLayout, onPress}) => {
           onPress={() => {
             navigation.navigate('SearchNotes');
           }}>
-          <Text style={styles.searchText}>Search your notes</Text>
+          <Text style={styles.searchText}>
+            {toggle
+              ? stringsOfLanguages._props.en.searchnotes
+              : stringsOfLanguages._props.urdu.searchnotes}
+          </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.gridIcon}>

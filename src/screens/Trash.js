@@ -42,7 +42,7 @@ const Trash = () => {
   return (
     <View style={styles.trashContainer}>
       <View style={{flex: 1}}>
-        <TrashTopBar />
+        <TrashTopBar name={'Trash'} />
       </View>
       <View style={styles.listStyle}>
         <FlatList

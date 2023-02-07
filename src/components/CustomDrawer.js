@@ -12,9 +12,11 @@ import {fetchLabel} from '../services/LabelsServices';
 import {useUid} from '../hooks/useUid';
 import Sizes from '../constants/Sizes';
 import Colors from '../constants/Colors';
+import stringsOfLanguages from '../utility/Localization/Translation';
 
 const CustomDrawer = ({props, navigation}) => {
   const labels_list = useSelector(state => state.labels_list);
+  const toggle = useSelector(state => state.toggle);
   const dispatch = useDispatch();
   const userId = useUid();
   useEffect(() => {
@@ -32,7 +34,11 @@ const CustomDrawer = ({props, navigation}) => {
     <DrawerContentScrollView props={props}>
       <View style={styles.nameContainer}>
         <View style={styles.nameView}>
-          <Text style={styles.nameText}>Fun-Do Notes</Text>
+          <Text style={styles.nameText}>
+            {toggle
+              ? stringsOfLanguages._props.en.fundoonotes
+              : stringsOfLanguages._props.urdu.fundoonotes}
+          </Text>
         </View>
         <View>
           <DrawerItem
@@ -43,7 +49,13 @@ const CustomDrawer = ({props, navigation}) => {
                 color={Colors.white}
               />
             )}
-            label={() => <Text style={styles.screenText}>Notes</Text>}
+            label={() => (
+              <Text style={styles.screenText}>
+                {toggle
+                  ? stringsOfLanguages._props.en.notes
+                  : stringsOfLanguages._props.urdu.notes}
+              </Text>
+            )}
             onPress={() => navigation.navigate('Home')}
           />
 
@@ -55,7 +67,13 @@ const CustomDrawer = ({props, navigation}) => {
                 color={Colors.white}
               />
             )}
-            label={() => <Text style={styles.screenText}>Reminders</Text>}
+            label={() => (
+              <Text style={styles.screenText}>
+                {toggle
+                  ? stringsOfLanguages._props.en.reminders
+                  : stringsOfLanguages._props.urdu.reminders}
+              </Text>
+            )}
             onPress={() => navigation.navigate('Reminder')}
           />
 
@@ -93,7 +111,11 @@ const CustomDrawer = ({props, navigation}) => {
                 />
               )}
               label={() => (
-                <Text style={styles.screenText}>Create new label</Text>
+                <Text style={styles.screenText}>
+                  {toggle
+                    ? stringsOfLanguages._props.en.create
+                    : stringsOfLanguages._props.urdu.create}
+                </Text>
               )}
               onPress={() => navigation.navigate('Create new label')}
             />
@@ -106,7 +128,13 @@ const CustomDrawer = ({props, navigation}) => {
                 color={Colors.white}
               />
             )}
-            label={() => <Text style={styles.screenText}>Archive</Text>}
+            label={() => (
+              <Text style={styles.screenText}>
+                {toggle
+                  ? stringsOfLanguages._props.en.archive
+                  : stringsOfLanguages._props.urdu.archive}
+              </Text>
+            )}
             onPress={() => navigation.navigate('Archive')}
           />
 
@@ -118,7 +146,13 @@ const CustomDrawer = ({props, navigation}) => {
                 color={Colors.white}
               />
             )}
-            label={() => <Text style={styles.screenText}>Trash</Text>}
+            label={() => (
+              <Text style={styles.screenText}>
+                {toggle
+                  ? stringsOfLanguages._props.en.trash
+                  : stringsOfLanguages._props.urdu.trash}
+              </Text>
+            )}
             onPress={() => navigation.navigate('Trash')}
           />
 
@@ -130,7 +164,13 @@ const CustomDrawer = ({props, navigation}) => {
                 color={Colors.white}
               />
             )}
-            label={() => <Text style={styles.screenText}>Tasks</Text>}
+            label={() => (
+              <Text style={styles.screenText}>
+                {toggle
+                  ? stringsOfLanguages._props.en.tasks
+                  : stringsOfLanguages._props.urdu.tasks}
+              </Text>
+            )}
             onPress={() => navigation.navigate('TaskManager')}
           />
 
@@ -142,7 +182,13 @@ const CustomDrawer = ({props, navigation}) => {
                 color={Colors.white}
               />
             )}
-            label={() => <Text style={styles.screenText}>Settings</Text>}
+            label={() => (
+              <Text style={styles.screenText}>
+                {toggle
+                  ? stringsOfLanguages._props.en.settings
+                  : stringsOfLanguages._props.urdu.settings}
+              </Text>
+            )}
             onPress={() => navigation.navigate('Settings')}
           />
         </View>

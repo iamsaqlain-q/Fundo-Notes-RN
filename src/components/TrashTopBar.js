@@ -6,7 +6,7 @@ import Sizes from '../constants/Sizes';
 import Colors from '../constants/Colors';
 import {styles} from '../utility/ExternalStyles/CommomStyles';
 
-const TrashTopBar = () => {
+const TrashTopBar = props => {
   const navigation = useNavigation();
   return (
     <View style={styles.topContainer}>
@@ -26,10 +26,10 @@ const TrashTopBar = () => {
         <Text
           style={{
             textAlign: 'center',
-            color: '#fff',
-            fontSize: 20,
+            color: Colors.white,
+            fontSize: Sizes.smallBtn,
           }}>
-          Trash
+          {props.name}
         </Text>
       </View>
     </View>

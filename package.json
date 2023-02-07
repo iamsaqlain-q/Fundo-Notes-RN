@@ -28,6 +28,7 @@
     "react": "18.1.0",
     "react-i18next": "^12.1.4",
     "react-native": "0.70.6",
+    "react-native-chart-kit": "^6.12.0",
     "react-native-check-box": "^2.1.7",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-get-random-values": "^1.8.0",
@@ -40,8 +41,10 @@
     "react-native-screens": "^3.18.2",
     "react-native-share": "^8.1.0",
     "react-native-sqlite-storage": "^6.0.1",
+    "react-native-svg": "^13.8.0",
     "react-native-uuid": "^2.0.1",
     "react-native-vector-icons": "^9.2.0",
+    "react-native-webview": "^11.26.1",
     "react-redux": "^8.0.5",
     "redux": "^4.2.0",
     "uuid": "^9.0.0"

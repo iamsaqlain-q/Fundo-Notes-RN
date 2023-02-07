@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, TextInput, FlatList, StyleSheet, Alert} from 'react-native';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
-import TasksTopBar from '../components/TasksTopBar';
 import SQLite from 'react-native-sqlite-storage';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '../constants/Colors';
 import Sizes from '../constants/Sizes';
+import TrashTopBar from '../components/TrashTopBar';
 
 const db = SQLite.openDatabase(
   {
@@ -124,7 +124,7 @@ const TaskManager = () => {
   return (
     <View style={styles.archiveContainer}>
       <View style={styles.topBar}>
-        <TasksTopBar />
+        <TrashTopBar name={'Tasks'} />
       </View>
       <View style={styles.listStyle}>
         <View style={styles.headingView}>
