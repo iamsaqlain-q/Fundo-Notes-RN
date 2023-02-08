@@ -45,6 +45,24 @@ const BottomSheet = ({
             <View style={styles.bottomMargin}>
               <TouchableOpacity>
                 <Icons
+                  name="math-compass"
+                  size={Sizes.midBtn}
+                  color={Colors.white}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('AddFormulae', {
+                    noteId: noteId,
+                  });
+                }}>
+                <Text style={styles.itemText}>Formulae</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.bottomMargin}>
+              <TouchableOpacity>
+                <Icons
                   name="share-variant-outline"
                   size={Sizes.midBtn}
                   color={Colors.white}

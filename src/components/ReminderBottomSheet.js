@@ -18,6 +18,7 @@ const ReminderBottomSheet = ({
   setTimeText,
   dateText,
   setDateText,
+  onPress,
 }) => {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
@@ -30,16 +31,16 @@ const ReminderBottomSheet = ({
   const changeSelectedDate = (event, selectedDate) => {
     setShow(false);
     const currentDate = selectedDate;
-    let fDate =
-      currentDate.getDate() +
-      '/' +
-      (currentDate.getMonth() + 1) +
-      '/' +
-      currentDate.getFullYear();
-    let fTime =
-      currentDate.getHours() + ' ' + ':' + ' ' + currentDate.getMinutes();
-    setDateText(fDate);
-    setTimeText(fTime);
+    // let fDate =
+    //   currentDate.getDate() +
+    //   '/' +
+    //   (currentDate.getMonth() + 1) +
+    //   '/' +
+    //   currentDate.getFullYear();
+    // let fTime =
+    //   currentDate.getHours() + ' ' + ':' + ' ' + currentDate.getMinutes();
+    // setDateText(fDate);
+    // setTimeText(fTime);
     setMyDate(currentDate);
   };
 
@@ -47,7 +48,10 @@ const ReminderBottomSheet = ({
     setShow(true);
     setMode(currentMode);
   };
-
+  // const setLocation = () => {
+  //   setLattitude(Sizes.myLattitude);
+  //   setLongitude(Sizes.myLongitude);
+  // };
   return (
     <View>
       <View>
@@ -144,7 +148,7 @@ const ReminderBottomSheet = ({
                   color={Colors.white}
                 />
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={onPress}>
                 <Text style={styles.txt}>Pick a place</Text>
               </TouchableOpacity>
             </View>

@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -9,6 +9,7 @@ import {labelList} from '../redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import Colors from '../constants/Colors';
 import Sizes from '../constants/Sizes';
+import {styles} from '../utility/ExternalStyles/CommomStyles';
 
 const LabelCheck = ({data, onCheck, isCheck}) => {
   return (
@@ -75,7 +76,11 @@ const AddLabelsToNote = ({navigation, route}) => {
               noteId: noteId,
             });
           }}>
-          <Icons name="arrow-left" size={Sizes.normalBtn} color={Colors.white} />
+          <Icons
+            name="arrow-left"
+            size={Sizes.normalBtn}
+            color={Colors.white}
+          />
         </TouchableOpacity>
         <TextInput
           placeholder="Enter label name"
@@ -100,39 +105,3 @@ const AddLabelsToNote = ({navigation, route}) => {
 };
 
 export default AddLabelsToNote;
-
-const styles = StyleSheet.create({
-  labelCheckContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingHorizontal: 15,
-  },
-
-  labelNames: {
-    fontSize: 20,
-    color: Colors.white,
-    marginVertical: 10,
-    marginLeft: 25,
-  },
-  checkBoxStyle: {
-    marginLeft: 150,
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    backgroundColor: Colors.mainColor,
-    padding: 15,
-  },
-  seachLabelBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  searchInput: {
-    fontSize: 17,
-    color: Colors.white,
-    width: '80%',
-    height: 50,
-    marginLeft: 10,
-  },
-});

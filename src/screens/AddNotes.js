@@ -24,6 +24,8 @@ import Strings from '../constants/Strings';
 import Colors from '../constants/Colors';
 import Sizes from '../constants/Sizes';
 import {styles} from '../utility/ExternalStyles/AddNotesStyles';
+import {useDispatch, useSelector} from 'react-redux';
+import {setLattitude, setLongitude} from '../redux/actions';
 
 const Chip = ({children}) => (
   <Text style={styles.chipTextStyle}>{children}</Text>
@@ -56,6 +58,9 @@ const AddNotes = ({navigation, route}) => {
   const [myDate, setMyDate] = useState('' || noteData?.editData?.reminderData);
   const [timeText, setTimeText] = useState('');
   const [dateText, setDateText] = useState('');
+  const lattitude = useSelector(state => state.lattitude);
+  const longitude = useSelector(state => state.longitude);
+  const dispatch = useDispatch();
 
   const getId = () => {
     let data = Date.now();
@@ -121,6 +126,9 @@ const AddNotes = ({navigation, route}) => {
     }
     if (myDate) {
       Notifications.schduleNotification(myDate, noteId.toString());
+    }
+    if (lattitude && longitude !== '') {
+      Notifications.schduleNotification(new Date(), noteId.toString());
     }
     navigation.navigate('Home');
   };
@@ -302,6 +310,11 @@ const AddNotes = ({navigation, route}) => {
           dateText={dateText}
           setDateText={setDateText}
           navigation={navigation}
+          onPress={() => {
+            dispatch(setLattitude(Sizes.myLattitude));
+            dispatch(setLongitude(Sizes.myLongitude));
+            navigation.navigate('GeoLocation');
+          }}
         />
       </View>
     </View>

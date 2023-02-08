@@ -7,6 +7,8 @@ import SearchNotes from '../screens/SearchNotes';
 import AddLabelsToNote from '../screens/AddLabelsToNote';
 import DataChart from '../screens/DataChart';
 import SourceCode from '../screens/SourceCode';
+import GeoLocation from '../screens/GeoLocation';
+import AddFormulae from '../screens/AddFormulae';
 
 const Stack = createStackNavigator();
 
@@ -41,6 +43,16 @@ const AppNavigation = () => {
       <Stack.Screen
         name="SourceCode"
         component={SourceCode}
+        options={{header: () => null}}
+      />
+      <Stack.Screen
+        name="GeoLocation"
+        component={GeoLocation}
+        options={{header: () => null}}
+      />
+      <Stack.Screen
+        name="AddFormulae"
+        component={AddFormulae}
         options={{header: () => null}}
       />
     </Stack.Navigator>
