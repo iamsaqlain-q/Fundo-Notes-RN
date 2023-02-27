@@ -35,6 +35,7 @@ const AddNotes = ({navigation, route}) => {
   const noteData = route.params;
   const newId = uuidv4();
   let labelData = route.params?.labelData || [];
+  let formulaData = route.params?.formulaData || [];
   let reminders = noteData?.editdata?.reminderData || {};
 
   const [title, setTitle] = useState(noteData?.editdata?.title || '');
@@ -98,6 +99,7 @@ const AddNotes = ({navigation, route}) => {
       isInArchive,
       isInTrash,
       labelData,
+      formulaData,
       ...changeData,
     };
     if (receivId) {
@@ -110,6 +112,7 @@ const AddNotes = ({navigation, route}) => {
         isInArchive,
         isInTrash,
         labelData,
+        formulaData,
       );
     } else {
       await createNote(
@@ -120,6 +123,7 @@ const AddNotes = ({navigation, route}) => {
         isInArchive,
         isInTrash,
         labelData,
+        formulaData,
         JSON.stringify(momentDate),
         noteId.toString(),
       );
@@ -257,6 +261,11 @@ const AddNotes = ({navigation, route}) => {
         <View style={styles.chipStyle}>
           {labelData.map(label => (
             <Chip key={label.id}>{label.label}</Chip>
+          ))}
+        </View>
+        <View style={styles.chipStyle}>
+          {formulaData.map(formula => (
+            <Chip key={formula.id}>{formula.formula}</Chip>
           ))}
         </View>
       </View>

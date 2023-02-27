@@ -5,6 +5,7 @@ import Colors from '../constants/Colors';
 
 const NoteCard = props => {
   const labelsData = props.labelData || [];
+  const formulaData = props.formulaData || [];
   return (
     <View style={styles.cardContainer}>
       <View>
@@ -17,6 +18,13 @@ const NoteCard = props => {
         {labelsData.map((label, index) => (
           <Chip key={label.id} style={{margin: 3}}>
             {label.label}
+          </Chip>
+        ))}
+      </View>
+      <View style={styles.chipContainer}>
+        {formulaData.map((label, index) => (
+          <Chip key={label.id} style={{margin: 3}}>
+            {label.formula}
           </Chip>
         ))}
       </View>

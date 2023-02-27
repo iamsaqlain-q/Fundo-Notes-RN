@@ -89,7 +89,7 @@ const AddLabelsToNote = ({navigation, route}) => {
         />
       </View>
       <ScrollView>
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: Sizes.smallBtn}}>
           {labels_list.map(itm => (
             <LabelCheckWithMemo
               key={itm.id}

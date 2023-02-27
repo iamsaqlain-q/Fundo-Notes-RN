@@ -62,12 +62,13 @@ const styles = StyleSheet.create({
 
   labelNames: {
     fontSize: 20,
+    width: '75%',
     color: Colors.white,
     marginVertical: 10,
     marginLeft: 25,
   },
   checkBoxStyle: {
-    marginLeft: 150,
+    alignSelf: 'flex-end',
     alignItems: 'center',
   },
   container: {

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FundooNotes</string>
+    <string name="facebook_app_id">758414815707005</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">c15e640634385f1a2bde81bb6070d166</string>
+
+
 </resources>

@@ -13,7 +13,12 @@ const FormulaCheck = ({data, onCheck, isCheck}) => {
       <Icons name="math-compass" size={Sizes.normalBtn} color={Colors.white} />
       <Text style={styles.labelNames}>{data.formula}</Text>
       <View style={styles.checkBoxStyle}>
-        <CheckBox value={isCheck(data)} onValueChange={() => onCheck(data)} />
+        <CheckBox
+          value={isCheck(data)}
+          onValueChange={() => {
+            onCheck(data);
+          }}
+        />
       </View>
     </View>
   );
@@ -24,15 +29,15 @@ const FormulaCheckWithMemo = React.memo(FormulaCheck);
 const AddFormulae = ({navigation, route}) => {
   const formulae = [
     {
-      id: 1,
+      id: '1',
       formula: 'Quadratic formula',
     },
     {
-      id: 2,
+      id: '2',
       formula: 'Trinomial Equation',
     },
     {
-      id: 3,
+      id: '3',
       formula: 'Integral',
     },
   ];
@@ -42,6 +47,7 @@ const AddFormulae = ({navigation, route}) => {
 
   const onCheck = useCallback(
     item => {
+      // console.log(item);
       const index = selectedFormula.indexOf(item);
       if (index === -1) {
         setSelectedFormula(prev => [...prev, item]);
@@ -53,9 +59,10 @@ const AddFormulae = ({navigation, route}) => {
     },
     [selectedFormula],
   );
-
+ // console.log(selectedFormula);
   const isCheck = useCallback(
     dataStr => {
+      //console.log(dataStr);
       return selectedFormula.includes(dataStr);
     },
     [selectedFormula],
@@ -66,7 +73,7 @@ const AddFormulae = ({navigation, route}) => {
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('AddNotes', {
-              labelData: selectedFormula,
+              formulaData: selectedFormula,
               noteId: noteId,
             });
           }}>

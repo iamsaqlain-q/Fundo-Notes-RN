@@ -9,6 +9,7 @@ export default {
   tintColor: '#51C1F6',
   black: 'black',
   googleBtn: '#fd5ebf',
+  fbBtn: '#4267B2',
   googleBtnTwo: '#fe98bd',
   fundooNotes: '#50c0f5',
   navBtn: '#2e64e5',

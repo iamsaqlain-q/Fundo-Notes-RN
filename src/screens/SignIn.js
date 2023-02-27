@@ -22,7 +22,7 @@ const SignIn = ({route, navigation}) => {
   const toggle = useSelector(state => state.toggle);
   const dispatch = useDispatch();
 
-  const {signin, googleSignin} = useContext(AuthContext);
+  const {signin, googleSignin, fbSignin} = useContext(AuthContext);
 
   const handleCheckEmail = text => {
     let regexMail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,63})$/;
@@ -182,6 +182,16 @@ const SignIn = ({route, navigation}) => {
         color={Colors.white}
         backgroundColor={Colors.googleBtn}
         onPress={() => googleSignin()}
+      />
+
+      <GoogleButton
+        buttonTitle={
+          toggle ? 'Facebook' : stringsOfLanguages._props.urdu.signingoogle
+        }
+        btnTyp="facebook"
+        color={Colors.white}
+        backgroundColor={Colors.fbBtn}
+        onPress={() => fbSignin()}
       />
 
       <View style={styles.regContainer}>

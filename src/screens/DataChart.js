@@ -93,8 +93,6 @@ const DataChart = ({navigation}) => {
     return unsubscribe;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation]);
-
-  console.log('chartData', chartData);
   return (
     <View style={styles.conatiner}>
       <View style={styles.textView}>

@@ -31,16 +31,16 @@ const ReminderBottomSheet = ({
   const changeSelectedDate = (event, selectedDate) => {
     setShow(false);
     const currentDate = selectedDate;
-    // let fDate =
-    //   currentDate.getDate() +
-    //   '/' +
-    //   (currentDate.getMonth() + 1) +
-    //   '/' +
-    //   currentDate.getFullYear();
-    // let fTime =
-    //   currentDate.getHours() + ' ' + ':' + ' ' + currentDate.getMinutes();
-    // setDateText(fDate);
-    // setTimeText(fTime);
+    let fDate =
+      currentDate.getDate() +
+      '/' +
+      (currentDate.getMonth() + 1) +
+      '/' +
+      currentDate.getFullYear();
+    let fTime =
+      currentDate.getHours() + ' ' + ':' + ' ' + currentDate.getMinutes();
+    setDateText(fDate);
+    setTimeText(fTime);
     setMyDate(currentDate);
   };
 
@@ -48,10 +48,6 @@ const ReminderBottomSheet = ({
     setShow(true);
     setMode(currentMode);
   };
-  // const setLocation = () => {
-  //   setLattitude(Sizes.myLattitude);
-  //   setLongitude(Sizes.myLongitude);
-  // };
   return (
     <View>
       <View>
@@ -126,9 +122,7 @@ const ReminderBottomSheet = ({
                   color={Colors.white}
                 />
               </TouchableOpacity>
-              <TouchableOpacity
-                style={{flexDirection: 'row'}}
-                onPress={() => {}}>
+              <TouchableOpacity style={{flexDirection: 'row'}}>
                 <View style={{width: '65%'}}>
                   <Text style={styles.txt}>Tomorrow morning</Text>
                 </View>
@@ -148,7 +142,10 @@ const ReminderBottomSheet = ({
                   color={Colors.white}
                 />
               </TouchableOpacity>
-              <TouchableOpacity onPress={onPress}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('GeoLocation');
+                }}>
                 <Text style={styles.txt}>Pick a place</Text>
               </TouchableOpacity>
             </View>
